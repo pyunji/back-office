@@ -12,6 +12,10 @@ public class MemberController {
 	}
 	@RequestMapping("/list")
 	public String memberList() {
-		return "utilities-color";
+		return "member/memberList";
+	}
+	@RequestMapping("/grade")
+	public String memberGrade() {
+		return "member/grade";
 	}
 }
