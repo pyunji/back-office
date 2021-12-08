@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Spring Boot</title>
+		<link rel="stylesheet" th:href="@{/bootstrap-4.6.0-dist/css/bootstrap.min.css}"/>
+		<script th:src="@{/jquery/jquery-3.5.1.min.js}"></script>
+		<script th:src="@{/bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js}"></script>
+	</head>
+		
+	<body>
+		<div class="card m-2">
+			<div class="card-header">
+				test1
+			</div>
+			<div class="card-body">
+			<th:block th:each="order : ${orders}">
+				<div mt-2>oid: [[${order.oid}]]</div>
+				<div mt-2>oreceiver: [[${order.oreceiver}]]</div>
+				<div mt-2>oaddress: [[${order.oaddress}]]</div>
+			</th:block>
+			</div>
+		</div>
+	</body>
+</html>
