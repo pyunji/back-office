@@ -49,4 +49,9 @@ public class ProductController {
 //	public String create() {
 //		
 //	}
+	
+	@RequestMapping("/category")
+	public String updateCategory() {
+		return "product/category";
+	}
 }
