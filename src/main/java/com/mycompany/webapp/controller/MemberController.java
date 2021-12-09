@@ -1,17 +1,35 @@
 package com.mycompany.webapp.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mycompany.webapp.dto.Member;
+import com.mycompany.webapp.service.MemberService;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 @RequestMapping("/member")
 public class MemberController {
+	
+	@Resource MemberService memberService;
+	
 	@RequestMapping("")
 	public String content() {
 		return "common/member";
 	}
 	@RequestMapping("/list")
-	public String memberList() {
+	public String memberList(Model model) {
+		log.info("백오피스 memberList 실행");
+		List<Member> members = memberService.selectAllMembers();
+		log.info(members.toString());
+		model.addAttribute("members",members);
 		return "member/memberList";
 	}
 	@RequestMapping("/grade")

@@ -36,26 +36,26 @@
 					<label>생년월일별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="text" name="start_birth_date" class="form-control" placeholder="조회 시작 날짜">
+							<input type="date" name="start_birth_date" class="form-control" placeholder="조회 시작 날짜">
 						</div>
-						<div class="form-group col-md-1">
+						<div class="form-group col-md-3" style="text-align:center">
 						<span>~</span>
 						</div>
 						<div class="form-group col-md-3">
-							<input type="text" name="end_birth_date" class="form-control" placeholder="조회 종료 날짜">
+							<input type="date" name="end_birth_date" class="form-control" placeholder="조회 종료 날짜">
 						</div>
 					</div>
 					
 					<label>회원 가입일별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="text" name="start_reg_date" class="form-control" placeholder="조회 시작 날짜">
+							<input type="date" name="start_reg_date" class="form-control" placeholder="조회 시작 날짜">
 						</div>
-						<div class="form-group col-md-1">
+						<div class="form-group col-md-3"  style="text-align:center">
 						<span>~</span>
 						</div>
 						<div class="form-group col-md-3">
-							<input type="text" name="end_reg_date" class="form-control" placeholder="조회 종료 날짜">
+							<input type="date" name="end_reg_date" class="form-control" placeholder="조회 종료 날짜">
 						</div>
 					</div>
 					
@@ -115,17 +115,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="product : ${products}">
-								<td><a href="#">[[${product.pstockId}]]</a></td>
-								<td>[[${product.productName}]]</td>
-								<td>[[${product.sizeCode}]]</td>
-								<td>[[${product.colorCode}]]</td>
-								<td>[[${product.price}]]</td>
-								<td>[[${product.stock}]]</td>
-								<td>[[${product.brandName}]]</td>
-								<td>[[${product.depth1Name}]]</td>
-								<td>[[${product.depth2Name}]]</td>
-								<td>[[${product.depth3Name}]]</td>
+							<tr th:each="member : ${members}">
+								<td>[[${member.mid}]]</td>
+								<td>[[${member.mname}]]</td>
+								<td>[[${member.memail}]]</td>
+								<td>[[${member.mphone}]]</td>
+								<td th:text="${#dates.format(member.birth,'yyyy-MM-dd')}"></td>
+								<td th:text="${#dates.format(member.signUpDate,'yyyy-MM-dd')}"></td>
+								<td th:if="${member.gender}==0">여성</td>
+								<td th:unless="${member.gender}==0">남성</td>
+								<td>[[${member.gradeLevel}]]</td>
+								<td><button class="btn btn-primary">주문내역 보기</button></td>
+								<td th:if="${member.menabled}==0">비활성화</td>
+								<td th:unless="${member.menabled}==0">활성화</td>
 							</tr>
 						</tbody>
 					</table>
