@@ -1,4 +1,4 @@
-package com.mycompany.webapp.controller;
+package com.mycompany.webapp.controller.product;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.ProductList;
-import com.mycompany.webapp.service.ProductService;
+import com.mycompany.webapp.dto.product.Depth1;
+import com.mycompany.webapp.service.product.ProductService;
 
 @Controller
 @RequestMapping("/product")
@@ -35,9 +36,11 @@ public class ProductController {
 		// Pager객체에 parameter값으로 (표시할 상품수, 표시할 페이지 그룹수, 전체 상품개수, 페이지번호)를 넣는다.
 //		Pager pager = new Pager(12,5,totalProduct, pageNo);
 //		List<ProductList> products = productService.getProductList(pager); 
-		List<ProductList> products = productService.getProductSampleList();
+//		List<ProductList> products = productService.getProductSampleList();
 //		model.addAttribute("pager",pager);
-		model.addAttribute("products", products);
+//		model.addAttribute("products", products);
+		List<Depth1> depth1List = productService.getDepth1();
+		model.addAttribute(depth1List);
 		return "product/productList";
 	}
 	

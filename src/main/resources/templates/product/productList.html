@@ -11,7 +11,7 @@
 				<h6 class="m-0 font-weight-bold text-primary">상품 검색</h6>
 			</div>
 			<div class="card-body">
-				<form action="">
+				<form id="searchForm" method="post">
 					<div>
 						<label for="product_stock_id">상품코드</label>
 						<input name="product_stock_id" class="form-control" placeholder="상품코드를 입력하세요" />
@@ -30,26 +30,25 @@
 					<label>기간 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="text" name="start_date" class="form-control" placeholder="조회 시작 날짜">
+							<input type="date" name="start_date" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
 						</div>
-						<div class="form-group col-md-1">
+						~
+<!-- 						<div class="form-group col-md-1">
 						<span>~</span>
-						</div>
+						</div> -->
 						<div class="form-group col-md-3">
-							<input type="text" name="end_date" class="form-control" placeholder="조회 종료 날짜">
+							<input type="date" name="end_date" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
 						</div>
 					</div>
 					
 					<label>재고 범위별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="text" name="start_stock" class="form-control" placeholder="최소 재고">
+							<input type="number" name="start_stock" class="form-control" placeholder="최소 재고" min="0">
 						</div>
-						<div class="form-group col-md-1">
-						<span>~</span>
-						</div>
+~
 						<div class="form-group col-md-3">
-							<input type="text" name="end_stock" class="form-control" placeholder="최대 재고">
+							<input type="number" name="end_stock" class="form-control" placeholder="최대 재고" min="0">
 						</div>
 					</div>
 
@@ -57,20 +56,58 @@
 					<div class="form-row">
 						<div class="form-group col-md-3">
 							<select id="depth1" class="form-control">
-								<option>대분류</option>
+								<option value="">대분류</option>
+								<option th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${depth1List}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
 							<select id="depth2" class="form-control">
-								<option>중분류</option>
+								<option>대분류를 먼저 선택하세요</option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
 							<select id="depth3" class="form-control">
-								<option>소분류</option>
+								<option>중분류를 먼저 선택하세요</option>
 							</select>
 						</div>
 					</div>
+					<script>
+						$("#depth1").change(function (){
+//							console.log("change");
+							let depth1 = $(this).val(); 
+							console.log(depth1);
+							let url = "/product/ajax/setdepth2"
+							// post 방식으로 pcolorId 데이터를 url에 전송
+							$.ajax({
+								url:url,
+								method:"post",
+								data:{"depth1":depth1},
+								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
+								success:function(result) {
+									$("#depth2").html(result);
+									console.log("result = ", result);
+								}
+							});
+						});
+						
+						$("#depth2").change(function (){
+//							console.log("change");
+							let depth2 = $(this).val(); 
+							console.log(depth2);
+							let url = "/product/ajax/setdepth3"
+							// post 방식으로 pcolorId 데이터를 url에 전송
+							$.ajax({
+								url:url,
+								method:"post",
+								data:{"depth2":depth2},
+								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
+								success:function(result) {
+									$("#depth3").html(result);
+									console.log("result = ", result);
+								}
+							});
+						})
+					</script>
 
 					<button class="btn btn-primary">검색</button>
 				</form>
