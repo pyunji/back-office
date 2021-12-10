@@ -26,12 +26,11 @@ public class MemberController {
 	}
 	@RequestMapping("/list")
 	public String memberList(Model model) {
-		log.info("백오피스 memberList 실행");
 		List<Member> members = memberService.selectAllMembers();
-		log.info(members.toString());
 		model.addAttribute("members",members);
 		return "member/memberList";
 	}
+	
 	@RequestMapping("/grade")
 	public String memberGrade() {
 		return "member/grade";

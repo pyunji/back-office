@@ -35,14 +35,14 @@
 					<label>기간 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="text" name="start_date" class="form-control"
+							<input type="date" name="start_date" class="form-control"
 								placeholder="조회 시작 날짜">
 						</div>
 						<div class="form-group col-md-1">
 							<span>~</span>
 						</div>
 						<div class="form-group col-md-3">
-							<input type="text" name="end_date" class="form-control"
+							<input type="date" name="end_date" class="form-control"
 								placeholder="조회 종료 날짜">
 						</div>
 					</div>
@@ -79,12 +79,6 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-xs-4">
-				<input type="text" id="test_input" class="form-control">
-			</div>
-		</div>
-
 
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
@@ -98,28 +92,29 @@
 						<thead>
 							<tr>
 								<th>이벤트번호</th>
-								<th>이름</th>
+								<th>제목</th>
 								<th>내용</th>
-								<th>이벤트 시행 날짜</th>
+								<th>이벤트 시작 날짜</th>
 								<th>이벤트 종료 날짜</th>
 								<th>최대 당첨자 수</th>
 								<th>현재 당첨자 수</th>
-								<th>이미지</th>
-								<th>이벤트 상태</th>
+								<th>대표이미지</th>
+								<th>상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="product : ${products}">
-								<td><a href="#">[[${product.pstockId}]]</a></td>
-								<td>[[${product.productName}]]</td>
-								<td>[[${product.sizeCode}]]</td>
-								<td>[[${product.colorCode}]]</td>
-								<td>[[${product.price}]]</td>
-								<td>[[${product.stock}]]</td>
-								<td>[[${product.brandName}]]</td>
-								<td>[[${product.depth1Name}]]</td>
-								<td>[[${product.depth2Name}]]</td>
-								<td>[[${product.depth3Name}]]</td>
+							<tr th:each="event : ${events}">
+								<td><a href="#">[[${event.eno}]]</a></td>
+								<td>[[${event.etitle}]]</td>
+								<td>[[${event.econtent}]]</td>
+								<td th:text="${#dates.format(event.eissueDate,'yyyy-MM-dd')}"></td>
+								<td th:text="${#dates.format(event.eexpireDate,'yyyy-MM-dd')}"></td>
+								<td>[[${event.elimitCount}]]</td>
+								<td>[[${event.ecount}]]</td>
+								<td><button class="btn btn-primary">대표 이미지 보기</button></td>
+								<td th:if="${event.estatus}==0">진행예정</td>
+								<td th:if="${event.estatus}==1">진행중</td>
+								<td th:if="${event.estatus}==2">종료</td>
 							</tr>
 						</tbody>
 					</table>
