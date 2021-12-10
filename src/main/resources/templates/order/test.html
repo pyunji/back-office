@@ -6,8 +6,8 @@
 		<!-- Page Heading -->
 		<h1 class="h3 mb-2 text-gray-800">주문 전체 조회</h1>
 		<h2 th:text="${message}"></h2>
-		<input id="input" placeholder="AJAX테스트입니다. 값을 넣어주세요."/>
-		<input value="등록" type="button" onclick="dataSend()">
+		<input type = "text" th:value="${userId}"id="input" placeholder="AJAX테스트입니다. 값을 넣어주세요."/>
+		<input id="submit" value="등록" type="button" onclick="dataSend()">
 		<div th:text="${ajaxMessage}"></div>
 		<p class="mb-4">조건에 맞는 주문을 검색해보세요.</p>
 		<div class="card shadow mb-4">
@@ -78,12 +78,27 @@
 		
 		<!-- 스크립트 작성 위치 -->
 		<script type="text/javascript">
-        $("#test1").click(function(){
-            alert('Test1 버튼 클릭');
-        });
-        $("#test2").click(function(){
-            alert('Test2 버튼 클릭');
-        });
+        //submit이라는 ID를 가진 버튼 클릭 시 동작
+		$("#submit").click(function(){
+        	// JSON 형식으로 데이터 Set
+        	var params = {
+        		orders_id : $("#input").val()	
+        	}
+        	
+        	//ajax 통신
+        	$.ajax({
+        		type: "GET",
+        		url: "/order/test",
+        		data: params,
+        		success:function(res){
+        			alert(res.code);
+        		},
+        		error:function(XMLHttpRequest, textStatus, errorThrown){
+        			alert("통신 실패")
+        		}
+        	})
+        }
+        		)
     </script>
 	</th:block>
 </th:block>
