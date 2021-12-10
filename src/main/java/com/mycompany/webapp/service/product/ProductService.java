@@ -3,22 +3,20 @@ package com.mycompany.webapp.service.product;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mycompany.webapp.dao.ProductDao;
-import com.mycompany.webapp.dto.Orders;
-import com.mycompany.webapp.dto.Pager;
-import com.mycompany.webapp.dto.ProductList;
 import com.mycompany.webapp.dto.product.Depth1;
+import com.mycompany.webapp.dto.product.SearchForm;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProductService {
 	public List<Depth1> getDepth1() {
 		WebClient webClient = WebClient.create();
-		List<Depth1> depth1 = webClient
+		List<Depth1> d1nameList = webClient
 				.get()
 				.uri("http://localhost:83/product/search")
 				.retrieve()
@@ -26,6 +24,13 @@ public class ProductService {
 				.collect(Collectors.toList())
 				.share()
 				.block();
-		return depth1;
+		log.info("d1nameList" + d1nameList);
+		return d1nameList;
+	}
+	
+	public void getSearchResult(SearchForm searchForm) {
+		if (searchForm.getPstockid() != "") {
+			
+		}
 	}
 }
