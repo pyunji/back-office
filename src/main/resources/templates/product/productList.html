@@ -108,12 +108,12 @@
 									console.log("result = ", result);
 								}
 							});
-						})
+						});
 					</script>
-					<input type="button" class="btn btn-primary" value="검색" onclick="search()"/>
+					<input type="button" class="btn btn-primary" value="검색" onclick="searchProduct()"/>
 				</form>
 				<script>
-				function search() {
+				function searchProduct(pageNo=1) {
 					/* gubun은 pstockid, pname, bname중 하나이다 */
 					let gubun = $("#gubun").val();
 					let gubunField = $("#gubunField").val();
@@ -136,7 +136,8 @@
 							maxStock,
 							d1name,
 							d2name,
-							d3name
+							d3name,
+							pageNo
 					};
 					console.log(data);
 					
@@ -146,10 +147,10 @@
 						method: "post",
 						data: data,
 						success: function(result) {
-							$("#dataTable").html(result);
+							$("#result").html(result);
 						}
 						
-					})
+					});
 					/* $("#searchForm").submit(); */
 /* 					data = {
 						gubun : 
@@ -160,7 +161,7 @@
 		</div>
 
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mb-4" id="result">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 			</div>
@@ -199,6 +200,7 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- /.container-fluid -->
 	</th:block>
 </th:block>

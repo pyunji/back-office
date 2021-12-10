@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.mycompany.webapp.dto.product.Depth2;
 import com.mycompany.webapp.dto.product.Depth3;
 import com.mycompany.webapp.dto.product.ProductDto;
+import com.mycompany.webapp.dto.product.ProductResult;
 import com.mycompany.webapp.dto.product.SearchForm;
 
 import lombok.extern.slf4j.Slf4j;
@@ -51,18 +52,17 @@ public class AjaxService {
 		return d3nameList;
 	}
 	
-	public List<ProductDto> getSearchResult(SearchForm searchForm) {
+	public ProductResult getSearchResult(SearchForm searchForm) {
 		WebClient webClient = WebClient.create();
-		List<ProductDto> productList = webClient
+		ProductResult productResult = webClient
 				.post()
 				.uri("http://localhost:83/product/search/result")
 				.body(BodyInserters.fromValue(searchForm))
 				.retrieve()
-				.bodyToFlux(ProductDto.class)
-				.collect(Collectors.toList())
+				.bodyToMono(ProductResult.class)
 //				.collectList()
 //				.share()
 				.block();
-		return productList;
+		return productResult;
 	}
 }
