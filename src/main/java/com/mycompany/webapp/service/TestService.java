@@ -22,5 +22,19 @@ public class TestService {
 				.block();
 		return orders;
 	}
+//	MultiValueMap<String,String> formData = 
+//	public List<Orders> selectByOidShowOrders() {
+//		WebClient webClient = WebClient.create();
+//		List<Orders> orders = webClient
+//			
+//				.get()
+//				.uri("http://localhost:83/test/orders") //요청 URL
+//				.retrieve()
+//				.bodyToFlux(Orders.class)
+//				.collect(Collectors.toList())
+//				.share()
+//				.block();
+//		return orders;
+//	}
 	
 }
