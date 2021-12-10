@@ -4,7 +4,7 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<table class="table table-bordered m-1" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
 						<th>상품번호</th>
@@ -27,7 +27,7 @@
 						<td>[[${product.pname}]]</td>
 						<td>[[${product.scode}]]</td>
 						<td>[[${product.ccode}]]</td>
-						<td>[[${product.pprice}]]</td>
+						<td>[[${#numbers.formatInteger(product.pprice, 3, 'COMMA')}]]</td>
 						<td>[[${product.stock}]]</td>
 						<td>[[${product.bname}]]</td>
 						<td>[[${product.d1name}]]</td>
