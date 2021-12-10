@@ -11,107 +11,151 @@
 				<h6 class="m-0 font-weight-bold text-primary">상품 검색</h6>
 			</div>
 			<div class="card-body">
-				<form id="searchForm" method="post">
-					<div>
-						<label for="product_stock_id">상품코드</label>
-						<input name="product_stock_id" class="form-control" placeholder="상품코드를 입력하세요" />
-					</div>
-					<div class="form-row">
-						<div class="mt-3 form-group col-md-6">
-							<label for="product_name">상품명</label>
-							<input name="product_name" class="form-control" placeholder="상품명을 입력하세요" />
+				<form id="searchForm" method="post" action="/product/list/result">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend ">
+							<select id="gubun" name="gubun" class="form-control">
+								<option value="pstockid">상품코드</option>
+								<option value="pname">상품명</option>
+								<option value="bname">브랜드</option>
+							</select>
 						</div>
-
-						<div class="mt-3 form-group col-md-6">
-							<label for="brand_name">브랜드명</label>
-							<input name="brand_name" class="form-control" placeholder="브랜드명을 입력하세요" />
-						</div>
+						<input type="text" id="gubunField" class="form-control">
+						<input type="hidden" id="pstockid" name="pstockid">
+						<input type="hidden" id="pname" name="pname">
+						<input type="hidden" id="bname" name="bname">
 					</div>
+					<hr />
 					<label>기간 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="date" name="start_date" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
+							<input type="date" id="startRegDate" name="startRegDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
 						</div>
 						~
-<!-- 						<div class="form-group col-md-1">
-						<span>~</span>
-						</div> -->
 						<div class="form-group col-md-3">
-							<input type="date" name="end_date" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
-						</div>
-					</div>
-					
-					<label>재고 범위별 조회</label>
-					<div class="form-row">
-						<div class="form-group col-md-3">
-							<input type="number" name="start_stock" class="form-control" placeholder="최소 재고" min="0">
-						</div>
-~
-						<div class="form-group col-md-3">
-							<input type="number" name="end_stock" class="form-control" placeholder="최대 재고" min="0">
+							<input type="date" id="endRegDate" name="endRegDate" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
 						</div>
 					</div>
 
-					<label for="depth1">카테고리별 조회</label>
+					<label>재고 범위별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<select id="depth1" class="form-control">
+							<input type="number" id="minStock" name="minStock" class="form-control" placeholder="최소 재고" min="0">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="number" id="maxStock" name="maxStock" class="form-control" placeholder="최대 재고" min="0">
+						</div>
+					</div>
+
+					<label for="d1name">카테고리별 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<select id="d1name" name="d1name" class="form-control">
 								<option value="">대분류</option>
-								<option th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${depth1List}"></option>
+								<span>[[${d1nameList}]]</span>
+								<option th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${d1nameList}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
-							<select id="depth2" class="form-control">
-								<option>대분류를 먼저 선택하세요</option>
+							<select id="d2name" name="d2name" class="form-control">
+								<option value="">중분류</option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
-							<select id="depth3" class="form-control">
-								<option>중분류를 먼저 선택하세요</option>
+							<select id="d3name" name="d3name" class="form-control">
+								<option value="">소분류</option>
 							</select>
 						</div>
 					</div>
 					<script>
-						$("#depth1").change(function (){
-//							console.log("change");
-							let depth1 = $(this).val(); 
-							console.log(depth1);
+						$("#d1name").change(function() {
+							//							console.log("change");
+							let d1name = $(this).val();
+							console.log(d1name);
 							let url = "/product/ajax/setdepth2"
 							// post 방식으로 pcolorId 데이터를 url에 전송
 							$.ajax({
-								url:url,
-								method:"post",
-								data:{"depth1":depth1},
+								url : url,
+								method : "post",
+								data : {
+									"d1name" : d1name
+								},
 								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
-								success:function(result) {
-									$("#depth2").html(result);
+								success : function(result) {
+									$("#d2name").html(result);
 									console.log("result = ", result);
 								}
 							});
+							$("#d3name").html('<option value="">소분류</option>');
 						});
-						
-						$("#depth2").change(function (){
-//							console.log("change");
-							let depth2 = $(this).val(); 
-							console.log(depth2);
+
+						$("#d2name").change(function() {
+							//							console.log("change");
+							let d2name = $(this).val();
+							console.log(d2name);
 							let url = "/product/ajax/setdepth3"
 							// post 방식으로 pcolorId 데이터를 url에 전송
 							$.ajax({
-								url:url,
-								method:"post",
-								data:{"depth2":depth2},
+								url : url,
+								method : "post",
+								data : {
+									"d2name" : d2name
+								},
 								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
-								success:function(result) {
-									$("#depth3").html(result);
+								success : function(result) {
+									$("#d3name").html(result);
 									console.log("result = ", result);
 								}
 							});
 						})
 					</script>
-
-					<button class="btn btn-primary">검색</button>
+					<input type="button" class="btn btn-primary" value="검색" onclick="search()"/>
 				</form>
-
+				<script>
+				function search() {
+					/* gubun은 pstockid, pname, bname중 하나이다 */
+					let gubun = $("#gubun").val();
+					let gubunField = $("#gubunField").val();
+					console.log(gubun);
+					console.log(gubunField);
+					
+					let startRegDate = $("#startRegDate").val();
+					let endRegDate = $("#endRegDate").val();
+					let minStock = $("#minStock").val();
+					let maxStock = $("#maxStock").val();
+					let d1name = $("#d1name").val();
+					let d2name = $("#d2name").val();
+					let d3name = $("#d3name").val();
+					
+					data = {
+							[gubun] : gubunField,
+							startRegDate,
+							endRegDate,
+							minStock,
+							maxStock,
+							d1name,
+							d2name,
+							d3name
+					};
+					console.log(data);
+					
+					var url = "/product/ajax/result";
+					$.ajax({
+						url:url,
+						method: "post",
+						data: data,
+						success: function(result) {
+							$("#dataTable").html(result);
+						}
+						
+					})
+					/* $("#searchForm").submit(); */
+/* 					data = {
+						gubun : 
+					} */
+				}
+				</script>
 			</div>
 		</div>
 
