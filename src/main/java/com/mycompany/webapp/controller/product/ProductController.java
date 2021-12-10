@@ -2,6 +2,8 @@ package com.mycompany.webapp.controller.product;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.service.product.ProductService;
@@ -28,7 +31,7 @@ public class ProductController {
 	
 	
 	@RequestMapping("/list")
-	public String getProductList(/*@RequestParam(defaultValue = "1") int pageNo, */Model model) {
+	public String getProductList(/*@RequestParam(defaultValue = "1") int pageNo, */Model model, HttpSession session) {
 
 		// 페이징 처리를 위해 조건에 맞는 상품전체 개수 조회
 //		int totalProduct = productService.getTotalCount();
@@ -41,7 +44,12 @@ public class ProductController {
 //		model.addAttribute("products", products);
 		List<Depth1> d1nameList = productService.getDepth1();
 		log.info("최종확인" + d1nameList);
+		Pager pager = new Pager();
 		model.addAttribute("d1nameList", d1nameList);
+//		model.addAttribute("pager", pager);
+//		if (session.getAttribute("pager") != null) {
+//			session.removeAttribute("pager");
+//		}
 		return "product/productList";
 	}
 	

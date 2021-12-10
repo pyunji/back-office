@@ -3,15 +3,19 @@ package com.mycompany.webapp.controller.product;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.product.Depth2;
 import com.mycompany.webapp.dto.product.Depth3;
 import com.mycompany.webapp.dto.product.ProductDto;
+import com.mycompany.webapp.dto.product.ProductResult;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.service.product.AjaxService;
 
@@ -43,9 +47,17 @@ public class AjaxController {
 	}
 	
 	@PostMapping("/result")
-	public String result(Model model, SearchForm searchForm) {
-		List<ProductDto> productList = ajaxService.getSearchResult(searchForm);
+	public String result(Model model, HttpSession session, SearchForm searchForm) {
+		searchForm.setPager(new Pager(10, 5, 0, searchForm.getPageNo()));
+		ProductResult productResult = ajaxService.getSearchResult(searchForm);
+		List<ProductDto> productList = productResult.getProductList();
 		model.addAttribute("productList", productList);
+
+		model.addAttribute("pager", productResult.getPager());
+//		session.setAttribute("pager", productResult.getPager());
+//		session.setAttribute("test", 1);
+		log.info("pager = "+ productResult.getPager());
+		log.info("pager.getTotalRows() = "+ productResult.getPager().getTotalRows());
 		return "/product/productListFragment";
 	}
 }
