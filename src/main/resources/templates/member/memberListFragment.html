@@ -1,0 +1,61 @@
+<div class="card-header py-3">
+	<h6 class="m-0 font-weight-bold text-primary">조회 결과 [[${pager.getTotalRows()}]]건</h6>
+</div>
+<div class="card-body">
+	<div class="table-responsive">
+		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>이름</th>
+					<th>이메일</th>
+					<th>연락처</th>
+					<th>생년월일</th>
+					<th>회원가입일</th>
+					<th>성별</th>
+					<th>등급</th>
+					<th>주문내역</th>
+					<th>회원 유형</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="member : ${memberList}">
+					<td>[[${member.mid}]]</td>
+					<td>[[${member.mname}]]</td>
+					<td>[[${member.memail}]]</td>
+					<td>[[${member.mphone}]]</td>
+					<td th:text="${#dates.format(member.birth,'yyyy-MM-dd')}"></td>
+					<td th:text="${#dates.format(member.signUpDate,'yyyy-MM-dd')}"></td>
+					<td th:if="${member.gender==0}"> - </td>
+					<td th:if="${member.gender==1}">여성</td>
+					<td th:if="${member.gender==2}">남성</td>
+					<td>[[${member.gradeLevel}]]</td>
+					<td><button class="btn btn-primary">주문내역 보기</button></td>
+					<td th:if="${member.menabled}==1">일반 회원</td>
+					<td th:unless="${member.menabled}==1">불량 회원</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!--/* 페이징 처리 부분*/-->
+	<!-- <th:block th:if="${session.pager != null}"> -->
+	<div class="row-vw d-flex">
+		<div class="mx-auto">
+			<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
+			<a href="javascript:void(0)" class="paginigBtn" onclick="searchMember(1)">처음</a>
+			<th:block th:if="${pager.getGroupNo()>1}">
+				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchMember([[${pager.getStartPageNo()-1}]])">이전</a>
+			</th:block>
+			<th:block th:each="i : ${#numbers.sequence(pager.getStartPageNo(), pager.getEndPageNo())}">
+				<a href="javascript:void(0)" class="paginigBtn" th:classappend="${pager.getPageNo() == i}?'check':''" th:styleappend="${pager.getPageNo() == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''" 
+				th:onclick="searchMember([[${i}]])">[[${i}]]</a>
+			</th:block>
+
+			<th:block th:if="${pager.getGroupNo()<pager.getTotalGroupNo()}">
+				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchMember([[${pager.getEndPageNo()+1}]])">다음</a>
+			</th:block>
+			<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchMember([[${pager.getTotalPageNo()}]])">맨끝</a>
+		</div>
+	</div>
+</div>
+<!-- 		</th:block>	 -->

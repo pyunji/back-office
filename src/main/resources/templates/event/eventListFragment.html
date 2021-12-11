@@ -39,19 +39,19 @@
 		<div class="row-vw d-flex">
 			<div class="mx-auto">
 				<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
-				<a href="javascript:void(0)" class="paginigBtn" onclick="searchProduct(1)">처음</a>
+				<a href="javascript:void(0)" class="paginigBtn" onclick="searchEvent(1)">처음</a>
 				<th:block th:if="${pager.getGroupNo()>1}">
-					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getStartPageNo()-1}]])">이전</a>
+					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchEvent([[${pager.getStartPageNo()-1}]])">이전</a>
 				</th:block>
 				<th:block th:each="i : ${#numbers.sequence(pager.getStartPageNo(), pager.getEndPageNo())}">
 					<a href="javascript:void(0)" class="paginigBtn" th:classappend="${pager.getPageNo() == i}?'check':''" th:styleappend="${pager.getPageNo() == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''" 
-					th:onclick="searchProduct([[${i}]])">[[${i}]]</a>
+					th:onclick="searchEvent([[${i}]])">[[${i}]]</a>
 				</th:block>
 
 				<th:block th:if="${pager.getGroupNo()<pager.getTotalGroupNo()}">
-					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getEndPageNo()+1}]])">다음</a>
+					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchEvent([[${pager.getEndPageNo()+1}]])">다음</a>
 				</th:block>
-				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getTotalPageNo()}]])">맨끝</a>
+				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchEvent([[${pager.getTotalPageNo()}]])">맨끝</a>
 			</div>
 		</div>
 	</div>
