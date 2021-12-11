@@ -1,4 +1,4 @@
-package com.mycompany.webapp.controller;
+package com.mycompany.webapp.controller.member;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mycompany.webapp.dto.Member;
-import com.mycompany.webapp.service.MemberService;
+import com.mycompany.webapp.dto.member.Member;
+import com.mycompany.webapp.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 

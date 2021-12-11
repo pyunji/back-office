@@ -1,4 +1,4 @@
-package com.mycompany.webapp.service;
+package com.mycompany.webapp.service.member;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mycompany.webapp.dto.Event;
+import com.mycompany.webapp.dto.member.Event;
+import com.mycompany.webapp.dto.member.EventResult;
+import com.mycompany.webapp.dto.member.EventSearchForm;
+import com.mycompany.webapp.dto.product.Depth3;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,21 +39,19 @@ public class EventService {
 				 .bodyToMono(String.class)
 				 .share()
 				 .block();
-		log.info("WebClient");
 		return result;
 	}
-//	   public List<Depth3> getSearchResult(SearchForm searchForm) {
-//		      WebClient webClient = WebClient.create();
-//		      List<Depth3> d3nameList = webClient
-//		            .post()
-//		            .uri("http://localhost:83/product/search/result")
-//		            .body(BodyInserters.fromValue(searchForm))
-//		            .retrieve()
-//		            .bodyToFlux(Depth3.class)
-//		            .collect(Collectors.toList())
-////		            .collectList()
-////		            .share()
-//		            .block();
-//		      return d3nameList;
-//		   }
+	
+   public EventResult getSearchResult(EventSearchForm searchForm) {
+      WebClient webClient = WebClient.create();
+      log.info(searchForm.toString());
+      EventResult eventResult = webClient
+            .post()
+            .uri("http://localhost:83/event/result")
+            .body(BodyInserters.fromValue(searchForm))
+            .retrieve()
+            .bodyToMono(EventResult.class)
+            .block();
+      return eventResult;
+   }
 }
