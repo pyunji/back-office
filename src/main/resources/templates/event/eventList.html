@@ -14,112 +14,138 @@
 			</div>
 			<div class="card-body">
 				<form action="">
+				
+					<label>이벤트 번호</label>
 					<div class="form-row">
-						<div class="mt-3 form-group col-md-6">
-							<label for="product_name">이벤트 코드</label> <input
-								name="product_name" class="form-control"
-								placeholder="이벤트 코드를 입력하세요" />
+						<div class="form-group col-md-6">
+							<input type="number" id="eno" name="eno" class="form-control" placeholder="이벤트 번호를 입력하세요" />
 						</div>
-
-
 					</div>
 
+					<label>이벤트 제목</label>
 					<div class="form-row">
-						<div class=" form-group col-md-6">
-							<label for="product_name">이벤트명</label> <input name="product_name"
-								class="form-control" placeholder="이벤트명을 입력하세요" />
-						</div>
-
-
-					</div>
-					<label>기간 조회</label>
-					<div class="form-row">
-						<div class="form-group col-md-3">
-							<input type="text" name="start_date" class="form-control"
-								placeholder="조회 시작 날짜">
-						</div>
-						<div class="form-group col-md-1">
-							<span>~</span>
-						</div>
-						<div class="form-group col-md-3">
-							<input type="text" name="end_date" class="form-control"
-								placeholder="조회 종료 날짜">
+						<div class="form-group col-md-6">
+							<input type="text" id="etitle" name="etitle" class="form-control" placeholder="이벤트 제목을 입력하세요" />
 						</div>
 					</div>
 
 
-					<label for="depth1">상태별 조회</label>
+					<label>기간별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> 종료된 이벤트 </label>
+							<input type="date" id="startDate" name="startDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="date" id="endDate" name="endDate" class="form-control" placeholder="조회 종료 날짜" max="2022-12-31">
+						</div>
+					</div>
+
+
+					<label>상태별 조회</label>
+					<div>
+						<input type="checkbox" name="all" class="check-all"> <label>전체 선택</label>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="estatus0"> 
+									<label class="form-check-label"> 진행 예정인 이벤트 </label>
+								</div>
 							</div>
-						</div>
-						<div class="form-group col-md-3">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> 진행 중인 이벤트 </label>
+							<div class="form-group col-md-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="estatus1"> 
+									<label class="form-check-label"> 진행 중인 이벤트 </label>
+								</div>
 							</div>
-						</div>
-						<div class="form-group col-md-3">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label class="form-check-label"
-									for="flexCheckDefault"> 진행 예정인 이벤트 </label>
+							<div class="form-group col-md-3">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="estatus2"> 
+									<label class="form-check-label"> 종료된 이벤트 </label>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<button class="btn btn-primary">검색</button>
+					<input type="button" class="btn btn-primary" value="검색" onclick="searchEvent()"/>
 				</form>
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-4">
-				<input type="text" id="test_input" class="form-control">
+				<script>
+			        $( '.check-all' ).click( function() {
+				          $( '.form-check-input' ).prop( 'checked', this.checked );
+				        } );
+				</script>
+				<script>			        
+			        function searchEvent(pageNo=1) {
+			        	let eno = $("#eno").val();
+			        	let etitle = $("#etitle").val();
+			        	let startDate = $("#startDate").val();
+			        	let endDate = $("#endDate").val();
+			        	
+			        	let estatus = [];
+			        	var estatus0 = document.getElementById('estatus0');
+			        	var estatus1 = document.getElementById('estatus1');
+			        	var estatus2 = document.getElementById('estatus2');
+			        	if($(estatus0).prop("checked")) estatus.push(0);
+			        	if($(estatus1).prop("checked")) estatus.push(1);
+			        	if($(estatus2).prop("checked")) estatus.push(2);
+			        	
+			        	data={
+			        			eno,
+			        			etitle,
+			        			startDate,
+			        			endDate,
+			        			estatus,
+			        			pageNo
+			        	};
+			        	
+			        	$.ajax({
+			        		url:"/event/result",
+			        		method:"post",
+			        		data:data,
+			        		success: function(result) {
+								$("#result").html(result);
+							}
+			        	});
+			        }
+				</script>
+				
 			</div>
 		</div>
 
 
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mb-4" id="result">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%"
-						cellspacing="0">
+					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th>이벤트번호</th>
-								<th>이름</th>
+								<th>제목</th>
 								<th>내용</th>
-								<th>이벤트 시행 날짜</th>
+								<th>이벤트 시작 날짜</th>
 								<th>이벤트 종료 날짜</th>
 								<th>최대 당첨자 수</th>
 								<th>현재 당첨자 수</th>
-								<th>이미지</th>
-								<th>이벤트 상태</th>
+								<th>대표이미지</th>
+								<th>상태</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="product : ${products}">
-								<td><a href="#">[[${product.pstockId}]]</a></td>
-								<td>[[${product.productName}]]</td>
-								<td>[[${product.sizeCode}]]</td>
-								<td>[[${product.colorCode}]]</td>
-								<td>[[${product.price}]]</td>
-								<td>[[${product.stock}]]</td>
-								<td>[[${product.brandName}]]</td>
-								<td>[[${product.depth1Name}]]</td>
-								<td>[[${product.depth2Name}]]</td>
-								<td>[[${product.depth3Name}]]</td>
+							<tr th:each="event : ${events}">
+								<td><a href="#">[[${event.eno}]]</a></td>
+								<td>[[${event.etitle}]]</td>
+								<td>[[${event.econtent}]]</td>
+								<td th:text="${#dates.format(event.eissueDate,'yyyy-MM-dd')}"></td>
+								<td th:text="${#dates.format(event.eexpireDate,'yyyy-MM-dd')}"></td>
+								<td>[[${event.elimitCount}]]</td>
+								<td>[[${event.ecount}]]</td>
+								<td><button class="btn btn-primary">대표 이미지 보기</button></td>
+								<td th:if="${event.estatus}==0">진행예정</td>
+								<td th:if="${event.estatus}==1">진행중</td>
+								<td th:if="${event.estatus}==2">종료</td>
 							</tr>
 						</tbody>
 					</table>

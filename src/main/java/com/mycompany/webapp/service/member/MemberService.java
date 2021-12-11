@@ -1,4 +1,4 @@
-package com.mycompany.webapp.service;
+package com.mycompany.webapp.service.member;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mycompany.webapp.dto.Member;
+import com.mycompany.webapp.dto.member.Member;
 
 @Service
 public class MemberService {

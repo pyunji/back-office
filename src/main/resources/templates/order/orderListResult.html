@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{common/layout::setLayout(~{this::content})}">
+	<th:block th:fragment="content">
+
+		<!-- Page Heading -->
+		<h1 class="h3 mb-2 text-gray-800">상품 조회</h1>
+		<p class="mb-4">상품을 조회한 후 수정하고 삭제할 수 있습니다.</p>
+
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered" id="dataTable" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>주문자</th>
+								<th>우편번호</th>
+								<th>주소</th>
+								<th>받는 사람</th>
+								<th>핸드폰</th>
+								<th>전화번호</th>
+								<th>이메일</th>
+								<th>배송 메모</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order : ${orderList}">
+								<td><a href="#">[[${order.oid}]]</a></td>
+								<td>[[${order.mid}]]</td>
+								<td>[[${order.ozipcode}]]</td>
+								<td>[[${order.oaddress}]]</td>
+								<td>[[${order.oreceiver}]]</td>
+								<td>[[${order.ophone}]]</td>
+								<td>[[${order.otel}]]</td>
+								<td>[[${order.oemail}]]</td>
+								<td>[[${order.memo}]]</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</th:block>
+</th:block>
+</html>
