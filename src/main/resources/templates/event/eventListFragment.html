@@ -1,0 +1,57 @@
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">조회 결과 [[${pager.getTotalRows()}]]건</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+					<tr>
+						<th>이벤트번호</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>이벤트 시작 날짜</th>
+						<th>이벤트 종료 날짜</th>
+						<th>최대 당첨자 수</th>
+						<th>현재 당첨자 수</th>
+						<th>대표이미지</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="event : ${eventList}">
+						<td><a href="#">[[${event.eno}]]</a></td>
+						<td>[[${event.etitle}]]</td>
+						<td>[[${event.econtent}]]</td>
+						<td th:text="${#dates.format(event.eissueDate,'yyyy-MM-dd')}"></td>
+						<td th:text="${#dates.format(event.eexpireDate,'yyyy-MM-dd')}"></td>
+						<td>[[${event.elimitCount}]]</td>
+						<td>[[${event.ecount}]]</td>
+						<td><button class="btn btn-primary">대표 이미지 보기</button></td>
+						<td th:if="${event.estatus}==0">진행예정</td>
+						<td th:if="${event.estatus}==1">진행중</td>
+						<td th:if="${event.estatus}==2">종료</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--/* 페이징 처리 부분*/-->
+		<!-- <th:block th:if="${session.pager != null}"> -->
+		<div class="row-vw d-flex">
+			<div class="mx-auto">
+				<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
+				<a href="javascript:void(0)" class="paginigBtn" onclick="searchProduct(1)">처음</a>
+				<th:block th:if="${pager.getGroupNo()>1}">
+					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getStartPageNo()-1}]])">이전</a>
+				</th:block>
+				<th:block th:each="i : ${#numbers.sequence(pager.getStartPageNo(), pager.getEndPageNo())}">
+					<a href="javascript:void(0)" class="paginigBtn" th:classappend="${pager.getPageNo() == i}?'check':''" th:styleappend="${pager.getPageNo() == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''" 
+					th:onclick="searchProduct([[${i}]])">[[${i}]]</a>
+				</th:block>
+
+				<th:block th:if="${pager.getGroupNo()<pager.getTotalGroupNo()}">
+					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getEndPageNo()+1}]])">다음</a>
+				</th:block>
+				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchProduct([[${pager.getTotalPageNo()}]])">맨끝</a>
+			</div>
+		</div>
+	</div>
