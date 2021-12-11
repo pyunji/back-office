@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +55,7 @@ public class AjaxController {
 		model.addAttribute("pager", productResult.getPager());
 //		session.setAttribute("pager", productResult.getPager());
 //		session.setAttribute("test", 1);
+		log.info("최종적으로 가져온 OrderList" + productList.toString());
 		log.info("pager = "+ productResult.getPager());
 		log.info("pager.getTotalRows() = "+ productResult.getPager().getTotalRows());
 		return "/product/productListFragment";
