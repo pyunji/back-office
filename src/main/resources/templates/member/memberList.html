@@ -14,86 +14,134 @@
 				<form action="">
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-6">
-							<label for="member_id">회원 ID</label>
-							<input name="member_id" class="form-control" placeholder="회원 ID를 입력하세요" />
-						</div>
-						<div class="mt-3 form-group col-md-6">
-							<label for="member_name">회원명</label>
-							<input name="member_name" class="form-control" placeholder="회원명을 입력하세요" />
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="mt-3 form-group col-md-6">
-							<label for="member_email">이메일</label>
-							<input name="member_email" class="form-control" placeholder="회원 이메일을 입력하세요 (admin@team2.com)" />
-						</div>
-
-						<div class="mt-3 form-group col-md-6">
-							<label for="member_phone">연락처</label>
-							<input name="member_phone" class="form-control" placeholder="회원 연락처를 입력하세요 (01012345678)" />
-						</div>
-					</div>
-					<label>생년월일별 조회</label>
-					<div class="form-row">
-						<div class="form-group col-md-3">
-							<input type="date" name="start_birth_date" class="form-control" placeholder="조회 시작 날짜">
-						</div>
-						<div class="form-group col-md-3" style="text-align:center">
-						<span>~</span>
-						</div>
-						<div class="form-group col-md-3">
-							<input type="date" name="end_birth_date" class="form-control" placeholder="조회 종료 날짜">
-						</div>
-					</div>
-					
-					<label>회원 가입일별 조회</label>
-					<div class="form-row">
-						<div class="form-group col-md-3">
-							<input type="date" name="start_reg_date" class="form-control" placeholder="조회 시작 날짜">
-						</div>
-						<div class="form-group col-md-3"  style="text-align:center">
-						<span>~</span>
-						</div>
-						<div class="form-group col-md-3">
-							<input type="date" name="end_reg_date" class="form-control" placeholder="조회 종료 날짜">
-						</div>
-					</div>
-					
-					<div class="form-row">
-						<div class="mt-3 form-group col-md-6">
-							<label for="member_sex">성별 조회</label>
-							<select id="member_sex" class="form-control">
-								<option>여성</option>
-								<option>남성</option>
-							</select>
+							<label>회원 ID</label>
+							<input type="text" id="mid" name="mid" class="form-control" placeholder="회원 ID를 입력하세요" />
 						</div>
 						
 						<div class="mt-3 form-group col-md-6">
-							<label for="member_grade">회원 등급</label>
-							<select id="member_grade" class="form-control">
-								<option>선택</option>
-							</select>
+							<label>이메일</label>
+							<input type="text" id="memail" name="memail" class="form-control" placeholder="회원 이메일을 입력하세요 (admin@team2.com)" />
 						</div>
 					</div>
+					
+					<div class="form-row">
+						<div class="mt-3 form-group col-md-6">
+							<label>회원명</label>
+							<input type="text" id="mname" name="mname" class="form-control" placeholder="회원명을 입력하세요" />
+						</div>
 
-
-					<label for="member_status">회원 상태별 조회</label>
+						<div class="mt-3 form-group col-md-6">
+							<label>연락처</label>
+							<input type="text" id="mphone" name="mphone" class="form-control" placeholder="회원 연락처를 입력하세요 (01012345678)" />
+						</div>
+					</div>
+					
+					<hr />
+					
+					<label class="mt-3">생년월일별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<select id="member_status" class="form-control">
-								<option>선택</option>
+							<input type="date" id="startDateforBirth" name="startDateforBirth" class="form-control" placeholder="조회 시작 날짜" min="1900-01-01">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="date" id="endDateforBirth" name="endDateforBirth" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
+						</div>
+					</div>
+					
+					<label class="mt-3">회원 가입일별 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<input type="date" id="startDateforSignUp" name="startDateforSignUp" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="date" id="endDateforSignUp" name="endDateforSignUp" class="form-control" placeholder="조회 종료 날짜" max="2022-12-31">
+						</div>
+					</div>
+					
+					<label class="mt-3">성별 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<select name="gender" class="form-control">
+								<option value="">전체</option>
+								<option value="1">여성</option>
+								<option	value="2">남성</option>
+							</select>
+						</div>
+					</div>
+					
+					<label class="mt-3">회원 등급별 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<select name="grade_level" class="form-control">
+								<option value="">전체</option>
+								<option value="1">Level 1</option>
+								<option value="2">Level 2</option>
+								<option value="3">Level 3</option>
+								<option value="4">Level 4</option>
+								<option value="5">Level 5</option>
+								<option value="6">Level 6</option>
 							</select>
 						</div>
 					</div>
 
-					<button class="btn btn-primary">검색</button>
+					<label class="mt-3">회원 유형별 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<select name="menabled" class="form-control">
+								<option value="">전체</option>
+								<option value="1">일반 회원</option>
+								<option value="2">불량 회원</option>
+							</select>
+						</div>
+					</div>
+					<input type="button" class="btn btn-primary mt-3" value="검색" onclick="searchMember()"/>
 				</form>
-
+				<script>
+					function searchMember(pageNo=1) {
+						let mid = $("#mid").val();
+			        	let memail = $("#memail").val();
+			        	let mname = $("#mname").val();
+			        	let mphone = $("#mphone").val();
+			        	let startDateforBirth = $("#startDateforBirth").val();
+			        	let endDateforBirth = $("#endDateforBirth").val();
+			        	let startDateforSignUp = $("#startDateforSignUp").val();
+			        	let endDateforSignUp = $("#endDateforSignUp").val();
+			        	let gender = $("select[name=gender] option:selected").val();
+			        	let grade_level = $("select[name=grade_level] option:selected").val();
+			        	let menabled = $("select[name=menabled] option:selected").val();
+			        	
+			        	data = {
+			        			mid,
+			        			memail,
+			        			mname,
+			        			mphone,
+			        			startDateforBirth,
+			        			endDateforBirth,
+			        			startDateforSignUp,
+			        			endDateforSignUp,
+			        			gender,
+			        			grade_level,
+			        			menabled,
+			        			pageNo
+			        	};
+			        	
+			        	$.ajax({
+			        		url:"/member/result",
+			        		method:"post",
+			        		data:data,
+			        		success: function(result) {
+			        			$("#result").html(result);
+			        		}
+			        	});
+					}
+				</script>
 			</div>
 		</div>
 
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mb-4" id="result">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 			</div>
@@ -111,7 +159,7 @@
 								<th>성별</th>
 								<th>등급</th>
 								<th>주문내역</th>
-								<th>상태</th>
+								<th>회원 유형</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -122,12 +170,13 @@
 								<td>[[${member.mphone}]]</td>
 								<td th:text="${#dates.format(member.birth,'yyyy-MM-dd')}"></td>
 								<td th:text="${#dates.format(member.signUpDate,'yyyy-MM-dd')}"></td>
-								<td th:if="${member.gender}==0">여성</td>
-								<td th:unless="${member.gender}==0">남성</td>
+								<td th:if="${member.gender==0}"> - </td>
+								<td th:if="${member.gender==1}">여성</td>
+								<td th:if="${member.gender==2}">남성</td>
 								<td>[[${member.gradeLevel}]]</td>
 								<td><button class="btn btn-primary">주문내역 보기</button></td>
-								<td th:if="${member.menabled}==0">비활성화</td>
-								<td th:unless="${member.menabled}==0">활성화</td>
+								<td th:if="${member.menabled}==1">일반 회원</td>
+								<td th:unless="${member.menabled}==1">불량 회원</td>
 							</tr>
 						</tbody>
 					</table>
