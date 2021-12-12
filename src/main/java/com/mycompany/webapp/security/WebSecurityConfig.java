@@ -79,7 +79,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.expressionHandler(handler);
 		// 스프링 시큐리티의 프로세스를 거치지 않는 정적 파일들 정의
 		web.ignoring()
+			.antMatchers("/images/**")
 			.antMatchers("/bootstrap/**");
+		
 			
 	}
 	
