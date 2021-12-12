@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{common/layout::setLayout(~{this::content})}">
-
-	<th:block th:fragment="links">
-		<th:block th:replace="~{common/links}"></th:block>
-	</th:block> 
-	
+<th:block th:replace="~{common/layout::setLayout(~{this::content})}">	
 	<th:block th:fragment="content">
 <div class="card m-2">
 	<div class="card-header">

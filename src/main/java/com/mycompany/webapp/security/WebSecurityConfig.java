@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 //			.antMatchers("/cart/**").hasAuthority("ROLE_USER")
 			.antMatchers("/login").permitAll()
+			.antMatchers("/error/*").permitAll()
 			.antMatchers("/**").hasAuthority("ROLE_ADMIN");
 		
 		// 권한 없음(403)일 경우 이동할 경로 설정
