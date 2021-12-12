@@ -31,8 +31,8 @@ public class EventController {
 	
 	@GetMapping("/list")
 	public String eventList(Model model) {
-		List<Event> events = eventService.selectAllEvent();
-		model.addAttribute("events",events);
+//		List<Event> events = eventService.selectAllEvent();
+//		model.addAttribute("events",events);
 		return "event/eventList";
 	}
 	
