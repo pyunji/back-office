@@ -5,7 +5,8 @@
 
 		<!-- Page Heading -->
 		<h1 class="h3 mb-2 text-gray-800">회원 조회</h1>
-		<p class="mb-4">회원 정보와 회원별 주문 내역을 조회합니다. </p>
+		<p class="mt-4">회원 정보와 회원별 주문 내역을 조회합니다. </p>
+		<p class="mt-1 mb-4">회원을 조회한 후 회원 정보를 수정할 수 있습니다. </p>
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">회원 검색</h6>
@@ -93,6 +94,7 @@
 								<option value="">전체</option>
 								<option value="1">일반 회원</option>
 								<option value="2">불량 회원</option>
+								<option value="3">탈퇴 회원</option>
 							</select>
 						</div>
 					</div>
@@ -176,7 +178,8 @@
 								<td>[[${member.gradeLevel}]]</td>
 								<td><button class="btn btn-primary">주문내역 보기</button></td>
 								<td th:if="${member.menabled}==1">일반 회원</td>
-								<td th:unless="${member.menabled}==1">불량 회원</td>
+								<td th:if="${member.menabled}==2">불량 회원</td>
+								<td th:if="${member.menabled}==3">탈퇴 회원</td>
 							</tr>
 						</tbody>
 					</table>
