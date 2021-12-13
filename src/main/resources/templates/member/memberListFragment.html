@@ -20,7 +20,10 @@
 			</thead>
 			<tbody>
 				<tr th:each="member : ${memberList}">
-					<td>[[${member.mid}]]</td>
+					<td>
+						<a th:href="@{/member/info(mid=${member.mid})}">
+						[[${member.mid}]]
+					</td>
 					<td>[[${member.mname}]]</td>
 					<td>[[${member.memail}]]</td>
 					<td>[[${member.mphone}]]</td>
@@ -32,7 +35,8 @@
 					<td>[[${member.gradeLevel}]]</td>
 					<td><button class="btn btn-primary">주문내역 보기</button></td>
 					<td th:if="${member.menabled}==1">일반 회원</td>
-					<td th:unless="${member.menabled}==1">불량 회원</td>
+					<td th:if="${member.menabled}==2">불량 회원</td>
+					<td th:if="${member.menabled}==3">탈퇴 회원</td>				
 				</tr>
 			</tbody>
 		</table>

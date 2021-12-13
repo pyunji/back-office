@@ -1,6 +1,7 @@
 package com.mycompany.webapp.controller.member;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.member.Member;
@@ -24,10 +26,10 @@ public class MemberController {
 	
 	@Resource MemberService memberService;
 	
-	@RequestMapping("")
-	public String content() {
-		return "common/member";
-	}
+//	@RequestMapping("")
+//	public String content() {
+//		return "common/member";
+//	}
 	@RequestMapping("/list")
 	public String memberList(Model model) {
 //		List<Member> members = memberService.selectAllMembers();
@@ -53,5 +55,35 @@ public class MemberController {
 		log.info(memberResult.getPager().toString());
 		
 		return "/member/memberListFragment";
+	}
+	
+	@RequestMapping("/info")
+	public String selectMember(Model model,@RequestParam String mid) {
+		log.info("selectMember 실행");
+		log.info(mid);
+		
+		Member member = memberService.selectMember(mid);
+		model.addAttribute("member", member);
+		if(member.getBirth()!=null) {
+			Date date = member.getBirth();
+			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+			String stringDate = f.format(date);
+			log.info(stringDate);
+			model.addAttribute("mbirth",stringDate);
+		}
+		
+		return "member/updateForm";
+	}
+	
+	@PostMapping("/update")
+	public String updateMember(Member member) {
+		log.info("updateMember 실행");
+		log.info(member.toString());
+		
+		String result = memberService.updateMember(member);
+		
+		log.info(result);
+		
+		return "/member/memberList";
 	}
 }
