@@ -5,8 +5,7 @@
 
 		<!-- Page Heading -->
 		<h1 class="h3 mb-2 text-gray-800">회원 등급 관리</h1>
-		<p>회원 등급을 추가/삭제하거나 조건 및 혜택을 설정합니다.</p>
-		<p class="mb-4">회원 등급 정보를 변경하려면 회원 등급 조회 후 수정해주세요.</p>
+		<p class="mt-4">회원 등급 정보를 수정합니다.</p>
 
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
@@ -70,57 +69,26 @@
 				<h6 class="m-0 font-weight-bold text-primary">등급별 혜택 설정</h6>
 			</div>
 			<div class="card-body">
-				<form action="">
-					<p class="m-4">고객등급은 최소 1단계 ~ 최대 4단계까지 설정 가능합니다.</p>
-					<div class="table-responsive">
+				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>사용여부</th>
 								<th>등급명</th>
-								<th>등급 조건</th>
 								<th>등급별 혜택</th>
-								<th>수정</th>
+								<th>등급별 조건</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><input type="checkbox" data-toggle="toggle" ></td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td><button class="btn btn-primary">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" data-toggle="toggle" data-size="lg"></td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td><button class="btn btn-primary">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" data-toggle="toggle" data-size="lg"></td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td><button class="btn btn-primary">수정</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" data-toggle="toggle" data-size="lg"></td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td><button class="btn btn-primary">수정</button></td>
+							<tr th:each="grade:${grades}">
+								<td>[[${grade.glevel}]] Level</td>
+								<td>[[${grade.grate}]]% 추가적립</td>
+								<td>[[${grade.gnote}]]</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-					<button class="btn btn-primary mt-5">저장</button>
-					
-				</form>
 			</div>	
 		</div>
-
 		<!-- /.container-fluid -->
 	</th:block>
 </th:block>

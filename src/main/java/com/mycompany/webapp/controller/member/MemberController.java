@@ -2,6 +2,7 @@ package com.mycompany.webapp.controller.member;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.webapp.dto.Pager;
+import com.mycompany.webapp.dto.member.Grade;
 import com.mycompany.webapp.dto.member.Member;
 import com.mycompany.webapp.dto.member.MemberResult;
 import com.mycompany.webapp.dto.member.MemberSearchForm;
@@ -26,10 +28,6 @@ public class MemberController {
 	
 	@Resource MemberService memberService;
 	
-//	@RequestMapping("")
-//	public String content() {
-//		return "common/member";
-//	}
 	@RequestMapping("/list")
 	public String memberList(Model model) {
 //		List<Member> members = memberService.selectAllMembers();
@@ -38,7 +36,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/grade")
-	public String memberGrade() {
+	public String memberGrade(Model model) {
+		List<Grade> grades = memberService.getGrades();
+		model.addAttribute("grades",grades);
+		
 		return "member/grade";
 	}
 	
