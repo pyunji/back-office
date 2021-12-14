@@ -15,9 +15,9 @@
 					<div class="input-group mb-3">
 						<div class="input-group-prepend ">
 							<select id="gubun" name="gubun" class="form-control">
-								<option value="pstockid">상품코드</option>
 								<option value="pname">상품명</option>
 								<option value="bname">브랜드</option>
+								<option value="pstockid">상품코드</option>
 							</select>
 						</div>
 						<input type="text" id="gubunField" class="form-control">
@@ -53,7 +53,6 @@
 						<div class="form-group col-md-3">
 							<select id="d1name" name="d1name" class="form-control">
 								<option value="">대분류</option>
-								<span>[[${d1nameList}]]</span>
 								<option th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${d1nameList}"></option>
 							</select>
 						</div>
@@ -85,6 +84,9 @@
 								success : function(result) {
 									$("#d2name").html(result);
 									console.log("result = ", result);
+								},
+								error : function(error) {
+									$("#d2name").html('<option value="">중분류</option>');
 								}
 							});
 							$("#d3name").html('<option value="">소분류</option>');
@@ -106,6 +108,9 @@
 								success : function(result) {
 									$("#d3name").html(result);
 									console.log("result = ", result);
+								},
+								error : function(error) {
+									$("#d3name").html('<option value="">소분류</option>');
 								}
 							});
 						});
@@ -172,8 +177,8 @@
 							<tr>
 								<th>상품번호</th>
 								<th>이름</th>
-								<th>사이즈코드</th>
-								<th>색상코드</th>
+								<th>사이즈</th>
+								<th>색상</th>
 								<th>가격</th>
 								<th>재고</th>
 								<th>브랜드명</th>
