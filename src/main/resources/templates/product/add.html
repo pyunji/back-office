@@ -13,20 +13,20 @@
 				<h6 class="m-0 font-weight-bold text-primary">상품 개별 등록</h6>
 			</div>
 			<div class="card-body">
-				<form action="">
+				<form action="/product/add" method="post" enctype="multipart/form-data">
 					<div>
-						<label for="product_stock_id">상품코드</label>
-						<input name="product_stock_id" class="form-control" placeholder="상품코드를 입력하세요" />
+						<label for="pcommonid">공통상품코드</label>
+						<input name="pcommonid" class="form-control" placeholder="'_'로 구분 되지 않는 공통상품코드를 입력하세요" />
 					</div>
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-6">
-							<label for="product_name">상품명</label>
-							<input name="product_name" class="form-control" placeholder="상품명을 입력하세요" />
+							<label for="pname">상품명</label>
+							<input name="pname" class="form-control" placeholder="상품명을 입력하세요" />
 						</div>
 
 						<div class="mt-3 form-group col-md-6">
-							<label for="brand_code">브랜드</label>
-							<select id="brand_code" class="form-control">
+							<label for="bname">브랜드</label>
+							<select id="bname" name="bname" class="form-control">
 								<option value="">브랜드</option>
 								<option th:each="brandObj : ${brandList}" th:value="${brandObj.bname}" th:text="${brandObj.bname}">
 							</select>
@@ -36,19 +36,19 @@
 					<div class="form-row">
 						<div class="form-group col-md-3">
 							<label for="stock">재고 입력</label>
-							<input type="text" id="stock" class="form-control" placeholder="재고 입력">
+							<input type="number" id="stock" name="stock" class="form-control" placeholder="재고 입력">
 						</div>
 
 						<div class="form-group col-md-3">
-							<label for="price">가격 입력</label>
-							<input type="text" id="price" class="form-control" placeholder="가격 입력">
+							<label for="pprice">가격 입력</label>
+							<input type="number" id="pprice" name="pprice" class="form-control" placeholder="가격 입력">
 						</div>
 					</div>
 
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-8">
-							<label for="note">상품 설명</label>
-							<textarea id="note" class="form-control" placeholder="상품 설명을 입력하세요"></textarea>
+							<label for="pnote">상품 설명</label>
+							<textarea id="pnote" name="pnote" class="form-control" placeholder="상품 설명을 입력하세요"></textarea>
 						</div>
 					</div>
 
@@ -62,24 +62,37 @@
 									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 등록</span>
 								</div>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									<input type="file" name="img1" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
 									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+
+						<div class="form-group col-md-6">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 1 등록</span>
+								</div>
+								<div class="custom-file">
+									<input type="file" name="img2" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01">
+									<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 								</div>
 							</div>
 						</div>
 						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 2 등록</span>
 								</div>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01">
-									<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+									<input type="file" name="img3" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01">
+									<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
 								</div>
 							</div>
 						</div>
 					</div>
-
 					<label for="depth1">카테고리 설정</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
@@ -101,58 +114,58 @@
 					</div>
 
 					<script>
-					$("#d1name").change(function() {
-						//							console.log("change");
-						let d1name = $(this).val();
-						console.log(d1name);
-						let url = "/product/ajax/setdepth2"
-						// post 방식으로 pcolorId 데이터를 url에 전송
-						$.ajax({
-							url : url,
-							method : "post",
-							data : {
-								"d1name" : d1name
-							},
-							// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
-							success : function(result) {
-								$("#d2name").html(result);
-								console.log("result = ", result);
-							},
-							error : function(error) {
-								$("#d2name").html('<option value="">중분류</option>');
-							}
+						$("#d1name").change(function() {
+							//							console.log("change");
+							let d1name = $(this).val();
+							console.log(d1name);
+							let url = "/product/ajax/setdepth2"
+							// post 방식으로 pcolorId 데이터를 url에 전송
+							$.ajax({
+								url : url,
+								method : "post",
+								data : {
+									"d1name" : d1name
+								},
+								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
+								success : function(result) {
+									$("#d2name").html(result);
+									console.log("result = ", result);
+								},
+								error : function(error) {
+									$("#d2name").html('<option value="">중분류</option>');
+								}
+							});
+							$("#d3name").html('<option value="">소분류</option>');
 						});
-						$("#d3name").html('<option value="">소분류</option>');
-					});
 
-					$("#d2name").change(function() {
-						//							console.log("change");
-						let d2name = $(this).val();
-						console.log(d2name);
-						let url = "/product/ajax/setdepth3"
-						// post 방식으로 pcolorId 데이터를 url에 전송
-						$.ajax({
-							url : url,
-							method : "post",
-							data : {
-								"d2name" : d2name
-							},
-							// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
-							success : function(result) {
-								$("#d3name").html(result);
-								console.log("result = ", result);
-							},
-							error : function(error) {
-								$("#d3name").html('<option value="">소분류</option>');
-							}
+						$("#d2name").change(function() {
+							//							console.log("change");
+							let d2name = $(this).val();
+							console.log(d2name);
+							let url = "/product/ajax/setdepth3"
+							// post 방식으로 pcolorId 데이터를 url에 전송
+							$.ajax({
+								url : url,
+								method : "post",
+								data : {
+									"d2name" : d2name
+								},
+								// 전송 후 결과는 사이즈 리스트를 가지는 jsp fragment가 넘어오고, 해당 fragment를 html에 뿌려줌
+								success : function(result) {
+									$("#d3name").html(result);
+									console.log("result = ", result);
+								},
+								error : function(error) {
+									$("#d3name").html('<option value="">소분류</option>');
+								}
+							});
 						});
-					});
 					</script>
 
 					<label>옵션</label>
 					<div class="form-row">
 						<div class="form-group col-md-2">
-							<select id="scode" class="form-control">
+							<select id="scode" name="scode" class="form-control">
 								<option>사이즈 코드</option>
 								<option th:text="${sizeObj.scode}" th:value="${sizeObj.scode}" th:each="sizeObj : ${sizeList}">사이즈 코드</option>
 							</select>
@@ -182,10 +195,65 @@
 
 
 					<button class="btn btn-primary btn-sm mt-5">등록</button>
+<!-- 					<input type="button" class="btn btn-primary btn-sm mt-5" value="등록"
+					 data-toggle="modal" th:onclick="setModal([[${product}]])" data-target="#exampleModal"/> -->
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div>
+										<h5 class="modal-title" style="font-weight: bold;" id="exampleModalLabel"></h5>
+									</div>
+									<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										<h6 class="modal-depth" style="font-weight: bold;"></h6>
+									</div>
+									<br />
+									<div>
+										<p class="modal-pstockid"></p>
+									</div>
+									<div>
+										<img class="modal-img1" width="50%" alt="" src="">
+									</div>
+									<hr />
+									<div>
+										<span class="modal-pnote"></span>
+									</div>
+									<hr />
+									<div>
+										<span class="modal-pprice"></span>
+									</div>
+									<div>
+										<span class="modal-stock"></span>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/product/add';">상품 정보 수정하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</form>
 
 			</div>
 		</div>
+		<script>
+			function setModal(product) {
+				$(".modal-title").text(product.pname);
+				$(".modal-depth").text(product.d1name + " > " + product.d2name + " > " + product.d3name);
+				$(".modal-pstockid").text("상품코드 : " + product.pstockid);
+				$(".modal-img1").attr("src", "/upload/1639372175382-photo3.jpg");
+				$(".modal-pnote").text(product.pnote);
+				$(".modal-pprice").text('가격 : ₩ ' + product.pprice.toLocaleString());
+				$(".modal-stock").text('재고 : ' + product.stock + '개');
+			}
+		</script>
 
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
@@ -210,6 +278,11 @@
 
 			</div>
 		</div>
+		<script>
+			$(document).on('change', '.custom-file-input', function(event) {
+				$(this).next('.custom-file-label').html(event.target.files[0].name);
+			})
+		</script>
 
 		<!-- /.container-fluid -->
 	</th:block>
