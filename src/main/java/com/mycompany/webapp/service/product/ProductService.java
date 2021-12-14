@@ -14,6 +14,8 @@ import com.mycompany.webapp.dto.product.Brand;
 import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.ProductDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
+import com.mycompany.webapp.dto.product.ProductRegisterMPDto;
+import com.mycompany.webapp.dto.product.ProductRegisterNormDto;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.dto.product.Sizes;
 
@@ -83,13 +85,32 @@ public class ProductService {
 //		 return product;
 //	}
 //	
-	public String addProduct(ProductRegisterDto productInfo) {
+	public ProductDto addProduct(ProductRegisterDto productInfo) {
 		log.info("productInfo = " + productInfo);
 		MultipartBodyBuilder builder = new MultipartBodyBuilder();
-		builder.part("pcommonid", productInfo.getPcommonid());
-		builder.part("productTest", productInfo.getImg1().getResource());
+		if(productInfo.getPcommonid() != null) builder.part("pcommonid", productInfo.getPcommonid());
+//		builder.part("pcolorid", productInfo.getPcolorid());
+//		builder.part("pstockid", productInfo.getPstockid());
+		if(productInfo.getScode() != null) builder.part("scode", productInfo.getScode());
+		if(productInfo.getStock() != null) builder.part("stock", productInfo.getStock());
+//		builder.part("regDate", productInfo.getRegDate());
+		if(productInfo.getImg1().getResource() != null) builder.part("img1", productInfo.getImg1().getResource());
+		if(productInfo.getImg2().getResource() != null) builder.part("img2", productInfo.getImg2().getResource());
+		if(productInfo.getImg3().getResource() != null) builder.part("img3", productInfo.getImg3().getResource());
+		if(productInfo.getColorImg().getResource() != null) builder.part("colorImg", productInfo.getColorImg().getResource());
+//		builder.part("colorImg", productInfo.getColorImg().getResource());
+		if(productInfo.getCcode() != null) 	builder.part("ccode", productInfo.getCcode());
+		if(productInfo.getPprice() != null) 	builder.part("pprice", productInfo.getPprice());
+		if(productInfo.getPname() != null) 	builder.part("pname", productInfo.getPname());
+		if(productInfo.getPnote() != null) 	builder.part("pnote", productInfo.getPnote());
+		if(productInfo.getBname() != null) 	builder.part("bname", productInfo.getBname());
+		if(productInfo.getD1name() != null) 	builder.part("d1name", productInfo.getD1name());
+		if(productInfo.getD2name() != null) 	builder.part("d2name", productInfo.getD2name());
+		if(productInfo.getD3name() != null) 	builder.part("d3name", productInfo.getD3name());
+		if(productInfo.getWcolorid() != null) 	builder.part("wcolorid", productInfo.getWcolorid());
+//		builder.part("wcolorid", productInfo.getWcolorid());
 		WebClient webClient = WebClient.create();
-		String result = webClient
+		ProductDto result = webClient
 				.post()
 				.uri("http://localhost:83/product/add")
 //			.body(BodyInserters.fromValue(productInfo))
@@ -97,9 +118,32 @@ public class ProductService {
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(builder.build()))
 				.retrieve()
-				.bodyToMono(String.class)
+				.bodyToMono(ProductDto.class)
 				.block();
 		
 		return result;
 	}
+//	public String addProduct(ProductRegisterNormDto productInfo, ProductRegisterMPDto files) {
+//		log.info("productInfo = " + productInfo);
+//		MultipartBodyBuilder builder = new MultipartBodyBuilder();
+//		builder.part("productInfo", productInfo);
+//		if (files.getImg1() != null) builder.part("img1", files.getImg1());
+//		if (files.getImg2() != null) builder.part("img2", files.getImg2());
+//		if (files.getImg3() != null) builder.part("img3", files.getImg3());
+//		if (files.getColorImg() != null) builder.part("colorImg", files.getColorImg());
+////		builder.part("files", files);
+//		WebClient webClient = WebClient.create();
+//		String result = webClient
+//				.post()
+//				.uri("http://localhost:83/product/add")
+////			.body(BodyInserters.fromValue(productInfo))
+////				.header("Content-Type", "application/json")
+//				.contentType(MediaType.MULTIPART_FORM_DATA)
+//				.body(BodyInserters.fromMultipartData(builder.build()))
+//				.retrieve()
+//				.bodyToMono(String.class)
+//				.block();
+//		
+//		return result;
+//	}
 }
