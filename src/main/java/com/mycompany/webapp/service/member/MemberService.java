@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.mycompany.webapp.dto.member.Grade;
 import com.mycompany.webapp.dto.member.Member;
 import com.mycompany.webapp.dto.member.MemberResult;
 import com.mycompany.webapp.dto.member.MemberSearchForm;
@@ -64,5 +65,18 @@ public class MemberService {
 			.share()
 			.block();
       return result;
+   } 
+   
+   public List<Grade> getGrades() {
+	   WebClient webClient = WebClient.create();
+		List<Grade> grades = webClient
+				.get()
+				.uri("http://localhost:83/member/grade")
+				.retrieve()
+				.bodyToFlux(Grade.class)
+				.collect(Collectors.toList())
+				.share()
+				.block();
+		return grades;
    }
 }
