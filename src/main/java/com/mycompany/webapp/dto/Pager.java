@@ -1,5 +1,10 @@
 package com.mycompany.webapp.dto;
 
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+@ToString
 public class Pager {
 	private int totalRows;		//전체 행수
 	private int totalPageNo;	//전체 페이지 수
