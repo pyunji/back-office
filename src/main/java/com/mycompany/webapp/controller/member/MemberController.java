@@ -65,13 +65,15 @@ public class MemberController {
 		
 		Member member = memberService.selectMember(mid);
 		model.addAttribute("member", member);
-		if(member.getBirth()!=null) {
-			Date date = member.getBirth();
-			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-			String stringDate = f.format(date);
-			log.info(stringDate);
-			model.addAttribute("mbirth",stringDate);
-		}
+//		if(member.getBirth()!=null) {
+//			Date date = member.getBirth();
+//			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+//			String stringDate = f.format(date);
+//			log.info(stringDate);
+//			model.addAttribute("mbirth",stringDate);
+//		}else {
+//			model.addAttribute("mbirth",null);
+//		}
 		
 		return "member/updateForm";
 	}

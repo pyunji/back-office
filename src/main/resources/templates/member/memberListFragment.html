@@ -27,8 +27,9 @@
 					<td>[[${member.mname}]]</td>
 					<td>[[${member.memail}]]</td>
 					<td>[[${member.mphone}]]</td>
-					<td th:text="${#dates.format(member.birth,'yyyy-MM-dd')}"></td>
-					<td th:text="${#dates.format(member.signUpDate,'yyyy-MM-dd')}"></td>
+					<td>[[${member.birth}]]</td>
+					<td>[[${member.signUpDate}]]</td>
+					
 					<td th:if="${member.gender==0}"> - </td>
 					<td th:if="${member.gender==1}">여성</td>
 					<td th:if="${member.gender==2}">남성</td>
