@@ -46,7 +46,8 @@
 			$(".modal-title").text(product.pname);
 			$(".modal-depth").text(product.d1name + " > " + product.d2name + " > " + product.d3name);
 			$(".modal-pstockid").text("상품코드 : " + product.pstockid);
-			$(".modal-img1").attr("src", "/upload/1639372175382-photo3.jpg");
+			$("#hidden-pstockid").val(product.pstockid);
+			$(".modal-img1").attr("src", product.img1);
 			$(".modal-pnote").text(product.pnote);
 			$(".modal-pprice").text('가격 : ₩ ' + product.pprice.toLocaleString());
 			$(".modal-stock").text('재고 : ' + product.stock+ '개');
@@ -70,6 +71,7 @@
 		        </div>
 		        <br/>
 		      	<div>
+		      		<input type="hidden" id="hidden-pstockid">
 		      		<p class="modal-pstockid"></p>
 		      	</div>
 		        <div>
@@ -89,7 +91,14 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/product/add';">상품 정보 수정하기</button>
+		        <button type="button" class="btn btn-primary btn-sm" onclick="modify()">상품 정보 수정하기</button>
+		        <script>
+		        function modify() {
+		        	let pstockid = $("#hidden-pstockid").val();
+		        	let URI = "/product/modify?pstockid="+pstockid;
+		        	location.href=URI;
+		        }
+		        </script>
 		      </div>
 		    </div>
 		  </div>
