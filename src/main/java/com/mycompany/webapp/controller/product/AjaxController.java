@@ -47,7 +47,6 @@ public class AjaxController {
 	
 	@PostMapping("/result")
 	public String result(Model model, HttpSession session, SearchForm searchForm) {
-		/* 앞단에서 pager를 설정하는 유일한 부분 */
 		searchForm.setPager(new Pager(10, 5, 0, searchForm.getPageNo()));
 		ProductResult productResult = ajaxService.getSearchResult(searchForm);
 		List<ProductDto> productList = productResult.getProductList();

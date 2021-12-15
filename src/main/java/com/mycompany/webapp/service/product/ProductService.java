@@ -14,7 +14,7 @@ import com.mycompany.webapp.dto.product.Brand;
 import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.ProductDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
-import com.mycompany.webapp.dto.product.ProductRegisterMFDto;
+import com.mycompany.webapp.dto.product.ProductRegisterMPDto;
 import com.mycompany.webapp.dto.product.ProductRegisterNormDto;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.dto.product.Sizes;
@@ -43,7 +43,6 @@ public class ProductService {
 			
 		}
 	}
-	
 	public List<Brand> getBrandList() {
 		WebClient webClient = WebClient.create();
 		List<Brand> brandList = webClient
@@ -57,7 +56,6 @@ public class ProductService {
 		log.info("brandList" + brandList);
 		return brandList;
 	}
-	
 	public List<Sizes> getSizeList() {
 		WebClient webClient = WebClient.create();
 		List<Sizes> sizeList = webClient
@@ -72,16 +70,35 @@ public class ProductService {
 		return sizeList;
 	}
 	
+//	public ProductDto addProduct(MultiValueMap<String, Object> productInfo) {
+//		log.info("productInfo = " + productInfo);
+//		WebClient webClient = WebClient.create();
+//		 ProductDto product = webClient
+//			.post()
+//			.uri("http://localhost:83/product/add")
+////			.body(BodyInserters.fromValue(productInfo))
+//			.body(BodyInserters.fromMultipartData("productInfo", productInfo))
+//			.retrieve()
+//			.bodyToMono(ProductDto.class)
+//			.block();
+//		 
+//		 return product;
+//	}
+//	
 	public ProductDto addProduct(ProductRegisterDto productInfo) {
 		log.info("productInfo = " + productInfo);
 		MultipartBodyBuilder builder = new MultipartBodyBuilder();
 		if(productInfo.getPcommonid() != null) builder.part("pcommonid", productInfo.getPcommonid());
+//		builder.part("pcolorid", productInfo.getPcolorid());
+//		builder.part("pstockid", productInfo.getPstockid());
 		if(productInfo.getScode() != null) builder.part("scode", productInfo.getScode());
 		if(productInfo.getStock() != null) builder.part("stock", productInfo.getStock());
+//		builder.part("regDate", productInfo.getRegDate());
 		if(productInfo.getImg1().getResource() != null) builder.part("img1", productInfo.getImg1().getResource());
 		if(productInfo.getImg2().getResource() != null) builder.part("img2", productInfo.getImg2().getResource());
 		if(productInfo.getImg3().getResource() != null) builder.part("img3", productInfo.getImg3().getResource());
 		if(productInfo.getColorImg().getResource() != null) builder.part("colorImg", productInfo.getColorImg().getResource());
+//		builder.part("colorImg", productInfo.getColorImg().getResource());
 		if(productInfo.getCcode() != null) 	builder.part("ccode", productInfo.getCcode());
 		if(productInfo.getPprice() != null) 	builder.part("pprice", productInfo.getPprice());
 		if(productInfo.getPname() != null) 	builder.part("pname", productInfo.getPname());
@@ -91,10 +108,13 @@ public class ProductService {
 		if(productInfo.getD2name() != null) 	builder.part("d2name", productInfo.getD2name());
 		if(productInfo.getD3name() != null) 	builder.part("d3name", productInfo.getD3name());
 		if(productInfo.getWcolorid() != null) 	builder.part("wcolorid", productInfo.getWcolorid());
+//		builder.part("wcolorid", productInfo.getWcolorid());
 		WebClient webClient = WebClient.create();
 		ProductDto result = webClient
 				.post()
 				.uri("http://localhost:83/product/add")
+//			.body(BodyInserters.fromValue(productInfo))
+//				.header("Content-Type", "application/json")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(builder.build()))
 				.retrieve()
@@ -103,16 +123,27 @@ public class ProductService {
 		
 		return result;
 	}
-	
-	public ProductRegisterDto getOrgData(String pstockid) {
-		String URI = "http://localhost:83/product/modify?pstockid=" + pstockid;
-		WebClient webClient = WebClient.create();
-		ProductRegisterDto orgData = webClient
-			.get()
-			.uri(URI)
-			.retrieve()
-			.bodyToMono(ProductRegisterDto.class)
-			.block();
-		return orgData;
-	}
+//	public String addProduct(ProductRegisterNormDto productInfo, ProductRegisterMPDto files) {
+//		log.info("productInfo = " + productInfo);
+//		MultipartBodyBuilder builder = new MultipartBodyBuilder();
+//		builder.part("productInfo", productInfo);
+//		if (files.getImg1() != null) builder.part("img1", files.getImg1());
+//		if (files.getImg2() != null) builder.part("img2", files.getImg2());
+//		if (files.getImg3() != null) builder.part("img3", files.getImg3());
+//		if (files.getColorImg() != null) builder.part("colorImg", files.getColorImg());
+////		builder.part("files", files);
+//		WebClient webClient = WebClient.create();
+//		String result = webClient
+//				.post()
+//				.uri("http://localhost:83/product/add")
+////			.body(BodyInserters.fromValue(productInfo))
+////				.header("Content-Type", "application/json")
+//				.contentType(MediaType.MULTIPART_FORM_DATA)
+//				.body(BodyInserters.fromMultipartData(builder.build()))
+//				.retrieve()
+//				.bodyToMono(String.class)
+//				.block();
+//		
+//		return result;
+//	}
 }

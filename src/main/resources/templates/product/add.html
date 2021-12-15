@@ -62,8 +62,8 @@
 									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 등록</span>
 								</div>
 								<div class="custom-file">
-									<input id="img1" type="file" name="img1" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
-									<label class="custom-file-label" for="img1">Choose file</label>
+									<input type="file" name="img1" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" required>
+									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 								</div>
 							</div>
 						</div>
@@ -76,8 +76,8 @@
 									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 1 등록</span>
 								</div>
 								<div class="custom-file">
-									<input id="img2" type="file" name="img2" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
-									<label class="custom-file-label" for="img2">Choose file</label>
+									<input type="file" name="img2" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01" required>
+									<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
 								</div>
 							</div>
 						</div>
@@ -87,8 +87,8 @@
 									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 2 등록</span>
 								</div>
 								<div class="custom-file">
-									<input id="img3" type="file" name="img3" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
-									<label class="custom-file-label" for="img3">Choose file</label>
+									<input type="file" name="img3" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01" required>
+									<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
 								</div>
 							</div>
 						</div>
@@ -180,8 +180,8 @@
 									<span class="input-group-text" id="inputGroupFileAddon01">컬러칩 이미지 등록</span>
 								</div>
 								<div class="custom-file">
-									<input id="colorImg" type="file" name="colorImg" class="custom-file-input" aria-describedby="inputGroupFileAddon01">
-									<label class="custom-file-label" for="colorImg">Choose file</label>
+									<input type="file" name="colorImg" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
 								</div>
 							</div>
 						</div>
@@ -194,16 +194,15 @@
 
 
 
-					<!-- <button class="btn btn-primary btn-sm mt-5">등록</button> -->
-					<input type="button" class="btn btn-primary btn-sm mt-5" value="등록"
-					 data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal"/>
+					<button class="btn btn-primary btn-sm mt-5">등록</button>
+<!-- 					<input type="button" class="btn btn-primary btn-sm mt-5" value="등록"
+					 data-toggle="modal" th:onclick="setModal([[${product}]])" data-target="#exampleModal"/> -->
 					<!-- Modal -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
 									<div>
-										<h5>다음과 같이 상품을 등록합니다.</h5>
 										<h5 class="modal-title" style="font-weight: bold;" id="exampleModalLabel"></h5>
 									</div>
 									<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
@@ -234,8 +233,8 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close"/>
-									<button class="btn btn-primary btn-sm">등록</button>
+									<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="location.href='/product/add';">상품 정보 수정하기</button>
 								</div>
 							</div>
 						</div>
@@ -245,26 +244,14 @@
 			</div>
 		</div>
 		<script>
-			$('#img1').change(function() {
-				setImageFromFile(this, '.modal-img1');
-			});
-			function setImageFromFile(input, expression) {
-				if (input.files && input.files[0]) {
-					let reader = new FileReader();
-					reader.onload = function(e) {
-						$(expression).attr('src', e.target.result);
-					}
-					reader.readAsDataURL(input.files[0]);
-				}
-			}
-			function setModal() {
-				$(".modal-title").text($("input[name='pname']").val());
-				$(".modal-depth").text($("select[name='d1name']").val() + " > " + $("select[name='d2name']").val() + " > " + $("select[name='d3name']").val());
-				$(".modal-pstockid").text("상품코드 : " + $("input[name='pcommonid']").val() + "_" + $("input[name='ccode']").val() + "_" + $("select[name='scode']").val());
-/* 				$(".modal-img1").val($("input[name='img1']").val()); */
-				$(".modal-pnote").text($("textarea[name='pnote']").val());
-				$(".modal-pprice").text('가격 : ₩ ' + $("input[name='pprice']").val());
-				$(".modal-stock").text('재고 : ' + $("input[name='stock']").val() + '개');
+			function setModal(product) {
+				$(".modal-title").text(product.pname);
+				$(".modal-depth").text(product.d1name + " > " + product.d2name + " > " + product.d3name);
+				$(".modal-pstockid").text("상품코드 : " + product.pstockid);
+				$(".modal-img1").attr("src", "/upload/1639372175382-photo3.jpg");
+				$(".modal-pnote").text(product.pnote);
+				$(".modal-pprice").text('가격 : ₩ ' + product.pprice.toLocaleString());
+				$(".modal-stock").text('재고 : ' + product.stock + '개');
 			}
 		</script>
 

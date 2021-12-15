@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.Data;
 
 @Data
-public class ProductRegisterMFDto {
+public class ProductRegisterMPDto {
 	MultipartFile img1;
 	MultipartFile img2;
 	MultipartFile img3;
