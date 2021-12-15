@@ -1,6 +1,7 @@
 package com.mycompany.webapp.dto.member;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import lombok.Data;
 
