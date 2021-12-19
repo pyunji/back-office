@@ -1,15 +1,18 @@
 package com.mycompany.webapp.dto.member;
 
-import java.util.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
 public class NewEvent {
+	private Integer eno;
 	private String etitle;
 	private String econtent;
 	private String eissueDate;
 	private String eexpireDate;
-	private int elimitCount;
-	private String eimg;
+	private Integer elimitCount;
+	private Integer ecount;
+	private MultipartFile eimg;
+	private Integer estatus;
 }

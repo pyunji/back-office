@@ -1,13 +1,15 @@
-package com.mycompany.webapp.dto.member;
+package com.mycompany.webapp.vo.member;
 
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mycompany.webapp.dto.member.Event;
+
 import lombok.Data;
 
 @Data
-public class Event {
+public class EventVo {
 	private Integer eno;
 	private String etitle;
 	private String econtent;
@@ -15,6 +17,6 @@ public class Event {
 	private Date eexpireDate;
 	private Integer elimitCount;
 	private Integer ecount;
-	private MultipartFile eimg;
+	private String eimg;
 	private Integer estatus;
 }
