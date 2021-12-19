@@ -10,18 +10,19 @@
 
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">상품 개별 등록</h6>
+				<h6 class="m-0 font-weight-bold text-primary">상품 개별 수정</h6>
 			</div>
 			<div class="card-body">
-				<form action="/product/add" method="post" enctype="multipart/form-data">
+				<form action="/product/modify/process" method="post" enctype="multipart/form-data">
 					<div>
 						<label for="pcommonid">공통상품코드</label>
-						<input name="pcommonid" th:value="${orgData.pcommonid}" class="form-control" placeholder="'_'로 구분 되지 않는 공통상품코드를 입력하세요" required disabled/>
+						<input name="pcommonid" th:value="${orgData.pcommonid}" class="form-control" placeholder="'_'로 구분 되지 않는 공통상품코드를 입력하세요" required disabled />
+						<input name="pstockid" type="hidden" th:value="${orgData.pstockid}"/>
 					</div>
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-6">
 							<label for="pname">상품명</label>
-							<input name="pname" class="form-control" th:value="${orgData.pname}" placeholder="상품명을 입력하세요" required/>
+							<input name="pname" class="form-control" th:value="${orgData.pname}" placeholder="상품명을 입력하세요" required />
 						</div>
 
 						<div class="mt-3 form-group col-md-6">
@@ -48,7 +49,7 @@
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-8">
 							<label for="pnote">상품 설명</label>
-							<textarea id="pnote" name="pnote" th:value="${orgData.pnote}" class="form-control" placeholder="상품 설명을 입력하세요"></textarea>
+							<textarea id="pnote" name="pnote" class="form-control">[[${orgData.pnote}]]</textarea>
 						</div>
 					</div>
 
@@ -59,10 +60,10 @@
 						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 수정</span>
 								</div>
 								<div class="custom-file">
-									<input id="img1" type="file" name="img1" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<input id="img1" type="file" name="img1" class="custom-file-input" aria-describedby="inputGroupFileAddon01">
 									<label class="custom-file-label" for="img1">Choose file</label>
 								</div>
 							</div>
@@ -73,10 +74,10 @@
 						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 1 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 1 수정</span>
 								</div>
 								<div class="custom-file">
-									<input id="img2" type="file" name="img2" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<input id="img2" type="file" name="img2" class="custom-file-input" aria-describedby="inputGroupFileAddon01">
 									<label class="custom-file-label" for="img2">Choose file</label>
 								</div>
 							</div>
@@ -84,10 +85,10 @@
 						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 2 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon02">추가 이미지 2 수정</span>
 								</div>
 								<div class="custom-file">
-									<input id="img3" type="file" name="img3" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<input id="img3" type="file" name="img3" class="custom-file-input" aria-describedby="inputGroupFileAddon01">
 									<label class="custom-file-label" for="img3">Choose file</label>
 								</div>
 							</div>
@@ -96,21 +97,24 @@
 					<label for="depth1">카테고리 설정</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD1name" th:value="${orgData.d1name}">
 							<select id="d1name" name="d1name" class="form-control" required>
 								<option value="">대분류</option>
-								<option th:selected="${orgData.d1name}" th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${d1nameList}"></option>
+								<option th:selected="${orgData.d1name == depth1Obj.d1name}" th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${d1nameList}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD2name" th:value="${orgData.d2name}">
 							<select id="d2name" name="d2name" class="form-control" required>
 								<option value="">중분류</option>
-								<option th:selected="${orgData.d2name}" th:value="${depth2Obj.d2name}" th:text="${depth2Obj.d2name}" th:each="depth2Obj:${d2nameList}"></option>
+								<option th:selected="${orgData.d2name == depth2Obj.d2name}" th:value="${depth2Obj.d2name}" th:text="${depth2Obj.d2name}" th:each="depth2Obj:${d2nameList}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD3name" th:value="${orgData.d3name}">
 							<select id="d3name" name="d3name" class="form-control" required>
 								<option value="">소분류</option>
-								<option th:selected="${orgData.d3name}" th:value="${depth3Obj.d3name}" th:text="${depth3Obj.d3name}" th:each="depth3Obj:${d3nameList}"></option>
+								<option th:selected="${orgData.d3name == depth3Obj.d3name}" th:value="${depth3Obj.d3name}" th:text="${depth3Obj.d3name}" th:each="depth3Obj:${d3nameList}"></option>
 							</select>
 						</div>
 					</div>
@@ -179,7 +183,7 @@
 						<div class="form-group col-md-8">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon01">컬러칩 이미지 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon01">컬러칩 이미지 수정</span>
 								</div>
 								<div class="custom-file">
 									<input id="colorImg" type="file" name="colorImg" class="custom-file-input" aria-describedby="inputGroupFileAddon01">
@@ -193,19 +197,23 @@
 						<input name="wcolorid" class="form-control" placeholder="매칭할 상품의 코드를 입력하세요" />
 					</div>
 
+					<!-- <div class="form-row"> -->
+						<div>
+							<label for="regCheck">오늘 날짜로 업데이트</label>
+							<input type="checkbox" name="regCheck" />
+						</div>
+					<!-- </div> -->
 
 
 
-					<!-- <button class="btn btn-primary btn-sm mt-5">등록</button> -->
-					<input type="button" class="btn btn-primary btn-sm mt-5" value="등록"
-					 data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal"/>
+					<input type="button" class="btn btn-primary btn-sm mt-5" value="수정" data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal" />
 					<!-- Modal -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
 									<div>
-										<h5>다음과 같이 상품을 등록합니다.</h5>
+										<h5>다음과 같이 상품을 수정합니다.</h5>
 										<h5 class="modal-title" style="font-weight: bold;" id="exampleModalLabel"></h5>
 									</div>
 									<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
@@ -236,8 +244,8 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close"/>
-									<button class="btn btn-primary btn-sm">등록</button>
+									<input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close" />
+									<button class="btn btn-primary btn-sm">수정</button>
 								</div>
 							</div>
 						</div>
@@ -247,11 +255,9 @@
 			</div>
 		</div>
 		<script>
-			$("#ccode").change(
-				function() {
-					console.log($(this).val());
-				}		
-			);
+			$("#ccode").change(function() {
+				console.log($(this).val());
+			});
 			$('#img1').change(function() {
 				setImageFromFile(this, '.modal-img1');
 			});
@@ -268,37 +274,12 @@
 				$(".modal-title").text($("input[name='pname']").val());
 				$(".modal-depth").text($("select[name='d1name']").val() + " > " + $("select[name='d2name']").val() + " > " + $("select[name='d3name']").val());
 				$(".modal-pstockid").text("상품코드 : " + $("input[name='pcommonid']").val() + "_" + $("input[name='ccode']").val() + "_" + $("select[name='scode']").val());
-/* 				$(".modal-img1").val($("input[name='img1']").val()); */
+				/* 				$(".modal-img1").val($("input[name='img1']").val()); */
 				$(".modal-pnote").text($("textarea[name='pnote']").val());
 				$(".modal-pprice").text('가격 : ₩ ' + $("input[name='pprice']").val());
 				$(".modal-stock").text('재고 : ' + $("input[name='stock']").val() + '개');
 			}
-		</script>
 
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">상품 일괄 등록</h6>
-			</div>
-			<p class="m-4">엑셀 파일 등록 양식은 공지사항을 참고해주세요.</p>
-			<div class="card-body">
-				<form action="">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text" id="inputGroupFileAddon03">엑셀 파일 등록</span>
-						</div>
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon01">
-							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
-						</div>
-					</div>
-
-
-					<button class="btn btn-primary mt-5 btn-sm">등록</button>
-				</form>
-
-			</div>
-		</div>
-		<script>
 			$(document).on('change', '.custom-file-input', function(event) {
 				$(this).next('.custom-file-label').html(event.target.files[0].name);
 			})
