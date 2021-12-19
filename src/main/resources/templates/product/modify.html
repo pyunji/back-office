@@ -13,7 +13,7 @@
 				<h6 class="m-0 font-weight-bold text-primary">상품 개별 수정</h6>
 			</div>
 			<div class="card-body">
-				<form action="/product/modify" method="post" enctype="multipart/form-data">
+				<form action="/product/modify/process" method="post" enctype="multipart/form-data">
 					<div>
 						<label for="pcommonid">공통상품코드</label>
 						<input name="pcommonid" th:value="${orgData.pcommonid}" class="form-control" placeholder="'_'로 구분 되지 않는 공통상품코드를 입력하세요" required disabled />
@@ -97,18 +97,21 @@
 					<label for="depth1">카테고리 설정</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD1name" th:value="${orgData.d1name}">
 							<select id="d1name" name="d1name" class="form-control" required>
 								<option value="">대분류</option>
 								<option th:selected="${orgData.d1name == depth1Obj.d1name}" th:value="${depth1Obj.d1name}" th:text="${depth1Obj.d1name}" th:each="depth1Obj:${d1nameList}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD2name" th:value="${orgData.d2name}">
 							<select id="d2name" name="d2name" class="form-control" required>
 								<option value="">중분류</option>
 								<option th:selected="${orgData.d2name == depth2Obj.d2name}" th:value="${depth2Obj.d2name}" th:text="${depth2Obj.d2name}" th:each="depth2Obj:${d2nameList}"></option>
 							</select>
 						</div>
 						<div class="form-group col-md-3">
+							<input type="hidden" name="hiddenD3name" th:value="${orgData.d3name}">
 							<select id="d3name" name="d3name" class="form-control" required>
 								<option value="">소분류</option>
 								<option th:selected="${orgData.d3name == depth3Obj.d3name}" th:value="${depth3Obj.d3name}" th:text="${depth3Obj.d3name}" th:each="depth3Obj:${d3nameList}"></option>

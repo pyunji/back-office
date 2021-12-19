@@ -44,6 +44,9 @@
 			$(".modal-depth").text(product.d1name + " > " + product.d2name + " > " + product.d3name);
 			$(".modal-pstockid").text("상품코드 : " + product.pstockid);
 			$("#hidden-pstockid").val(product.pstockid);
+			$("#hidden-d1name").val(product.d1name);
+			$("#hidden-d2name").val(product.d2name);
+			$("#hidden-d3name").val(product.d3name);
 			$(".modal-img1").attr("src", product.img1);
 			$(".modal-pnote").text(product.pnote);
 			$(".modal-pprice").text('가격 : ₩ ' + product.pprice.toLocaleString());
@@ -53,6 +56,7 @@
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
+		  <form action="/product/modify" method="post">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		      	<div>
@@ -68,7 +72,10 @@
 		        </div>
 		        <br/>
 		      	<div>
-		      		<input type="hidden" id="hidden-pstockid">
+		      		<input type="hidden" id="hidden-pstockid" name="hiddenPstockid">
+		      		<input type="hidden" id="hidden-d1name" name="hiddenD1name">
+		      		<input type="hidden" id="hidden-d2name" name="hiddenD2name">
+		      		<input type="hidden" id="hidden-d3name" name="hiddenD3name">
 		      		<p class="modal-pstockid"></p>
 		      	</div>
 		        <div>
@@ -87,17 +94,13 @@
 		        </div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary btn-sm" onclick="modify()">상품 정보 수정하기</button>
+		        <input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close"/>
+		        <button class="btn btn-primary btn-sm">상품 정보 수정하기</button>
 		        <script>
-		        function modify() {
-		        	let pstockid = $("#hidden-pstockid").val();
-		        	let URI = "/product/modify?pstockid="+pstockid;
-		        	location.href=URI;
-		        }
 		        </script>
 		      </div>
 		    </div>
+		    </form>
 		  </div>
 		</div>
 		<!--/* 페이징 처리 부분*/-->

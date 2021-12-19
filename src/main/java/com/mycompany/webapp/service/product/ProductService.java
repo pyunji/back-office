@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.mycompany.webapp.dto.product.Brand;
 import com.mycompany.webapp.dto.product.Depth1;
+import com.mycompany.webapp.dto.product.ModifyForm;
 import com.mycompany.webapp.dto.product.ProductDto;
 import com.mycompany.webapp.dto.product.ProductModifyDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
@@ -122,11 +123,14 @@ public class ProductService {
 		if(productInfo.getD1name() != null) 				builder.part("d1name", productInfo.getD1name());
 		if(productInfo.getD2name() != null) 				builder.part("d2name", productInfo.getD2name());
 		if(productInfo.getD3name() != null) 				builder.part("d3name", productInfo.getD3name());
+		if(productInfo.getHiddenD1name() != null) 			builder.part("hiddenD1name", productInfo.getHiddenD1name());
+		if(productInfo.getHiddenD2name() != null) 			builder.part("hiddenD2name", productInfo.getHiddenD2name());
+		if(productInfo.getHiddenD3name() != null) 			builder.part("hiddenD3name", productInfo.getHiddenD3name());
 		if(productInfo.getWcolorid() != null) 				builder.part("wcolorid", productInfo.getWcolorid());
 		WebClient webClient = WebClient.create();
 		ProductDto result = webClient
 				.post()
-				.uri("http://localhost:83/product/modify")
+				.uri("http://localhost:83/product/modify/process")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(builder.build()))
 				.retrieve()
@@ -136,12 +140,13 @@ public class ProductService {
 		return result;
 	}
 	
-	public ProductDto getOrgData(String pstockid) {
-		String URI = "http://localhost:83/product/modify?pstockid=" + pstockid;
+	public ProductDto getOrgData(ModifyForm productInfo) {
+		String URI = "http://localhost:83/product/modify";
 		WebClient webClient = WebClient.create();
 		ProductDto orgData = webClient
-			.get()
+			.post()
 			.uri(URI)
+			.body(BodyInserters.fromValue(productInfo))
 			.retrieve()
 			.bodyToMono(ProductDto.class)
 			.block();
