@@ -20,6 +20,7 @@ import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.Depth2;
 import com.mycompany.webapp.dto.product.Depth3;
 import com.mycompany.webapp.dto.product.ProductDto;
+import com.mycompany.webapp.dto.product.ProductModifyDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.dto.product.Sizes;
@@ -82,9 +83,9 @@ public class ProductController {
 			Model model, 
 			@RequestParam String pstockid
 			) {
-		ProductRegisterDto orgData = productService.getOrgData(pstockid);
+		ProductDto orgData = productService.getOrgData(pstockid);
 		model.addAttribute("orgData", orgData);
-		
+		log.info("orgData = " + orgData);
 		/* 초기 select 태그에 들어갈 값 세팅 시작 */
 		List<Depth1> d1nameList = productService.getDepth1();
 		model.addAttribute("d1nameList", d1nameList);
@@ -100,6 +101,13 @@ public class ProductController {
 		/* 초기 select 태그에 들어갈 값 세팅 끝 */
 		
 		return "product/modify";
+	}
+	
+	@PostMapping("/modify")
+	public String modify(@ModelAttribute ProductModifyDto modifyProduct) {
+		log.info("modifyProduct = " + modifyProduct);
+		productService.modifyProduct(modifyProduct);
+		return "redirect:/product/list";
 	}
 	
 	@RequestMapping("/category")
