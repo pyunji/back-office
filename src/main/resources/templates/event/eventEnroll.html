@@ -11,7 +11,7 @@
 				<h6 class="m-0 font-weight-bold text-primary">이벤트 등록</h6>
 			</div>
 			<div class="card-body">
-				<form id="eventEnroll" method="post" action="add">
+				<form id="eventEnroll" method="post" action="/event/add" enctype="multipart/form-data">
 				
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-6">
@@ -22,7 +22,7 @@
 					
 					<div class="form-row">
 						<div class=" form-group col-md-8">
-							<label for="enote">이벤트 내용</label>
+							<label for="econtent">이벤트 내용</label>
 							<textarea id="econtent" type="text" name="econtent" class="form-control" placeholder="이벤트 내용을 입력하세요"></textarea>
 						</div>
 					</div>
@@ -50,23 +50,91 @@
 					
 					<label>이미지 등록</label>
 					<div class="form-row">
-						<div class="form-group col-md-10">
+						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 등록</span>
 								</div>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="eimg" name="eimg" aria-describedby="inputGroupFileAddon01">
-									<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+									<input id="eimg" type="file" name="eimg" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<label class="custom-file-label" for="eimg">Choose file</label>
 								</div>
 							</div>
 						</div>
 					</div>
 					
-					<button class="btn btn-primary">등록</button>
+					<!-- <button class="btn btn-primary btn-sm mt-5">등록</button> -->
+					<input type="button" class="btn btn-primary btn-sm mt-5" value="등록"
+					 data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal"/>
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div>
+										<h5>다음과 같이 이벤트를 추가합니다.</h5>
+										<h5 class="modal-etitle" style="font-weight: bold;" id="exampleModalLabel"></h5>
+									</div>
+									<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										<h5 class="modal-econtent"></h5>
+									</div>
+									<hr />
+									<div>
+										<span class="modal-eissueDate"></span>
+									</div>
+									<br />
+									<div>
+										<span class="modal-eexpireDate"></span>
+									</div>
+									<hr/>
+									<div>
+										<span class="modal-elimitCount"></span>
+									</div>
+									<hr/>
+									<div>
+										<img class="modal-eimg" width="50%" alt="" src="">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close"/>
+									<button class="btn btn-primary btn-sm">등록</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</form>
+
 			</div>
 		</div>
+		<script>
+			$('#eimg').change(function() {
+				setImageFromFile(this, '.modal-eimg');
+			});
+			$(document).on('change', '.custom-file-input', function(event) {
+				$(this).next('.custom-file-label').html(event.target.files[0].name);
+			});
+			function setImageFromFile(input, expression) {
+				if (input.files && input.files[0]) {
+					let reader = new FileReader();
+					reader.onload = function(e) {
+						$(expression).attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			function setModal() {
+				$(".modal-etitle").text($("input[name='etitle']").val());
+				$(".modal-econtent").text($("textarea[name='econtent']").val());
+				$(".modal-eissueDate").text("이벤트 시작 날짜 : " + $("input[name='eissueDate']").val());
+				$(".modal-eexpireDate").text("이벤트 종료 날짜 : " + $("input[name='eexpireDate']").val());
+				$(".modal-elimitCount").text("이벤트 당첨 인원 수 : " + $("input[name='elimitCount']").val());
+			}
+		</script>
 	</th:block>
 </th:block>
 </html>

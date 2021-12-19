@@ -2,13 +2,13 @@ package com.mycompany.webapp.controller.member;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,20 +42,20 @@ public class EventController {
 	}
 	
 	@PostMapping("/add")
-	public String addEvent(NewEvent nevent) throws ParseException {
+	public String addEvent(@ModelAttribute NewEvent nevent) throws ParseException {
 		log.info("addEvent 실행");
 		
-		Event event = new Event();
-		event.setEtitle(nevent.getEtitle());
-		event.setEcontent(nevent.getEcontent());
-		formater = new SimpleDateFormat("yyyy-MM-dd");
-		event.setEissueDate(formater.parse(nevent.getEissueDate()));
-		event.setEexpireDate(formater.parse(nevent.getEexpireDate()));
-		event.setElimitCount(nevent.getElimitCount());
-		event.setEimg(nevent.getEimg());
+//		Event event = new Event();
+//		event.setEtitle(nevent.getEtitle());
+//		event.setEcontent(nevent.getEcontent());
+//		formater = new SimpleDateFormat("yyyy-MM-dd");
+//		event.setEissueDate(formater.parse(nevent.getEissueDate()));
+//		event.setEexpireDate(formater.parse(nevent.getEexpireDate()));
+//		event.setElimitCount(nevent.getElimitCount());
+//		event.setEimg(nevent.getEimg());
 		
-		log.info(event.toString());
-		String result = eventService.addEvent(event);
+		log.info(nevent.toString());
+		String result = eventService.addEvent(nevent);
 		log.info("result : "+ result);
 		return "redirect:/event/eventEnroll";
 	}
