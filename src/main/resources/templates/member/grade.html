@@ -76,6 +76,7 @@
 								<th>등급명</th>
 								<th>등급별 혜택</th>
 								<th>등급별 조건</th>
+								<th>이미지</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,6 +84,7 @@
 								<td>[[${grade.glevel}]] Level</td>
 								<td>[[${grade.grate}]]% 추가적립</td>
 								<td>[[${grade.gnote}]]</td>
+								<td><img id = "logo" th:src="${grade.gimg}"></td>
 							</tr>
 						</tbody>
 					</table>
