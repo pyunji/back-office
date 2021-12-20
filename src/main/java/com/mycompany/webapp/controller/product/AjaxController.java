@@ -90,4 +90,11 @@ public class AjaxController {
 		ajaxService.returnFromBin(products);
 		return "redirect:/product/bin";
 	}
+	
+	@PostMapping("/permDel")
+	public String permDel(@RequestBody List<String> products) {
+		log.info("permDelIds = " + products);
+		ajaxService.permDel(products);
+		return "redirect:/product/bin";
+	}
 }
