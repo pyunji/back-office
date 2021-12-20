@@ -56,6 +56,7 @@ public class AjaxController {
 		model.addAttribute("productList", productList);
 
 		model.addAttribute("pager", productResult.getPager());
+		model.addAttribute("searchForm", searchForm);
 		log.info("최종적으로 가져온 productList" + productList.toString());
 		log.info("pager = "+ productResult.getPager());
 		log.info("pager.getTotalRows() = "+ productResult.getPager().getTotalRows());
