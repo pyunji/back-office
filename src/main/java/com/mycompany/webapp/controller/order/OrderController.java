@@ -19,9 +19,14 @@ public class OrderController {
 	public String getOrderList(Model model, HttpSession session) {
 		
 		Pager pager = new Pager();
-
+			
 		
 		return "order/orderList";
+	}
+	
+	@RequestMapping("/dashboard")
+	public String getDashboard() {
+		return "order/dashboard";
 	}
 	
 }
