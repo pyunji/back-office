@@ -150,9 +150,38 @@ function selectProductCount() {
 		    </form>
 		  </div>
 		</div>
-		<input type="button" class="btn btn-sm btn-primary" value="선택상품 복원하기" onclick="returnFromBin()">
+		<input type="button" class="btn btn-sm btn-primary" value="선택상품 복원하기" onclick="returnFromBin()"/>
+		<input type="button" class="btn btn-sm btn-primary" value="영구삭제 테스트" onclick="permDel()"/>
 		<script>
-		
+		function permDel() {
+			// 선택된 상품을 가져온다
+			let checkedElems = $(".entryProductCheck:checked");
+			// 선택된 상품이 없는 경우
+			if (checkedElems.length < 1) {
+				alert("상품을 선택해주세요.");
+			} else {
+				let dupProducts = [];
+				checkedElems.each(function() {
+					let pstockid = $(this).val();
+					dupProducts.push(pstockid);
+				});
+				let set = new Set(dupProducts);
+				let products = [...set];
+				console.log("products", products);
+				
+				let url = "/product/ajax/permDel";
+				$.ajax({
+					url,
+					method: "post",
+					data: JSON.stringify(products),
+					contentType: 'application/json',
+					success: function(result) {
+						alert("영구 삭제 되었습니다.");
+						window.location.href="/product/bin";
+					}
+				});
+			}
+		}
 		function returnFromBin() {
 			// 선택된 상품을 가져온다
 			let checkedElems = $(".entryProductCheck:checked");

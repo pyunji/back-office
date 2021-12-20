@@ -100,4 +100,15 @@ public class AjaxService {
 				.block();
 		return result;
 	}
+	public String permDel(List<String> products) {
+		WebClient webClient = WebClient.create();
+		String result = webClient
+				.post()
+				.uri("http://localhost:83/product/permdel")
+				.body(BodyInserters.fromValue(products))
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		return result;
+	}
 }
