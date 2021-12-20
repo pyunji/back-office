@@ -19,4 +19,5 @@ public class EventVo {
 	private Integer ecount;
 	private String eimg;
 	private Integer estatus;
+	private String ethumbnail;
 }

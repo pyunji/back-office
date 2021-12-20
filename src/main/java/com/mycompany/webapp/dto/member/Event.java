@@ -17,4 +17,5 @@ public class Event {
 	private Integer ecount;
 	private MultipartFile eimg;
 	private Integer estatus;
+	private MultipartFile ethumbnail;
 }

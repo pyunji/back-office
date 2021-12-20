@@ -1,9 +1,12 @@
 package com.mycompany.webapp.controller.member;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.webapp.dto.Pager;
-import com.mycompany.webapp.dto.member.Event;
 import com.mycompany.webapp.dto.member.EventResult;
 import com.mycompany.webapp.dto.member.EventSearchForm;
 import com.mycompany.webapp.dto.member.NewEvent;
@@ -42,7 +44,7 @@ public class EventController {
 	}
 	
 	@PostMapping("/add")
-	public String addEvent(@ModelAttribute NewEvent nevent) throws ParseException {
+	public void addEvent(@ModelAttribute NewEvent nevent,HttpServletResponse response) throws ParseException, IOException {
 		log.info("addEvent 실행");
 		
 //		Event event = new Event();
@@ -57,7 +59,16 @@ public class EventController {
 		log.info(nevent.toString());
 		String result = eventService.addEvent(nevent);
 		log.info("result : "+ result);
-		return "redirect:/event/eventEnroll";
+		
+		response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>");
+        out.println("alert('이벤트가 등록되었습니다.');");
+        out.println("window.location.href= '/event/eventEnroll';");
+        out.println("</script>"); 
+        out.flush();
+		
+		//return "redirect:/event/eventEnroll";
 	}
 	
 	@PostMapping("/result")
