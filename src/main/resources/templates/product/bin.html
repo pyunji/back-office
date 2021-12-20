@@ -4,8 +4,8 @@
 	<th:block th:fragment="content">
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">상품 조회</h1>
-		<p class="mb-4">상품을 조회한 후 수정하고 삭제할 수 있습니다.</p>
+		<h1 class="h3 mb-2 text-gray-800">휴지통 조회</h1>
+		<p class="mb-4">휴지통 상품을 조회한 후 복원할 수 있습니다.</p>
 		<div class="card shadow mb-4">
 			<div class="card-header">
 				<h6 class="m-0 font-weight-bold text-primary">상품 검색</h6>
@@ -26,7 +26,7 @@
 						<input type="hidden" id="bname" name="bname">
 					</div>
 					<hr />
-					<label>기간 조회</label>
+					<label>등록 날짜 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
 							<input type="date" id="startRegDate" name="startRegDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
@@ -36,7 +36,16 @@
 							<input type="date" id="endRegDate" name="endRegDate" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
 						</div>
 					</div>
-
+					<label>삭제 날짜 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<input type="date" id="startDelDate" name="startDelDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="date" id="endDelDate" name="endDelDate" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
+						</div>
+					</div>
 					<label>재고 범위별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
@@ -118,6 +127,9 @@
 					<input type="button" class="btn btn-primary btn-sm" value="검색" onclick="searchProduct()"/>
 				</form>
 				<script>
+				
+				$(document).ready(searchProduct());
+				
 				function searchProduct(pageNo=1) {
 					/* gubun은 pstockid, pname, bname중 하나이다 */
 					let gubun = $("#gubun").val();
@@ -127,6 +139,8 @@
 					
 					let startRegDate = $("#startRegDate").val();
 					let endRegDate = $("#endRegDate").val();
+					let startDelDate = $("#startDelDate").val();
+					let endDelDate = $("#endDelDate").val();
 					let minStock = $("#minStock").val();
 					let maxStock = $("#maxStock").val();
 					let d1name = $("#d1name").val();
@@ -137,6 +151,8 @@
 							[gubun] : gubunField,
 							startRegDate,
 							endRegDate,
+							startDelDate,
+							endDelDate,
 							minStock,
 							maxStock,
 							d1name,
@@ -146,7 +162,7 @@
 					};
 					console.log(data);
 					
-					var url = "/product/ajax/result";
+					var url = "/product/ajax/bin/result";
 					$.ajax({
 						url:url,
 						method: "post",
@@ -175,9 +191,6 @@
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>
-									<input type="checkbox">
-								</th>
 								<th>상품번호</th>
 								<th>이름</th>
 								<th>사이즈</th>

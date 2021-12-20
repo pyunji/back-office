@@ -26,10 +26,31 @@
 						<td th:text="${#dates.format(event.eexpireDate,'yyyy-MM-dd')}"></td>
 						<td>[[${event.elimitCount}]]</td>
 						<td>[[${event.ecount}]]</td>
-						<td><button class="btn btn-primary">대표 이미지 보기</button></td>
+						<!-- <td><button class="btn btn-primary" data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal">대표 이미지 보기</button></td> -->
+						<td><img id = "logo" th:src="${event.eimg}" width="50" height="50"></td>
 						<td th:if="${event.estatus}==0">진행예정</td>
 						<td th:if="${event.estatus}==1">진행중</td>
 						<td th:if="${event.estatus}==2">종료</td>
+						<!-- Modal -->
+						<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div>
+											<h5>대표 이미지</h5>
+										</div>
+										<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div>
+											<img class="modal-eimg" width="50%" alt="" >
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
 					</tr>
 				</tbody>
 			</table>

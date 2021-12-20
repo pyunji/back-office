@@ -116,12 +116,10 @@ public class ProductController {
 		return "product/category";
 	}
 	
-	@PostMapping("/list/result")
-	public String listResult(@ModelAttribute SearchForm searchForm) {
-		log.info("searchForm = " + searchForm);
-		if (searchForm.getPstockid() != "") {
-			
-		}
-		return "product/productListResult";
+	@GetMapping("/bin")
+	public String recycleBin(Model model) {
+		List<Depth1> d1nameList = productService.getDepth1();
+		model.addAttribute("d1nameList", d1nameList);
+		return "product/bin";
 	}
 }
