@@ -53,10 +53,23 @@
 						<div class="form-group col-md-6">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupFileAddon01">대표 이미지 등록</span>
+									<span class="input-group-text" id="inputGroupFileAddon01">이벤트 썸네일 등록</span>
 								</div>
 								<div class="custom-file">
-									<input id="eimg" type="file" name="eimg" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<input id="ethumbnail" type="file" name="ethumbnail" class="custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+									<label class="custom-file-label" for="ethumbnail">Choose file</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroupFileAddon02">대표 이미지 등록</span>
+								</div>
+								<div class="custom-file">
+									<input id="eimg" type="file" name="eimg" class="custom-file-input" aria-describedby="inputGroupFileAddon02" required>
 									<label class="custom-file-label" for="eimg">Choose file</label>
 								</div>
 							</div>
@@ -97,6 +110,12 @@
 									</div>
 									<hr/>
 									<div>
+										<p>이벤트 썸네일</p>
+										<img class="modal-ethumbnail" width="50%" alt="" src="">
+									</div>
+									<hr/>
+									<div>
+										<p>대표 이미지</p>
 										<img class="modal-eimg" width="50%" alt="" src="">
 									</div>
 								</div>
@@ -112,6 +131,9 @@
 			</div>
 		</div>
 		<script>
+			$('#ethumbnail').change(function() {
+				setImageFromFile(this, '.modal-ethumbnail');
+			});
 			$('#eimg').change(function() {
 				setImageFromFile(this, '.modal-eimg');
 			});
