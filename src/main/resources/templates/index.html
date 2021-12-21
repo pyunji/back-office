@@ -4,9 +4,7 @@
 <th:block th:replace="~{common/layout::setLayout(~{this::content})}">
 	<th:block th:fragment="content">
 		<!-- Page Heading -->
-			<div>[[${statByDay}]]</div>
-			<div>[[${statByMonth}]]</div>
-			<div>[[${statByYear}]]</div>
+
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 			<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -189,11 +187,95 @@
 				}
 				console.log(totalPrice);
 				
+				var inputMonth1;
+				var inputMonth2;
+				var inputMonth3;
+				var inputMonth4;
+				var inputMonth5;
+				var inputMonth6;
+				var inputMonth7;
+				var inputMonth8;
+				var inputMonth9;
+				var inputMonth10;
+				var inputMonth11;
+				var inputMonth12;
 				
-				var inputtest = [[${statByMonth}]]["statDtoList"][0]["day"];
-				var inputtest2 = [[${statByMonth}]]["statDtoList"][0]["sumbyday"];
-				this.inputtest = inputtest;
-				console.log(test);
+				var inputPrice1;
+				var inputPrice2;
+				var inputPrice3;
+				var inputPrice4;
+				var inputPrice5;
+				var inputPrice6;
+				var inputPrice7;
+				var inputPrice8;
+				var inputPrice9;
+				var inputPrice10;
+				var inputPrice11;
+				var inputPrice12;
+				
+				
+				
+					var inputtest = [[${statByMonth}]]["statDtoList"][0]["day"];
+					var inputtest2 = [[${statByMonth}]]["statDtoList"][0]["sumbyday"];
+					this.inputMonth1 = inputtest;
+					this.inputPrice1 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][1]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][1]["sumbyday"];
+					this.inputMonth2 = inputtest;
+					this.inputPrice2 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][2]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][2]["sumbyday"];
+					this.inputMonth3 = inputtest;
+					this.inputPrice3 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][3]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][3]["sumbyday"];
+					this.inputMonth4 = inputtest;
+					this.inputPrice4 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][4]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][4]["sumbyday"];
+					this.inputMonth5 = inputtest;
+					this.inputPrice5 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][5]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][5]["sumbyday"];
+					this.inputMonth6 = inputtest;
+					this.inputPrice6 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][6]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][6]["sumbyday"];
+					this.inputMonth7 = inputtest;
+					this.inputPrice7 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][7]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][7]["sumbyday"];
+					this.inputMonth8 = inputtest;
+					this.inputPrice8 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][8]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][8]["sumbyday"];
+					this.inputMonth9 = inputtest;
+					this.inputPrice9 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][9]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][9]["sumbyday"];
+					this.inputMonth10 = inputtest;
+					this.inputPrice10 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][10]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][10]["sumbyday"];
+					this.inputMonth11 = inputtest;
+					this.inputPrice11 = inputtest2;
+					
+					 inputtest = [[${statByMonth}]]["statDtoList"][11]["day"];
+					 inputtest2 = [[${statByMonth}]]["statDtoList"][11]["sumbyday"];
+					this.inputMonth12 = inputtest;
+					this.inputPrice12 = inputtest2;
+			
+
 				
 				//console.log(test["statDtoList"]);
 				//var test2 = test.val();
