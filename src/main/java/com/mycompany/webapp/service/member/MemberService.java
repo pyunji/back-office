@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.mycompany.webapp.dto.member.Grade;
+import com.mycompany.webapp.dto.member.GradeAdmin;
 import com.mycompany.webapp.dto.member.Member;
 import com.mycompany.webapp.dto.member.MemberResult;
 import com.mycompany.webapp.dto.member.MemberSearchForm;
@@ -78,5 +79,30 @@ public class MemberService {
 				.share()
 				.block();
 		return grades;
+   }
+   
+   public GradeAdmin getGradeAdmin() {
+	   WebClient webClient = WebClient.create();
+		GradeAdmin gradeAdmin = webClient
+				.get()
+				.uri("http://localhost:83/member/grade/policy")
+				.retrieve()
+				.bodyToMono(GradeAdmin.class)
+				.block();
+		return gradeAdmin;
+   }
+   
+   public String updateGradeAdmin(GradeAdmin gradeAdmin) {
+	   log.info(gradeAdmin.toString());
+	   WebClient webClient = WebClient.create();
+	   String result = webClient
+            .post()
+            .uri("http://localhost:83/member/grade/policy/update")
+            .body(BodyInserters.fromValue(gradeAdmin))
+			.retrieve()
+			.bodyToMono(String.class)
+			.share()
+			.block();
+      return result;
    }
 }

@@ -47,15 +47,6 @@ public class EventController {
 	public void addEvent(@ModelAttribute NewEvent nevent,HttpServletResponse response) throws ParseException, IOException {
 		log.info("addEvent 실행");
 		
-//		Event event = new Event();
-//		event.setEtitle(nevent.getEtitle());
-//		event.setEcontent(nevent.getEcontent());
-//		formater = new SimpleDateFormat("yyyy-MM-dd");
-//		event.setEissueDate(formater.parse(nevent.getEissueDate()));
-//		event.setEexpireDate(formater.parse(nevent.getEexpireDate()));
-//		event.setElimitCount(nevent.getElimitCount());
-//		event.setEimg(nevent.getEimg());
-		
 		log.info(nevent.toString());
 		String result = eventService.addEvent(nevent);
 		log.info("result : "+ result);

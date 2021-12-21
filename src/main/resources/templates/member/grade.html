@@ -12,55 +12,79 @@
 				<h6 class="m-0 font-weight-bold text-primary">고객등급 등록</h6>
 			</div>
 			<div class="card-body">
+				<!-- <form id="updateGradePolicy" method="post" action="/grade/policy"> -->
 				<form action="">
 					<div>
-						<label for="grade_aplct_period">적용 기간</label>
-							<div class="mt-2 ml-5">
-								<div class="form-check">
-								  <label class="form-check-label">
-								    <input type="radio" class="form-check-input" name="optradio">즉시 적용
-								  </label>
-								</div>
-								<div class="form-check">
-								  <label class="form-check-label">
-								    <input type="radio" class="form-check-input" name="optradio">다음달 1일부터 적용
-								  </label>
-								</div>
+						<label>등급 기준</label>
+						<div class="mt-2 ml-2">
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="criteria" id="criteria1" value="1">총 주문 금액
+							  </label>
 							</div>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="criteria" id="criteria2" value="2">총 주문 횟수
+							  </label>
+							</div>
+						</div>
 					</div>
+					<script>
+						$('input[name=criteria]').each(function(index) {
+							if($(this).val()=="[[${gradeAdmin.gradeCriteria}]]") {
+								$(this).val("[[${gradeAdmin.gradeCriteria}]]").prop("checked",true);
+							}
+						});
+					</script>
 
-
-					<hr />
-
-					<label>등급 기준</label>
-					<div class="ml-5">
-						<div class="form-check mt-2">
+					<label class="mt-5">등급 측정 기준 기간</label>
+					<div class="mt-2 ml-2">최근</div> 
+					<div class="mt-2 ml-2">
+						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input" name="optradio">주문 금액
+						    <input type="radio" class="form-check-input" name="period" id="period1" value="1">1일(매일 자정 갱신)
 						  </label>
 						</div>
-						<div class="form-check">
+						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input" name="optradio">주문 횟수
+						    <input type="radio" class="form-check-input" name="period" id="period2" value="2">1개월(매월 1일 갱신)
 						  </label>
 						</div>
-						
-						<hr/>
-						
-						<p>
-							<div class="btn-group">최근
-							  <button type="button" class="btn btn-primary ml-2">1일</button>
-							  <button type="button" class="btn btn-primary">1주일</button>
-							  <button type="button" class="btn btn-primary">1개월</button>
-							</div>
-						동안 구매확정한 주문건
-						</p>						
-						
+						<div class="form-check-inline disabled">
+						  <label class="form-check-label">
+						    <input type="radio" class="form-check-input" name="period" id="period3" value="3">6개월
+						  </label>
+						</div>
 					</div>
+					<div class="mt-2 ml-2">동안 취소되지 않은 주문 건 기준으로 평가</div>
+					<script>
+						$('input[name=period]').each(function(index) {
+							if($(this).val()=="[[${gradeAdmin.criteriaPeriod}]]") {
+								$(this).val("[[${gradeAdmin.criteriaPeriod}]]").prop("checked",true);
+							}
+						});
+					</script>
 
-					<button class="btn btn-primary mt-5">저장</button>
+					<input type="button" class="btn btn-primary mt-4" value="변경" onclick="updateGradePolicy()"/>
 				</form>
-
+				<script>
+				function updateGradePolicy() {
+					let id = 'admin';
+					let gradeCriteria = $('input[name="criteria"]:checked').val();
+					let criteriaPeriod = $('input[name="period"]:checked').val();
+					data = {id,gradeCriteria,criteriaPeriod};
+					
+					$.ajax({
+		        		url:"/member/grade/policy/update",
+		        		method:"post",
+		        		data:data,
+		        		success:function(data) {
+		        			alert("등급 정책이 수정되었습니다.");
+		        			window.location.href= "/member/grade";
+		        		}
+		        	});
+				}
+				</script>
 			</div>
 		</div>
 
