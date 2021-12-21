@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Brand {
-	Integer bno;
-	String bname;
+	Integer totalPrice;
+	Integer totalCount;
 }

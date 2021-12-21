@@ -4,14 +4,20 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
+var bnameTest0 = $(bname0).val();
+var price0 = $(totalprice0).val();
+var bnameTest1 = $(bname1).val();
+var price1 = $(totalprice1).val();
+var bnameTest2 = $(bname2).val();
+var price2 = $(totalprice2).val();
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: [bnameTest0, bnameTest1, bnameTest2],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [price0, price1, price2],
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#4e73df' ],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#2e59d9'],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },

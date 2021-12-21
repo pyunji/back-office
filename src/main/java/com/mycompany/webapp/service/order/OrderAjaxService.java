@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.mycompany.webapp.dto.order.CancelOid;
+import com.mycompany.webapp.dto.order.OrderProductResult;
 import com.mycompany.webapp.dto.order.OrderResult;
 import com.mycompany.webapp.dto.order.OrderSearchForm;
 
@@ -22,5 +24,32 @@ public class OrderAjaxService {
 //				.share()
 				.block();
 		return orderResult;
+	}
+	public OrderProductResult getSearchProductResult(OrderSearchForm orderSearchForm) {
+		WebClient webClient = WebClient.create();
+		OrderProductResult orderProductResult = webClient
+				.post()
+				.uri("http://localhost:83/product/search/productResult")
+				.body(BodyInserters.fromValue(orderSearchForm))
+				.retrieve()
+				.bodyToMono(OrderProductResult.class)
+//				.collectList()
+//				.share()
+				.block();
+		return orderProductResult;
+	}
+	public String cancelOrderResult(CancelOid cancelOid) {
+		WebClient webClient = WebClient.create();
+		String stateOrderCancel = webClient
+				.post()
+				.uri("http://localhost:83/order/cancelOrder")
+				.body(BodyInserters.fromValue(cancelOid))
+				.retrieve()
+				.bodyToMono(String.class)
+			//	.collectList()
+			//	.share()
+				.block();
+		return stateOrderCancel;
+		
 	}
 }

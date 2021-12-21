@@ -1,59 +1,142 @@
 
-	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
-	</div>
-	<div class="card-body">
-		<div class="table-responsive">
-			<table class="table table-bordered m-1" id="dataTable" width="100%" cellspacing="0">
-				<thead>
-					<tr>
-						<th>주문번호</th>
-						<th>주문자</th>
-						<th>우편번호</th>
-						<th>주소</th>
-						<th>받는 사람</th>
-						<th>핸드폰</th>
-						<th>전화번호</th>
-						<th>이메일</th>
-						<th>배송 메모</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="order : ${orderList}">
-						<td>
-							<a href="#">[[${order.oid}]]</a>
-						</td>
-						<td>[[${order.mid}]]</td>
-						<td>[[${order.ozipcode}]]</td>
-						<td>[[${order.oaddress}]]</td>
-						<td>[[${order.oreceiver}]]</td>
-						<td>[[${order.ophone}]]</td>
-						<td>[[${order.otel}]]</td>
-						<td>[[${order.oemail}]]</td>
-						<td>[[${order.memo}]]</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<!--/* 페이징 처리 부분*/-->
-		<!-- <th:block th:if="${session.pager != null}"> -->
-		<div class="row-vw d-flex">
-			<div class="mx-auto">
-				<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
-				<a href="javascript:void(0)" class="paginigBtn" onclick="searchOrder(1)">처음</a>
-				<th:block th:if="${pager.getGroupNo()>1}">
-					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchOrder([[${pager.getStartPageNo()-1}]])">이전</a>
-				</th:block>
-				<th:block th:each="i : ${#numbers.sequence(pager.getStartPageNo(), pager.getEndPageNo())}">
-					<a href="javascript:void(0)" class="paginigBtn" th:classappend="${pager.getPageNo() == i}?'check':''" th:styleappend="${pager.getPageNo() == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''" 
-					th:onclick="searchProduct([[${i}]])">[[${i}]]</a>
-				</th:block>
+<div class="card-header py-3">
+	<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
+</div>
+<div class="card-body">
+	<div class="table-responsive">
+		<table class="table table-bordered m-1" id="dataTable" width="100%"
+			cellspacing="0">
+			<thead>
+				<tr style="width:150px;">
+					<th><input type="checkbox" id="checkAllOrders"
+						name="checkboxname"></th>
+					<th>인덱스 번호</th>
+					<th>주문번호</th>
+					<th >주문자ID</th>
+					<th>상풍명</th>
+					<th>상품갯수</th>
+					<th>결제금액</th>
+					<th>결제수단</th>
+					<th>결제상태</th>
+					<th>배송상태</th>
+					<th>이메일</th>
+					<th>배송 메모</th>
+					<th>우편 번호</th>
+					<th>배송지</th>
+					<th>받는사람</th>
+					<th>핸드폰</th>
+					<th>전화번호</th>
+					<th>주문 날짜</th>
 
-				<th:block th:if="${pager.getGroupNo()<pager.getTotalGroupNo()}">
-					<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchOrder([[${pager.getEndPageNo()+1}]])">다음</a>
-				</th:block>
-				<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchOrder([[${pager.getTotalPageNo()}]])">맨끝</a>
-			</div>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orderList}">
+					<td ><input type="checkbox"
+						th:id="${'checkTest'+ orderStat.index}" th:value="${order.oid}"
+						name="chk"></td>
+					<td><a href="#">[[${order.oid}]]</a></td>
+					<td>[[${order.mid}]]</td>
+					<td>[[${{order.pstockid}}]]</td>
+					<td>[[${order.ocount}]]</td>
+					<td>[[${order.totalPrice}]]</td>
+					<td>[[${order.paymentMethodCode}]]</td>
+					<td>[[${order.ostatus}]]</td>
+					<td>[[${order.deliveryStatus}]]</td>
+					<td>[[${order.oemail}]]</td>
+					<td>[[${order.memo}]]</td>
+					<td>[[${order.ozipcode}]]</td>
+					<td>[[${order.oaddress}]]</td>
+					<td>[[${order.oreceiver}]]</td>
+					<td>[[${order.ophone}]]</td>
+					<td>[[${order.otel}]]</td>
+					<td>[[${order.odate}]]</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<input type="button" class="btn btn-primary]" onclick="cancelOrder()">주문 취소
+	</input>
+	<!--/* 페이징 처리 부분*/-->
+	<!-- <th:block th:if="${session.pager != null}"> -->
+	<div class="row-vw d-flex">
+		<div class="mx-auto">
+			<!--/* <c:set var="urlcontainer" value="${pageContext.request.contextPath}/product/${str}" /> */-->
+			<a href="javascript:void(0)" class="paginigBtn"
+				onclick="searchOrder(1)">처음</a>
+			<th:block th:if="${pager.getGroupNo()>1}">
+				<a href="javascript:void(0)" class="paginigBtn"
+					th:onclick="searchOrder([[${pager.getStartPageNo()-1}]])">이전</a>
+			</th:block>
+			<th:block
+				th:each="i : ${#numbers.sequence(pager.getStartPageNo(), pager.getEndPageNo())}">
+				<a href="javascript:void(0)" class="paginigBtn"
+					th:classappend="${pager.getPageNo() == i}?'check':''"
+					th:styleappend="${pager.getPageNo() == i}?'border: 1px solid; padding: 5px; border-radius: 20%; background-color: #295F39; color: #ffffff; font-weight: bold;':''"
+					th:onclick="searchProduct([[${i}]])">[[${i}]]</a>
+			</th:block>
+
+			<th:block th:if="${pager.getGroupNo()<pager.getTotalGroupNo()}">
+				<a href="javascript:void(0)" class="paginigBtn"
+					th:onclick="searchOrder([[${pager.getEndPageNo()+1}]])">다음</a>
+			</th:block>
+			<a href="javascript:void(0)" class="paginigBtn"
+				th:onclick="searchOrder([[${pager.getTotalPageNo()}]])">맨끝</a>
 		</div>
 	</div>
+</div>
+<script>
+	/* $( '#checkAllOrders' ).click( function() {
+		
+			
+			if($("input:checkbox[id='checkAllOrders']").prop("checked")){
+				
+				for(var i = 0; i < 10; i++){
+					let checkId = '#checkTest' + i;
+					$("input:checkbox[id='checkId']").prop("checked", true);
+				}
+			}
+			else{
+				for(var i = 0; i < 10; i++){
+					let checkId = '#checkTest' + i;
+					$("input:checkbox[id='checkId']").prop("checked", false);
+				}
+			}
+					
+			}); */
+	</script>
+		<script>
+			function cancelOrder(){
+				let cancelOid = [];
+				for(var i = 0; i < 10; i++){
+					let checkId = '#checkTest' + i;
+				if($(checkId).prop("checked")) {
+					cancelOid.push($(checkId).val());
+					console.log(cancelOid);
+					}
+				}
+			
+				data = {
+						cancelOid
+			};
+				console.log(data);
+				var url = "/order/ajax/cancelResult";
+			$.ajax({
+				url:url,
+				method: "post",
+				data: data,
+				success:function(result){
+				    if (result) {
+			              alert("완료");
+			              //window.location.href= "/order/list";
+
+			          } else {
+			              alert("전송된 값 없음");
+			          }
+
+					$("#result").html(result);
+				}
+			})
+			}
+			</script>
 <!-- 		</th:block>	 -->

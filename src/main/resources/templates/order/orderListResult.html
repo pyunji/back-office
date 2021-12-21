@@ -8,7 +8,7 @@
 		<p class="mb-4">상품을 조회한 후 수정하고 삭제할 수 있습니다.</p>
 
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mb-4" id="result">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 			</div>
@@ -18,33 +18,51 @@
 						cellspacing="0">
 						<thead>
 							<tr>
+								<th><input type="checkbox" name="chkall"></th>
 								<th>주문번호</th>
-								<th>주문자</th>
-								<th>우편번호</th>
-								<th>주소</th>
-								<th>받는 사람</th>
-								<th>핸드폰</th>
-								<th>전화번호</th>
+								<th>주문자ID</th>
+								<th>상풍명</th>
+								<th>상품갯수</th>
+								<th>결제금액</th>
+								<th>결제수단</th>
+								<th>결제상태</th>
+								<th>배송상태</th>
 								<th>이메일</th>
 								<th>배송 메모</th>
+								<th>우편 번호</th>
+								<th>배송지</th>
+								<th>받는사람</th>
+								<th>핸드폰</th>
+								<th>전화번호</th>
+								<th>주문 날짜</th>
+								
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="order : ${orderList}">
+								<td><input type="checkbox" name="chk"></td>
 								<td><a href="#">[[${order.oid}]]</a></td>
 								<td>[[${order.mid}]]</td>
+								<td></td>
+								<td>[[${order.ocount}]]</td>
+								<td>[[${order.totalPrice}]]</td>
+								<td>[[${order.paymentMethodCode}]]</td>
+								<td>[[${order.ostatus}]]</td>
+								<td>[[${order.deliveryStatus}]]</td>
+								<td>[[${order.oemail}]]</td>
+								<td>[[${order.memo}]]</td>
 								<td>[[${order.ozipcode}]]</td>
 								<td>[[${order.oaddress}]]</td>
 								<td>[[${order.oreceiver}]]</td>
 								<td>[[${order.ophone}]]</td>
 								<td>[[${order.otel}]]</td>
-								<td>[[${order.oemail}]]</td>
-								<td>[[${order.memo}]]</td>
+								<td>[[${order.odate}]]</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
+			<button type="button" id="test">체크파일</button>
 		</div>
 		<!-- /.container-fluid -->
 	</th:block>
