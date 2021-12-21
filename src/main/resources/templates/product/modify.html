@@ -29,7 +29,7 @@
 							<label for="bname">브랜드</label>
 							<select id="bname" name="bname" class="form-control" required>
 								<option value="">브랜드</option>
-								<option th:selected="${orgData.bname}" th:each="brandObj : ${brandList}" th:value="${brandObj.bname}" th:text="${brandObj.bname}">
+								<option th:selected="${orgData.bname == brandObj.bname}" th:each="brandObj : ${brandList}" th:value="${brandObj.bname}" th:text="${brandObj.bname}">
 							</select>
 						</div>
 					</div>

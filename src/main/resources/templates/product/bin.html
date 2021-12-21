@@ -4,8 +4,11 @@
 	<th:block th:fragment="content">
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800 font-weight-bold">상품 조회</h1>
-		<p class="mb-4">상품을 조회한 후 수정하고 삭제할 수 있습니다.</p>
+		<h1 class="h3 mb-4 text-gray-800 font-weight-bold">휴지통 조회</h1>
+		<h5 class="mb-4">삭제 후 <span class="font-weight-bold">30일</span>이 지난 상품은 
+			<span class="font-weight-bold">매월 1일</span> 데이터가 
+			<span class="font-weight-bold" style="color: red;">영구 삭제</span>됩니다.</h5>
+		<p class="mb-4">휴지통 상품을 조회한 후 복원할 수 있습니다.</p>
 		<div class="card shadow mb-4">
 			<div class="card-header">
 				<h6 class="m-0 font-weight-bold text-primary">상품 검색</h6>
@@ -26,7 +29,7 @@
 						<input type="hidden" id="bname" name="bname">
 					</div>
 					<hr />
-					<label>기간 조회</label>
+					<label>등록 날짜 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
 							<input type="date" id="startRegDate" name="startRegDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
@@ -36,7 +39,16 @@
 							<input type="date" id="endRegDate" name="endRegDate" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
 						</div>
 					</div>
-
+					<label>삭제 날짜 조회</label>
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<input type="date" id="startDelDate" name="startDelDate" class="form-control" placeholder="조회 시작 날짜" min="1990-01-01">
+						</div>
+						~
+						<div class="form-group col-md-3">
+							<input type="date" id="endDelDate" name="endDelDate" class="form-control" placeholder="조회 종료 날짜" max="2021-12-31">
+						</div>
+					</div>
 					<label>재고 범위별 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
@@ -118,6 +130,9 @@
 					<input type="button" class="btn btn-primary btn-sm" value="검색" onclick="searchProduct()"/>
 				</form>
 				<script>
+				
+				$(document).ready(searchProduct());
+				
 				function searchProduct(pageNo=1) {
 					/* gubun은 pstockid, pname, bname중 하나이다 */
 					let gubun = $("#gubun").val();
@@ -127,28 +142,30 @@
 					
 					let startRegDate = $("#startRegDate").val();
 					let endRegDate = $("#endRegDate").val();
+					let startDelDate = $("#startDelDate").val();
+					let endDelDate = $("#endDelDate").val();
 					let minStock = $("#minStock").val();
 					let maxStock = $("#maxStock").val();
 					let d1name = $("#d1name").val();
 					let d2name = $("#d2name").val();
 					let d3name = $("#d3name").val();
-					let sortBy = $("#sortBy").val();
 					
 					data = {
 							[gubun] : gubunField,
 							startRegDate,
 							endRegDate,
+							startDelDate,
+							endDelDate,
 							minStock,
 							maxStock,
 							d1name,
 							d2name,
 							d3name,
-							pageNo,
-							sortBy
+							pageNo
 					};
 					console.log(data);
 					
-					var url = "/product/ajax/result";
+					var url = "/product/ajax/bin/result";
 					$.ajax({
 						url:url,
 						method: "post",
@@ -177,24 +194,31 @@
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>
-									<input type="checkbox">
-								</th>
-								<th>상품코드</th>
+								<th>상품번호</th>
 								<th>이름</th>
-								<th>재고</th>
-								<th>판매량</th>
-								<th>등록날짜</th>
 								<th>사이즈</th>
 								<th>색상</th>
 								<th>가격</th>
+								<th>재고</th>
 								<th>브랜드명</th>
 								<th>대분류</th>
 								<th>중분류</th>
 								<th>소분류</th>
 							</tr>
 						</thead>
- 						<tbody>
+						<tbody>
+							<tr th:each="product : ${products}">
+								<td><a href="#">[[${product.pstockId}]]</a></td>
+								<td>[[${product.productName}]]</td>
+								<td>[[${product.sizeCode}]]</td>
+								<td>[[${product.colorCode}]]</td>
+								<td>[[${product.price}]]</td>
+								<td>[[${product.stock}]]</td>
+								<td>[[${product.brandName}]]</td>
+								<td>[[${product.depth1Name}]]</td>
+								<td>[[${product.depth2Name}]]</td>
+								<td>[[${product.depth3Name}]]</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

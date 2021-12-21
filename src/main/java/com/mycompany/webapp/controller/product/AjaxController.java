@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.webapp.dto.Pager;
@@ -46,7 +48,7 @@ public class AjaxController {
 	}
 	
 	@PostMapping("/result")
-	public String result(Model model, HttpSession session, SearchForm searchForm) {
+	public String result(Model model, SearchForm searchForm) {
 		/* 앞단에서 pager를 설정하는 유일한 부분 */
 		searchForm.setPager(new Pager(10, 5, 0, searchForm.getPageNo()));
 		ProductResult productResult = ajaxService.getSearchResult(searchForm);
@@ -54,11 +56,46 @@ public class AjaxController {
 		model.addAttribute("productList", productList);
 
 		model.addAttribute("pager", productResult.getPager());
-//		session.setAttribute("pager", productResult.getPager());
-//		session.setAttribute("test", 1);
-		log.info("최종적으로 가져온 OrderList" + productList.toString());
+		model.addAttribute("searchForm", searchForm);
+		log.info("최종적으로 가져온 productList" + productList.toString());
 		log.info("pager = "+ productResult.getPager());
 		log.info("pager.getTotalRows() = "+ productResult.getPager().getTotalRows());
 		return "/product/productListFragment";
+	}
+	
+	@PostMapping("/bin/result")
+	public String binResult(Model model, SearchForm searchForm) {
+		/* 앞단에서 pager를 설정하는 유일한 부분 */
+		searchForm.setPager(new Pager(10, 5, 0, searchForm.getPageNo()));
+		ProductResult productResult = ajaxService.getBinResult(searchForm);
+		List<ProductDto> productList = productResult.getProductList();
+		model.addAttribute("productList", productList);
+		
+		model.addAttribute("pager", productResult.getPager());
+		log.info("최종적으로 가져온 productList" + productList.toString());
+		log.info("pager = "+ productResult.getPager());
+		log.info("pager.getTotalRows() = "+ productResult.getPager().getTotalRows());
+		return "/product/binFragment";
+	}
+	
+	@PostMapping("/bin")
+	public String goToBin(@RequestBody List<String> products) {
+		log.info("toDeleteIds = " + products);
+		ajaxService.goToBin(products);
+		return "redirect:/product/bin";
+	}
+	
+	@PostMapping("/returnfrombin")
+	public String returnFromBin(@RequestBody List<String> products) {
+		log.info("returnDeleteIds = " + products);
+		ajaxService.returnFromBin(products);
+		return "redirect:/product/bin";
+	}
+	
+	@PostMapping("/permDel")
+	public String permDel(@RequestBody List<String> products) {
+		log.info("permDelIds = " + products);
+		ajaxService.permDel(products);
+		return "redirect:/product/bin";
 	}
 }

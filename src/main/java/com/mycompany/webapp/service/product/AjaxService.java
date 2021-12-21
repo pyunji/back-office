@@ -65,4 +65,50 @@ public class AjaxService {
 				.block();
 		return productResult;
 	}
+	public ProductResult getBinResult(SearchForm searchForm) {
+		WebClient webClient = WebClient.create();
+		ProductResult productResult = webClient
+				.post()
+				.uri("http://localhost:83/product/bin/result")
+				.body(BodyInserters.fromValue(searchForm))
+				.retrieve()
+				.bodyToMono(ProductResult.class)
+//				.collectList()
+//				.share()
+				.block();
+		return productResult;
+	}
+	public String goToBin(List<String> products) {
+		WebClient webClient = WebClient.create();
+		String result = webClient
+				.post()
+				.uri("http://localhost:83/product/bin")
+				.body(BodyInserters.fromValue(products))
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		return result;
+	}
+	public String returnFromBin(List<String> products) {
+		WebClient webClient = WebClient.create();
+		String result = webClient
+				.post()
+				.uri("http://localhost:83/product/returnfrombin")
+				.body(BodyInserters.fromValue(products))
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		return result;
+	}
+	public String permDel(List<String> products) {
+		WebClient webClient = WebClient.create();
+		String result = webClient
+				.post()
+				.uri("http://localhost:83/product/permdel")
+				.body(BodyInserters.fromValue(products))
+				.retrieve()
+				.bodyToMono(String.class)
+				.block();
+		return result;
+	}
 }
