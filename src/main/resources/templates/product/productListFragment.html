@@ -44,6 +44,16 @@ function selectProductCount() {
 		<h6 class="m-0 font-weight-bold text-primary">조회 결과 [[${pager.getTotalRows()}]]건</h6>
 	</div>
 	<div class="card-body">
+		<select id="sortBy" onchange="searchProduct()">
+			<option th:selected="${searchForm.sortBy == 'regDateDesc'}" value="regDateDesc">최신상품순</option>
+			<option th:selected="${searchForm.sortBy == 'regDateAsc'}" value="regDateAsc">오래된상품순</option>
+			<option th:selected="${searchForm.sortBy == 'stockAsc'}" value="stockAsc">재고적은순</option>
+			<option th:selected="${searchForm.sortBy == 'stockDesc'}" value="stockDesc">재고많은순</option>
+			<option th:selected="${searchForm.sortBy == 'salesAsc'}" value="salesAsc">판매량낮은순</option>
+			<option th:selected="${searchForm.sortBy == 'salesDesc'}" value="salesDesc">판매량높은순</option>
+			<option th:selected="${searchForm.sortBy == 'pstockidAsc'}" value="pstockidAsc">상품코드 오름차순</option>
+			<option th:selected="${searchForm.sortBy == 'pstockidDesc'}" value="pstockidDesc">상품코드 내림차순</option>
+		</select>
 		<div class="table-responsive">
 			<table class="table table-bordered m-1" id="dataTable" width="100%" cellspacing="0">
 				<thead>
@@ -51,12 +61,14 @@ function selectProductCount() {
 						<th>
 							<input id="entryCheckAll" name="entryCheckAll" type="checkbox" onclick="checkAll(this);selectProductCount();">
 						</th>
-						<th>상품번호</th>
+						<th>상품코드</th>
 						<th>이름</th>
+						<th>재고</th>
+						<th>판매량</th>
+						<th>등록날짜</th>
 						<th>사이즈</th>
 						<th>색상</th>
 						<th>가격</th>
-						<th>재고</th>
 						<th>브랜드명</th>
 						<th>대분류</th>
 						<th>중분류</th>
@@ -72,10 +84,12 @@ function selectProductCount() {
 							<a href="#" data-toggle="modal" th:onclick="setModal([[${product}]])" data-target="#exampleModal">[[${product.pstockid}]]</a>
 						</td>
 						<td>[[${product.pname}]]</td>
+						<td style="text-align: right;">[[${product.stock}]]</td>
+						<td style="text-align: right;">[[${product.sales}]]</td>
+						<td th:text="${#strings.arraySplit(product.regDate, ' ')[0]}"></td>
 						<td>[[${product.scode}]]</td>
 						<td>[[${product.ccode}]]</td>
 						<td>[[${#numbers.formatInteger(product.pprice, 3, 'COMMA')}]]</td>
-						<td style="text-align: right;">[[${product.stock}]]</td>
 						<td>[[${product.bname}]]</td>
 						<td>[[${product.d1name}]]</td>
 						<td>[[${product.d2name}]]</td>
@@ -86,6 +100,7 @@ function selectProductCount() {
 		</div>
 <!-- 		<!-- Button trigger modal -->
 		<script>
+		
 		function setModal(product) {
 			$(".modal-title").text(product.pname);
 			$(".modal-depth").text(product.d1name + " > " + product.d2name + " > " + product.d3name);
@@ -95,6 +110,9 @@ function selectProductCount() {
 			$("#hidden-d2name").val(product.d2name);
 			$("#hidden-d3name").val(product.d3name);
 			$(".modal-img1").attr("src", product.img1);
+			$(".modal-img2").attr("src", product.img2);
+			$(".modal-img3").attr("src", product.img3);
+			$(".modal-colorImg").attr("src", product.colorImg);
 			$(".modal-pnote").text(product.pnote);
 			$(".modal-pprice").text('가격 : ₩ ' + product.pprice.toLocaleString());
 			$(".modal-stock").text('재고 : ' + product.stock+ '개');
@@ -127,6 +145,16 @@ function selectProductCount() {
 		      	</div>
 		        <div>
 		        	<img class="modal-img1" width="50%" alt="" src="">
+		        </div>
+		        <hr/>
+      	        <div>
+		        	<img class="modal-img2" width="50%" alt="" src="">
+		        </div>
+      	        <div class="mt-2">
+		        	<img class="modal-img3" width="50%" alt="" src="">
+		        </div>
+      	        <div class="mt-2">
+		        	<img class="modal-colorImg" width="10%" alt="" src="">
 		        </div>
 		        <hr/>
 		        <div>
