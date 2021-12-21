@@ -9,35 +9,13 @@
 
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">고객등급 등록</h6>
+				<h6 class="m-0 font-weight-bold text-primary">고객등급 정보 수정</h6>
 			</div>
 			<div class="card-body">
 				<!-- <form id="updateGradePolicy" method="post" action="/grade/policy"> -->
 				<form action="">
-					<div>
-						<label>등급 기준</label>
-						<div class="mt-2 ml-2">
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="criteria" id="criteria1" value="1">총 주문 금액
-							  </label>
-							</div>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="criteria" id="criteria2" value="2">총 주문 횟수
-							  </label>
-							</div>
-						</div>
-					</div>
-					<script>
-						$('input[name=criteria]').each(function(index) {
-							if($(this).val()=="[[${gradeAdmin.gradeCriteria}]]") {
-								$(this).val("[[${gradeAdmin.gradeCriteria}]]").prop("checked",true);
-							}
-						});
-					</script>
 
-					<label class="mt-5">등급 측정 기준 기간</label>
+					<label class="mt-2">등급 측정 기준 기간</label>
 					<div class="mt-2 ml-2">최근</div> 
 					<div class="mt-2 ml-2">
 						<div class="form-check-inline">
@@ -70,9 +48,8 @@
 				<script>
 				function updateGradePolicy() {
 					let id = 'admin';
-					let gradeCriteria = $('input[name="criteria"]:checked').val();
 					let criteriaPeriod = $('input[name="period"]:checked').val();
-					data = {id,gradeCriteria,criteriaPeriod};
+					data = {id,criteriaPeriod};
 					
 					$.ajax({
 		        		url:"/member/grade/policy/update",
