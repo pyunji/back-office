@@ -30,7 +30,7 @@ public class DisplayController {
 		log.info("displayList실행");
 		ShareByBrandList shareByBrandList = new ShareByBrandList();
 		
-		shareByBrandList = brandService.getShareByBrand();
+		//shareByBrandList = brandService.getShareByBrand();
 		
 		for(Entry<String,ShareByBrand> entrySet : shareByBrandList.getShareByBrand().entrySet()) {
 			System.out.println(entrySet.getKey() + ":" + entrySet.getValue());

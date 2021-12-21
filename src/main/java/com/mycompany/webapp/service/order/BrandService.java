@@ -1,27 +1,25 @@
 package com.mycompany.webapp.service.order;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mycompany.webapp.dto.display.ShareByBrand;
 import com.mycompany.webapp.dto.display.ShareByBrandList;
+import com.mycompany.webapp.dto.display.ShareByBrandResult;
 
 @Service
 public class BrandService {
 
-	public ShareByBrandList getShareByBrand() {
+	public ShareByBrandResult getShareByBrand() {
 		WebClient webClient = WebClient.create();
-		ShareByBrandList shareByBrandList =  webClient
+		ShareByBrandResult shareByBrandResult =  webClient
 				.post()
 				.uri("http://localhost:83/order/getShareByBrand")
 				.retrieve()
-				.bodyToMono(ShareByBrandList.class)
+				.bodyToMono(ShareByBrandResult.class)
 //				.collectList()
 //				.share()
 				.block();
-		return shareByBrandList;
+		return shareByBrandResult;
 	}
 
 }

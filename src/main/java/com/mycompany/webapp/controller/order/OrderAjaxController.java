@@ -32,7 +32,7 @@ public class OrderAjaxController {
 	
 	@PostMapping("/result")
 	public String result(Model model, HttpSession session, @ModelAttribute OrderSearchForm orderSearchForm) {
-
+		
 		log.info(Arrays.toString(orderSearchForm.getODeliveryState()));
 		log.info(Arrays.toString(orderSearchForm.getOCsState()));
 		orderSearchForm.setPager(new Pager(10, 5, 0, orderSearchForm.getPageNo()));

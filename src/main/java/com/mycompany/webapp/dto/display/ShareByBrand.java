@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ShareByBrand {
-	
+	String bname;
 	int totalprice;
 	int totalcount;
 	
