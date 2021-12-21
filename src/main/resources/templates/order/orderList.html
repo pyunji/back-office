@@ -11,46 +11,174 @@
 				<h6 class="m-0 font-weight-bold text-primary">주문 검색</h6>
 			</div>
 			<div class="card-body">
-				<form id="searchForm"  action="/order/list/result" method="post">
+				<form id="searchForm" action="/order/list/result" method="post">
 					<div class="form-row">
 						<div class="mt-3 form-group col-md-5">
-							<label>주문번호</label>
-							<input type="text" id= "oid" name="oid" class="form-control" placeholder="주문번호를 입력하세요" />
+							<label>주문번호 조회</label> <input type="text" id="oid" name="oid"
+								class="form-control" placeholder="주문번호를 입력하세요" />
 						</div>
 
 						<div class="mt-3 form-group col-md-3">
-							<label>주문자 id</label>
-							<input type="text" id = "mid" name="mid" class="form-control" placeholder="주문자 아이디를 입력하세요" />
+							<label>주문자 ID 조회</label> <input type="text" id="mid" name="mid"
+								class="form-control" placeholder="주문자 아이디를 입력하세요" />
 						</div>
 					</div>
-					<hr/>
+					<hr />
 					<label>기간 조회</label>
 					<div class="form-row">
 						<div class="form-group col-md-3">
-							<input type="date" id="startRegDate" name="startRegDate" class="form-control" placeholder="조회 시작 날짜">
+							<input type="date" id="startRegDate" name="startRegDate"
+								class="form-control" placeholder="조회 시작 날짜">
 						</div>
 						<div class="form-group col-md-1">
-						<span>~</span>
+							<span>~</span>
 						</div>
 						<div class="form-group col-md-3">
-							<input type="date" id="endRegDate" name="endRegDate" class="form-control" placeholder="조회 종료 날짜">
+							<input type="date" id="endRegDate" name="endRegDate"
+								class="form-control" placeholder="조회 종료 날짜">
 						</div>
 					</div>
-					<input type ="button" class="btn btn-primary" value="검색" onclick="searchOrder()"/>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>상품명 조회</label> <input type="text" id="oProduct"
+								name="oProduct" class="form-control" placeholder="상품명을 입력하세요.">
+						</div>
+					</div>
+					<hr />
+					<label for="depth1">주문 상태</label>
+					<div class="form-row">
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkalldeliverystate"> <label class="form-check-label"
+									for="flexCheckDefault"> 전체 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="odeliverystate0" name="checkdelivery"> <label class="form-check-label"
+									for="flexCheckDefault"> 배송준비중 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<div class="form-check">
+								<input class="form-check-input " type="checkbox" value=""
+									id="odeliverystate1"name="checkdelivery"> <label class="form-check-label"
+									for="flexCheckDefault"> 배송보류 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="odeliverystate2" name="checkdelivery"> <label class="form-check-label"
+									for="flexCheckDefault"> 배송대기 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="odeliverystate3" name="checkdelivery"> <label class="form-check-label"
+									for="flexCheckDefault"> 배송중 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="odeliverystate4" name="checkdelivery"> <label class="form-check-label"
+									for="flexCheckDefault"> 배송완료 </label>
+							</div>
+						</div>
+					</div>
+					<hr />
+					<label for="depth1">cs 주문 상태</label>
+										<div class="form-row">
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkallcsstate"> <label class="form-check-label"
+									for="flexCheckDefault"> 전체 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkcsstate1" name="checkcsstate"> <label class="form-check-label"
+									for="flexCheckDefault"> 취소 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkcsstate2" name="checkcsstate"> <label class="form-check-label"
+									for="flexCheckDefault"> 교환 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkcsstate3" name="checkcsstate"> <label class="form-check-label"
+									for="flexCheckDefault"> 완료 </label>
+							</div>
+						</div>
+						<div class="form-group col-md-1">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="checkcsstate4" name="checkcsstate"> <label class="form-check-label"
+									for="flexCheckDefault"> 환불 </label>
+							</div>
+						</div>
+					</div>
+					<input type="button" class="btn btn-primary" value="검색"
+						onclick="searchOrder()" />
 				</form>
+				<script>
+				   $( '#checkalldeliverystate' ).click( function() {
+				         	if($("input:checkbox[id='checkalldeliverystate']").prop("checked")){
+				         		$("input:checkbox[name='checkdelivery']").prop("checked", true);
+				         	}else{
+				         		$("input:checkbox[name='checkdelivery']").prop("checked", false);
+				         	}
+				        } );
+				   $( '#checkallcsstate' ).click( function() {
+			         	if($("input:checkbox[id='checkallcsstate']").prop("checked")){
+			         		$("input:checkbox[name='checkcsstate']").prop("checked", true);
+			         	}else{
+			         		$("input:checkbox[name='checkcsstate']").prop("checked", false);
+			         	}
+			        } );
+				</script>
+
+				
 				<script>
 					function searchOrder(pageNo=1){
 						let startRegDate = $("#startRegDate").val();
 						let endRegDate = $("#endRegDate").val();
+						let oProduct = $("#oProduct").val();
 						let oid = $("#oid").val();
 						let mid = $("#mid").val();
-						
+						let oDeliveryState = [];
+						let oCsState = [];
+						if($(odeliverystate0).prop("checked")) oDeliveryState.push("배송준비중");
+						if($(odeliverystate1).prop("checked")) oDeliveryState.push("배송보류");
+						if($(odeliverystate2).prop("checked")) oDeliveryState.push("배송대기");
+						if($(odeliverystate3).prop("checked")) oDeliveryState.push("배송중");
+						if($(odeliverystate4).prop("checked")) oDeliveryState.push("배송완료");
+						if($(checkcsstate1).prop("checked")) oCsState.push("취소");
+						if($(checkcsstate2).prop("checked")) oCsState.push("교환");
+						if($(checkcsstate3).prop("checked")) oCsState.push("주문 완료");
+						if($(checkcsstate4).prop("checked")) oCsState.push("환불");
+						console.log(oDeliveryState);
+						console.log(oCsState);
 						data = {
 								startRegDate,
 								endRegDate,
 								oid,
+								oProduct,
 								mid,
-								pageNo
+								pageNo,
+								oDeliveryState,
+								oCsState
 						};
 						console.log(data);
 						
@@ -73,36 +201,88 @@
 		</div>
 
 		<!-- DataTales Example -->
-		<div class="card shadow mb-4">
+		<div class="card shadow mb-4" id="result">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-bordered" id="dataTable" width="100%"
+						cellspacing="0">
 						<thead>
 							<tr>
-								<th>주문 번호</th>
-								<th>주문 날짜</th>
-								<th>주문 상태</th>
-								<th>상품 코드</th>
-								<th>상품명</th>
-								<th>주문 수량</th>
-								<th>구매자명</th>
-								<th>구매자 아이디</th>
-								<th>컬러</th>
-								<th>사이즈</th>
+								<th><input type="checkbox" name="chk1"></th>
+								<th class="stiky">주문번호</th>
+								<th class="stiky">주문자ID</th>
+								<th class="stiky">상풍명</th>
+								<th class="stiky">상품갯수</th>
+								<th class="stiky">결제금액</th>
+								<th class="stiky">결제수단</th>
+								<th class="stiky">결제상태</th>
+								<th class="stiky">배송상태</th>
+								<th class="stiky">이메일</th>
+								<th class="stiky">배송 메모</th>
+								<th class="stiky">우편 번호</th>
+								<th class="stiky">배송지</th>
+								<th class="stiky">받는사람</th>
+								<th class="stiky">핸드폰</th>
+								<th class="stiky">전화번호</th>
+								<th class="stiky">주문 날짜</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-							<tr></tr>
+							<tr th:each="order : ${orderList}">
+								<td><input type="checkbox" name="chk"></td>
+								<td><a href="#">[[${order.oid}]]</a></td>
+								<td>[[${order.mid}]]</td>
+								<td></td>
+								<td>[[${order.ocount}]]</td>
+								<td>[[${order.totalPrice}]]</td>
+								<td>[[${order.paymentMethodCode}]]</td>
+								<td>[[${order.ostatus}]]</td>
+								<td>[[${order.deliveryStatus}]]</td>
+								<td>[[${order.oemail}]]</td>
+								<td>[[${order.memo}]]</td>
+								<td>[[${order.ozipcode}]]</td>
+								<td>[[${order.oaddress}]]</td>
+								<td>[[${order.oreceiver}]]</td>
+								<td>[[${order.ophone}]]</td>
+								<td>[[${order.otel}]]</td>
+								<td>[[${order.odate}]]</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
+				
 			</div>
+			<script>
+			$(function(){
+				$("input:checkbox[name='chk']").click(function(){
+					if($("input:checkbox[name='chk']").is(':checked')){
+						console.log("체크");
+						clickEvent(event);
+						
+					}
+					else{
+						console.log("체크 해제");
+					}
+				})
+			});
+			
+			function clickEvent(event){
+				console.log($(event.target));
+				
+				var row = $(event.target).closest('tr');
+				var columns = row.find('td');
+				
+				console.log('row ::', row);
+				console.log('columns ::', columns);
+			}
+			</script>
 		</div>
-		
-		
+
+
 	</th:block>
 </th:block>
 </html>
