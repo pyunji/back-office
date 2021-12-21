@@ -144,7 +144,7 @@ function selectProductCount() {
 		      </div>
 		      <div class="modal-footer">
 		        <input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="Close"/>
-		        <button class="btn btn-primary btn-sm">상품 복원하기</button>
+		        <input type="button" class="btn btn-primary btn-sm" onclick="returnFromBinOne()" value="상품 복원하기"></button>
 		      </div>
 		    </div>
 		    </form>
@@ -182,6 +182,24 @@ function selectProductCount() {
 				});
 			}
 		}
+		function returnFromBinOne() {
+			let pstockid = $("#hidden-pstockid").val();
+			let products = [];
+			products.push(pstockid);
+			console.log("products = ", products);
+			let url = "/product/ajax/returnfrombin";
+			$.ajax({
+				url,
+				method: "post",
+				data: JSON.stringify(products),
+				contentType: 'application/json',
+				success: function(result) {
+					alert("복원되었습니다.");
+					window.location.href="/product/bin";
+				}
+			});
+		}
+		
 		function returnFromBin() {
 			// 선택된 상품을 가져온다
 			let checkedElems = $(".entryProductCheck:checked");
