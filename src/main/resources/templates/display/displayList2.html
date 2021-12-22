@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{common/layout::setLayout(~{this::content})}">
+	<th:block th:fragment="content">
+		<link
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="
+			crossorigin="anonymous">
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+			integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A=="
+			crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<!-- Page Heading -->
+		
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">전시 관리</h6>
+				
+			</div>
+			<div class="card-body">
+				<table width=50% style="margin:auto;">
+					<tr height=30px style="border: 1px solid #444444;">
+						<td><img src="/images/Header.JPG" alt="My Image" width=100%></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr th:id="target0" class="target0" data-name="이벤트"
+						th:value="이벤트" height=100px style="border: 1px solid #444444;">
+						<td>Event<img src="/images/Event.JPG" alt="My Image" width=100%></td>
+					</tr>
+					<tr id="target1" class="target1" data-name="신상품" th:value="신상품"
+						value="신상품" height=100px style="border: 1px solid #444444;">
+						<td>New<img src="/images/New.JPG" alt="My Image" width=100%></td>
+					</tr>
+					<tr th:id="target2" data-name="베스트" class="target2" th:value="베스트"
+						height=100px style="border: 1px solid #444444;">
+						<td>Best<img src="/images/Best.JPG" alt="My Image" width=100%></td>
+					</tr>
+				</table>
+
+				<button style="float:right;" class="btn btn-primary mt-2"onclick="getIndex();">저장</button>
+			</div>
+		</div>
+		<style>
+table {
+	border: 1px solid #444444;
+}
+
+tr {
+	text-align: center;
+}
+</style>
+
+		<script th:inline="javascript">
+			$("table").sortable({
+				items : [ $(".target0"), $(".target1"), $(".target2") ]
+			});
+
+			var getIndex = function() {
+				//해당 요소
+				var select0 = document.querySelector('.target0');
+				var select1 = document.querySelector('.target1');
+				var select2 = document.querySelector('.target2');
+				/* 		var stat1 = document.getElementById('target0');
+						var stat2 = document.getElementById('target1');
+						var stat3 = document.getElementById('target2');
+						var stat1Data = stat1.dataset.name;
+						var stat2Data = stat2.dataset.name;
+						var stat3Data = stat3.dataset.name; */
+
+				//해당 요소에 있는 text 값
+				var context0 = select0.innerText;
+				var context1 = select1.innerText;
+				var context2 = select2.innerText;
+				//해당 index 값
+				var index0 = select0.rowIndex;
+				var index1 = select1.rowIndex;
+				var index2 = select2.rowIndex;
+				
+				data = {
+						context0,
+						context1,
+						context2,
+						index0,
+						index1,
+						index2,
+						
+				};
+				console.log(data);
+				
+				var url = "/display/result";
+				$.ajax({
+					url:url,
+					method: "post",
+					data: data,
+					success: function(result){
+						$("#result").html(result);
+					}
+				})
+			};
+		</script>
+	</th:block>
+</th:block>
+</html>

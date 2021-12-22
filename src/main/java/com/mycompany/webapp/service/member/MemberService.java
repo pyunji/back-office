@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.mycompany.webapp.dto.display.ContextDto;
 import com.mycompany.webapp.dto.member.Grade;
 import com.mycompany.webapp.dto.member.Member;
 import com.mycompany.webapp.dto.member.MemberResult;
@@ -41,6 +42,17 @@ public class MemberService {
 	            .block();
 	      return memberResult;
    }
+   public ContextDto getContextResult(ContextDto contextDto) {
+	      WebClient webClient = WebClient.create();
+	      ContextDto contextResult = webClient
+	            .post()
+	            .uri("http://localhost:83/member/display/result")
+	            .body(BodyInserters.fromValue(contextDto))
+	            .retrieve()
+	            .bodyToMono(ContextDto.class)
+	            .block();
+	      return contextResult;
+}
    
    public Member selectMember(String mid) {
 	   log.info("WebClient" + mid);
