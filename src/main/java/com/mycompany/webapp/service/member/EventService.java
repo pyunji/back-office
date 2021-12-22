@@ -54,7 +54,8 @@ public class EventService {
 		if(event.getElimitCount()!=null) builder.part("elimitCount", event.getElimitCount());
 		if(event.getEcount()!=null) builder.part("ecount", event.getEcount());
 		if(event.getEimg().getResource()!=null) builder.part("eimg", event.getEimg().getResource());
-		if(event.getEstatus()!=null) builder.part("estatus", event.getEimg());
+		if(event.getEstatus()!=null) builder.part("estatus", event.getEstatus());
+		if(event.getEthumbnail().getResource()!=null) builder.part("ethumbnail", event.getEthumbnail().getResource());
 		log.info("webClient addEvent실행");
 		WebClient webClient = WebClient.create();
 		String result = webClient.post()

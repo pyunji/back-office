@@ -13,6 +13,7 @@
 						<th>이벤트 종료 날짜</th>
 						<th>최대 당첨자 수</th>
 						<th>현재 당첨자 수</th>
+						<th>이벤트 썸네일</th>
 						<th>대표이미지</th>
 						<th>상태</th>
 					</tr>
@@ -27,6 +28,7 @@
 						<td>[[${event.elimitCount}]]</td>
 						<td>[[${event.ecount}]]</td>
 						<!-- <td><button class="btn btn-primary" data-toggle="modal" th:onclick="setModal()" data-target="#exampleModal">대표 이미지 보기</button></td> -->
+						<td><img id = "logo" th:src="${event.ethumbnail}" width="50" height="50"></td>
 						<td><img id = "logo" th:src="${event.eimg}" width="50" height="50"></td>
 						<td th:if="${event.estatus}==0">진행예정</td>
 						<td th:if="${event.estatus}==1">진행중</td>
