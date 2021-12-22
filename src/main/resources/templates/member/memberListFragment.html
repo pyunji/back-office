@@ -1,3 +1,4 @@
+<div id="here">
 <div class="card-header py-3">
 	<h6 class="m-0 font-weight-bold text-primary">조회 결과 [[${pager.getTotalRows()}]]건</h6>
 </div>
@@ -34,7 +35,7 @@
 					<td th:if="${member.gender==1}">여성</td>
 					<td th:if="${member.gender==2}">남성</td>
 					<td>[[${member.gradeLevel}]]</td>
-					<td><button class="btn btn-primary">주문내역 보기</button></td>
+					<td><button class="btn btn-primary" th:onclick="showOrder([[${member.mid}]])">주문내역 보기</button></td>
 					<td th:if="${member.menabled}==1">일반 회원</td>
 					<td th:if="${member.menabled}==2">불량 회원</td>
 					<td th:if="${member.menabled}==3">탈퇴 회원</td>				
@@ -62,5 +63,22 @@
 			<a href="javascript:void(0)" class="paginigBtn" th:onclick="searchMember([[${pager.getTotalPageNo()}]])">맨끝</a>
 		</div>
 	</div>
+	<script>
+	function showOrder(mid) {
+		let pageNo = 1;
+		data={mid,pageNo};
+		$.ajax({
+			url:"/order/ajax/result",
+			method:"post",
+			data:data,
+			success:function(result) {
+				//this.html(result);
+				//window.location.href= result;
+				$("#here").html(result);
+			}
+		})
+	} 
+</script>
+</div>
 </div>
 <!-- 		</th:block>	 -->
