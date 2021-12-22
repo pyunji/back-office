@@ -32,9 +32,8 @@ public class OrderAjaxController {
 	
 	@PostMapping("/result")
 	public String result(Model model, HttpSession session, @ModelAttribute OrderSearchForm orderSearchForm) {
-		
-		log.info(Arrays.toString(orderSearchForm.getODeliveryState()));
-		log.info(Arrays.toString(orderSearchForm.getOCsState()));
+		System.out.println(orderSearchForm.getOCsState0());
+
 		orderSearchForm.setPager(new Pager(10, 5, 0, orderSearchForm.getPageNo()));
 		//orderResult값을 가져옴
 		OrderResult orderResult = orderAjaxService.getSearchResult(orderSearchForm);

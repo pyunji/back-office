@@ -23,7 +23,7 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">연간 매출</div>
+								<div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">월간 매출</div>
 								<div class="h5 mb-0 font-weight-bold text-gray-800">₩[[${totalPriceAll}]]원</div>
 							</div>
 							<div class="col-auto">
@@ -52,30 +52,7 @@
 			</div>
 
 			<!-- Earnings (Monthly) Card Example -->
-			<div class="col-xl-3 col-md-6 mb-4">
-				<div class="card border-left-info shadow h-100 py-2">
-					<div class="card-body">
-						<div class="row no-gutters align-items-center">
-							<div class="col mr-2">
-								<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-								<div class="row no-gutters align-items-center">
-									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-									</div>
-									<div class="col">
-										<div class="progress progress-sm mr-2">
-											<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-auto">
-								<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	
 
 			<!-- Pending Requests Card Example -->
 			<div class="col-xl-3 col-md-6 mb-4">
@@ -104,7 +81,7 @@
 				<div class="card shadow mb-4">
 					<!-- Card Header - Dropdown -->
 					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-primary">주문량 변경 추이</h6>
+						<h6 class="m-0 font-weight-bold text-primary">주문금액 변경 추이</h6>
 						<div class="dropdown no-arrow">
 							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -122,6 +99,33 @@
 					<div class="card-body">
 						<div class="chart-area">
 							<canvas id="myAreaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+						<div class="col-xl-8 col-lg-7">
+				<div class="card shadow mb-4">
+					<!-- Card Header - Dropdown -->
+					<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<h6 class="m-0 font-weight-bold text-primary">주문량 변경 추이</h6>
+						<div class="dropdown no-arrow">
+							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+								<div class="dropdown-header">Dropdown Header:</div>
+								<a class="dropdown-item" href="#">Action</a>
+								<a class="dropdown-item" href="#">Another action</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Something else here</a>
+							</div>
+						</div>
+					</div>
+					<!-- Card Body -->
+					<div class="card-body">
+						<div class="chart-area">
+							<canvas id="myAreaChart1"></canvas>
 						</div>
 					</div>
 				</div>
@@ -213,65 +217,102 @@
 				var inputPrice11;
 				var inputPrice12;
 				
+				var inputCount1;
+				var inputCount2;
+				var inputCount3;
+				var inputCount4;
+				var inputCount5;
+				var inputCount6;
+				var inputCount7;
+				var inputCount8;
+				var inputCount9;
+				var inputCount10;
+				var inputCount11;
+				var inputCount12;
+				
 				
 				
 					var inputtest = [[${statByMonth}]]["statDtoList"][0]["day"];
 					var inputtest2 = [[${statByMonth}]]["statDtoList"][0]["sumbyday"];
+					var inputtest3 = [[${statByMonth}]]["statDtoList"][0]["countbyday"];
+					this.inputCount1 = inputtest3;
 					this.inputMonth1 = inputtest;
 					this.inputPrice1 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][1]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][1]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][1]["countbyday"];
+						this.inputCount2 = inputtest3;
 					this.inputMonth2 = inputtest;
 					this.inputPrice2 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][2]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][2]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][2]["countbyday"];
+						this.inputCount3 = inputtest3;
 					this.inputMonth3 = inputtest;
 					this.inputPrice3 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][3]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][3]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][3]["countbyday"];
+						this.inputCount4 = inputtest3;
 					this.inputMonth4 = inputtest;
 					this.inputPrice4 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][4]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][4]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][4]["countbyday"];
+						this.inputCount5 = inputtest3;
 					this.inputMonth5 = inputtest;
 					this.inputPrice5 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][5]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][5]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][5]["countbyday"];
+						this.inputCount6 = inputtest3;
 					this.inputMonth6 = inputtest;
 					this.inputPrice6 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][6]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][6]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][6]["countbyday"];
+						this.inputCount7 = inputtest3;
 					this.inputMonth7 = inputtest;
 					this.inputPrice7 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][7]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][7]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][7]["countbyday"];
+						this.inputCount8 = inputtest3;
 					this.inputMonth8 = inputtest;
 					this.inputPrice8 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][8]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][8]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][8]["countbyday"];
+						this.inputCount9 = inputtest3;
 					this.inputMonth9 = inputtest;
 					this.inputPrice9 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][9]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][9]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][9]["countbyday"];
+						this.inputCount10 = inputtest3;
 					this.inputMonth10 = inputtest;
 					this.inputPrice10 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][10]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][10]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][10]["countbyday"];
+						this.inputCount11 = inputtest3;
 					this.inputMonth11 = inputtest;
 					this.inputPrice11 = inputtest2;
 					
 					 inputtest = [[${statByMonth}]]["statDtoList"][11]["day"];
 					 inputtest2 = [[${statByMonth}]]["statDtoList"][11]["sumbyday"];
+					 inputtest3 = [[${statByMonth}]]["statDtoList"][11]["countbyday"];
+						this.inputCount12 = inputtest3;
 					this.inputMonth12 = inputtest;
 					this.inputPrice12 = inputtest2;
 			
