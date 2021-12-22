@@ -1,7 +1,6 @@
 package com.mycompany.webapp.controller;
 
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -11,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.webapp.dto.display.ShareByBrand;
-import com.mycompany.webapp.dto.display.ShareByBrandList;
 import com.mycompany.webapp.dto.display.ShareByBrandResult;
+import com.mycompany.webapp.dto.display.StatResult;
 import com.mycompany.webapp.service.order.BrandService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +26,9 @@ public class HomeController {
 		
 		
 		
+		StatResult statByDay = brandService.getStatByDay();
+		StatResult statByMonth = brandService.getStatByMonth();
+		StatResult statByYear = brandService.getStatByYear();
 		
 		ShareByBrandResult shareByBrandResult = brandService.getShareByBrand();
 		
@@ -38,9 +40,15 @@ public class HomeController {
 			totalCountAll += shareByBrandList.get(i).getTotalcount();
 		}
 		System.out.println(totalPriceAll);
+		
+		
 		model.addAttribute("shareByBrandList",shareByBrandList);
 		model.addAttribute("totalPriceAll",totalPriceAll);
 		model.addAttribute("totalCountAll",totalCountAll);
+		model.addAttribute("statByDay", statByDay);
+		model.addAttribute("statByMonth", statByMonth);
+		model.addAttribute("statByYear", statByYear);
+		
 		return "index";
 	}
 }
