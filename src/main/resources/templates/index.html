@@ -24,7 +24,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">월간 매출</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">₩[[${totalPriceAll}]]원</div>
+								<div  id = "output" class="h5 mb-0 font-weight-bold text-gray-800">₩원</div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -41,7 +41,7 @@
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
 								<div class="text-xs font-weight-bold text-success text-uppercase mb-1">연간 매출</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">₩[[${totalPriceAll}]]원</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${'&#8361; '+#numbers.formatInteger(totalPriceAll,3,'COMMA') + '원'}">₩[[${totalPriceAll}]]원</div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -155,19 +155,11 @@
 						<div class="chart-pie pt-4 pb-2">
 							<canvas id="myPieChart"></canvas>
 						</div>
-						<div class="mt-4 text-center small">
-							<span class="mr-2">
-								<i class="fas fa-circle text-primary"></i>
-								브랜드 1
-							</span>
-							<span class="mr-2">
-								<i class="fas fa-circle text-success"></i>
-								브랜드 2
-							</span>
-							<span class="mr-2">
-								<i class="fas fa-circle text-info"></i>
-								브랜드 3
-							</span>
+						<div class="mt-4 text-center small" th:each="brand : ${topBrand}">
+							
+							<span style=" font-wieght:border;">[[${brandStat.index}+1]].[[${brand.bname}]]</span>
+								
+							
 						</div>
 					</div>
 				</div>
@@ -316,7 +308,7 @@
 					this.inputMonth12 = inputtest;
 					this.inputPrice12 = inputtest2;
 			
-
+					document.getElementById('output').innerHTML = "&#8361; "+ this.inputPrice12.toLocaleString() + "원";
 				
 				//console.log(test["statDtoList"]);
 				//var test2 = test.val();
