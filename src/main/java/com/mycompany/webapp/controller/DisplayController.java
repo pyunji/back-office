@@ -54,6 +54,14 @@ public class DisplayController {
 
 		return "display/displayList";
 	}
+	
+	@RequestMapping("/dashBoardList")
+	public String dashboardList(Model model) {
+		log.info("dashBoardList 실행");
+
+		return "display/dashBoardList";
+	}
+
 
 	@RequestMapping("/displayList2")
 	public String displayList2(Model model) {
