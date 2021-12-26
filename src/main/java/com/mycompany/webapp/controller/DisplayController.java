@@ -75,9 +75,8 @@ public class DisplayController {
 
 	@PostMapping("/result")
 	public String result(Model model, HttpSession session, @ModelAttribute ContextDto contextDto) {
-
-		JFrame jFrame = new JFrame();
-		JOptionPane.showMessageDialog(jFrame, "Hello there! How are you today?");
+		log.info("display Home정보 넘겨주기");
+	
 		System.out.println("test: " + contextDto.getContext0());
 		System.out.println("test: " + contextDto.getIndex0());
 

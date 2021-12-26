@@ -54,6 +54,6 @@ public class OrderAjaxController {
 		
 		String orderCancelState = orderAjaxService.cancelOrderResult(cancelOid);
 		log.info("주문 취소 여부 " + orderCancelState);
-		return "order/orderList";
+		return "order/orderListFragment";
 	}
 }
