@@ -13,7 +13,7 @@ public class BrandService {
 		WebClient webClient = WebClient.create();
 		ShareByBrandResult shareByBrandResult =  webClient
 				.post()
-				.uri("http://localhost:83/order/getShareByBrand")
+				.uri("http://kosa1.iptime.org:50520/order/getShareByBrand")
 				.retrieve()
 				.bodyToMono(ShareByBrandResult.class)
 //				.collectList()
@@ -25,7 +25,7 @@ public class BrandService {
 		WebClient webClient = WebClient.create();
 		StatResult statResult =  webClient
 				.post()
-				.uri("http://localhost:83/order/getDataByDay")
+				.uri("http://kosa1.iptime.org:50520/order/getDataByDay")
 				.retrieve()
 				.bodyToMono(StatResult.class)
 //				.collectList()
@@ -37,7 +37,7 @@ public class BrandService {
 		WebClient webClient = WebClient.create();
 		StatResult statResult =  webClient
 				.post()
-				.uri("http://localhost:83/order/getDataByMonth")
+				.uri("http://kosa1.iptime.org:50520/order/getDataByMonth")
 				.retrieve()
 				.bodyToMono(StatResult.class)
 //				.collectList()
@@ -49,7 +49,7 @@ public class BrandService {
 		WebClient webClient = WebClient.create();
 		StatResult statResult =  webClient
 				.post()
-				.uri("http://localhost:83/order/getDataByYear")
+				.uri("http://kosa1.iptime.org:50520/order/getDataByYear")
 				.retrieve()
 				.bodyToMono(StatResult.class)
 //				.collectList()

@@ -12,7 +12,7 @@ public class AccountService {
 		WebClient webClient = WebClient.create();
 		Member member = webClient
 				.post()
-				.uri("http://localhost:83/account/accountcheck")
+				.uri("http://kosa1.iptime.org:50520/account/accountcheck")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.bodyValue(mid)

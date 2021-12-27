@@ -22,7 +22,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		List<Depth2> d2nameList = webClient
 				.post()
-				.uri("http://localhost:83/product/setdepth2")
+				.uri("http://kosa1.iptime.org:50520/product/setdepth2")
 				.body(BodyInserters.fromFormData("d1name", d1name))
 				.retrieve()
 				.bodyToFlux(Depth2.class)
@@ -39,7 +39,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		List<Depth3> d3nameList = webClient
 				.post()
-				.uri("http://localhost:83/product/setdepth3")
+				.uri("http://kosa1.iptime.org:50520/product/setdepth3")
 				.body(BodyInserters.fromFormData("d2name", d2name))
 				.retrieve()
 				.bodyToFlux(Depth3.class)
@@ -56,7 +56,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		ProductResult productResult = webClient
 				.post()
-				.uri("http://localhost:83/product/search/result")
+				.uri("http://kosa1.iptime.org:50520/product/search/result")
 				.body(BodyInserters.fromValue(searchForm))
 				.retrieve()
 				.bodyToMono(ProductResult.class)
@@ -69,7 +69,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		ProductResult productResult = webClient
 				.post()
-				.uri("http://localhost:83/product/bin/result")
+				.uri("http://kosa1.iptime.org:50520/product/bin/result")
 				.body(BodyInserters.fromValue(searchForm))
 				.retrieve()
 				.bodyToMono(ProductResult.class)
@@ -82,7 +82,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		String result = webClient
 				.post()
-				.uri("http://localhost:83/product/bin")
+				.uri("http://kosa1.iptime.org:50520/product/bin")
 				.body(BodyInserters.fromValue(products))
 				.retrieve()
 				.bodyToMono(String.class)
@@ -93,7 +93,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		String result = webClient
 				.post()
-				.uri("http://localhost:83/product/returnfrombin")
+				.uri("http://kosa1.iptime.org:50520/product/returnfrombin")
 				.body(BodyInserters.fromValue(products))
 				.retrieve()
 				.bodyToMono(String.class)
@@ -104,7 +104,7 @@ public class AjaxService {
 		WebClient webClient = WebClient.create();
 		String result = webClient
 				.post()
-				.uri("http://localhost:83/product/permdel")
+				.uri("http://kosa1.iptime.org:50520/product/permdel")
 				.body(BodyInserters.fromValue(products))
 				.retrieve()
 				.bodyToMono(String.class)

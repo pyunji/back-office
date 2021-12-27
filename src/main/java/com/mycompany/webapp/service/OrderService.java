@@ -12,7 +12,7 @@ public class OrderService {
 		WebClient webClient = WebClient.create();
 		List<Orders> orders = webClient
 				.get()
-				.uri("http://localhost:83/orde/orders")
+				.uri("http://kosa1.iptime.org:50520/order/orders")
 				.retrieve()
 				.bodyToFlux(Orders.class)
 				.collect(Collectors.toList())
