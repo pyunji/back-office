@@ -23,12 +23,12 @@
 			</div>
 			<div class="card-body">
 				<table width=50% style="margin:auto;">
-					<tr height=30px style="border: 1px solid #444444;">
+<!-- 					<tr height=30px style="border: 1px solid 44444;">
 						<td><img src="/images/Header.JPG" alt="My Image" width=100%></td>
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>
+					</tr> -->
 					<tr th:id="target0" class="target0" data-name="이벤트"
 						th:value="이벤트" height=100px style="border: 1px solid #444444;">
 						<td>Event<img src="/images/Event.JPG" alt="My Image" width=100%></td>
@@ -81,8 +81,9 @@ tr {
 				var index0 = select0.rowIndex;
 				var index1 = select1.rowIndex;
 				var index2 = select2.rowIndex;
-				
+				var where = "home";
 				data = {
+						where, 
 						context0,
 						context1,
 						context2,

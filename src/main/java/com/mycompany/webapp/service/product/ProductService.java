@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.mycompany.webapp.dto.product.Brand;
 import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.ModifyForm;
 import com.mycompany.webapp.dto.product.ProductDto;
@@ -17,6 +16,7 @@ import com.mycompany.webapp.dto.product.ProductModifyDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
 import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.dto.product.Sizes;
+import com.mycompany.webapp.vo.BrandVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,13 +43,13 @@ public class ProductService {
 		}
 	}
 	
-	public List<Brand> getBrandList() {
+	public List<BrandVo> getBrandList() {
 		WebClient webClient = WebClient.create();
-		List<Brand> brandList = webClient
+		List<BrandVo> brandList = webClient
 				.get()
 				.uri("http://localhost:83/product/brand")
 				.retrieve()
-				.bodyToFlux(Brand.class)
+				.bodyToFlux(BrandVo.class)
 				.collect(Collectors.toList())
 				.share()
 				.block();
