@@ -203,7 +203,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<div>
-										<h5>다음과 같이 상품을 등록합니다.</h5>
+										<h5 style="color: #004700; font-weight: bold;">다음과 같이 상품을 등록합니다.</h5>
 										<h5 class="modal-title" style="font-weight: bold;" id="exampleModalLabel"></h5>
 									</div>
 									<button type="button" class="close btn-sm" data-dismiss="modal" aria-label="Close">
@@ -216,21 +216,36 @@
 									</div>
 									<br />
 									<div>
-										<p class="modal-pstockid"></p>
+										<p class="modal-pstockid" style="font-weight: bold"></p>
 									</div>
 									<div>
+										<h6 style="font-weight: bold;">대표 이미지</h6>
 										<img class="modal-img1" width="50%" alt="" src="">
 									</div>
-									<hr />
+							        <hr/>
+					      	        <div>
+					      	        	<h6 style="font-weight: bold;">추가 이미지 1</h6>
+							        	<img class="modal-img2" width="50%" alt="" src="">
+							        </div>
+					      	        <div class="mt-2">
+					      	        	<h6 style="font-weight: bold;">추가 이미지 2</h6>
+							        	<img class="modal-img3" width="50%" alt="" src="">
+							        </div>
+					      	        <div class="mt-2">
+					      	        	<h6 style="font-weight: bold;">컬러칩 이미지</h6>
+							        	<img class="modal-colorImg" width="10%" alt="" src="">
+							        </div>
+							        <hr />
 									<div>
-										<span class="modal-pnote"></span>
+										<p style="font-weight: bold;">상품 설명</p>
+										<p class="modal-pnote"></p>
 									</div>
 									<hr />
 									<div>
-										<span class="modal-pprice"></span>
+										<p style="font-weight: bold;" class="modal-pprice"></p>
 									</div>
 									<div>
-										<span class="modal-stock"></span>
+										<p style="font-weight: bold;" class="modal-stock"></p>
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -257,14 +272,56 @@
 					reader.readAsDataURL(input.files[0]);
 				}
 			}
+			$('#img2').change(function() {
+				setImageFromFile(this, '.modal-img2');
+			});
+			function setImageFromFile(input, expression) {
+				if (input.files && input.files[0]) {
+					let reader = new FileReader();
+					reader.onload = function(e) {
+						$(expression).attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			$('#img3').change(function() {
+				setImageFromFile(this, '.modal-img3');
+			});
+			function setImageFromFile(input, expression) {
+				if (input.files && input.files[0]) {
+					let reader = new FileReader();
+					reader.onload = function(e) {
+						$(expression).attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			$('#colorImg').change(function() {
+				setImageFromFile(this, '.modal-colorImg');
+			});
+			function setImageFromFile(input, expression) {
+				if (input.files && input.files[0]) {
+					let reader = new FileReader();
+					reader.onload = function(e) {
+						$(expression).attr('src', e.target.result);
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
 			function setModal() {
 				$(".modal-title").text($("input[name='pname']").val());
 				$(".modal-depth").text($("select[name='d1name']").val() + " > " + $("select[name='d2name']").val() + " > " + $("select[name='d3name']").val());
 				$(".modal-pstockid").text("상품코드 : " + $("input[name='pcommonid']").val() + "_" + $("input[name='ccode']").val() + "_" + $("select[name='scode']").val());
-/* 				$(".modal-img1").val($("input[name='img1']").val()); */
 				$(".modal-pnote").text($("textarea[name='pnote']").val());
+				console.log("pnote =", $("textarea[name='pnote']").val());
 				$(".modal-pprice").text('가격 : ₩ ' + $("input[name='pprice']").val());
+				console.log("pprice =", $("input[name='pprice']").val());
 				$(".modal-stock").text('재고 : ' + $("input[name='stock']").val() + '개');
+				console.log("stock =", $("input[name='stock']").val());
+				$(".modal-img1").attr("src", product.img1);
+				$(".modal-img2").attr("src", product.img2);
+				$(".modal-img3").attr("src", product.img3); 
+				$(".modal-colorImg").attr("src", product.colorImg);
 			}
 		</script>
 

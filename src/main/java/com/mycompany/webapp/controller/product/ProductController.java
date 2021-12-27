@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mycompany.webapp.dto.product.Brand;
 import com.mycompany.webapp.dto.product.Depth1;
 import com.mycompany.webapp.dto.product.Depth2;
 import com.mycompany.webapp.dto.product.Depth3;
@@ -23,10 +21,10 @@ import com.mycompany.webapp.dto.product.ModifyForm;
 import com.mycompany.webapp.dto.product.ProductDto;
 import com.mycompany.webapp.dto.product.ProductModifyDto;
 import com.mycompany.webapp.dto.product.ProductRegisterDto;
-import com.mycompany.webapp.dto.product.SearchForm;
 import com.mycompany.webapp.dto.product.Sizes;
 import com.mycompany.webapp.service.product.AjaxService;
 import com.mycompany.webapp.service.product.ProductService;
+import com.mycompany.webapp.vo.BrandVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,7 +55,7 @@ public class ProductController {
 		/* 초기 select 태그에 들어갈 값 세팅 시작 */
 		List<Depth1> d1nameList = productService.getDepth1();
 		model.addAttribute("d1nameList", d1nameList);
-		List<Brand> brandList = productService.getBrandList();
+		List<BrandVo> brandList = productService.getBrandList();
 		model.addAttribute("brandList", brandList);
 		List<Sizes> sizeList = productService.getSizeList();
 		model.addAttribute("sizeList", sizeList);
@@ -95,7 +93,7 @@ public class ProductController {
 		List<Depth3> d3nameList = ajaxService.getDepth3(orgData.getD2name());
 		model.addAttribute("d3nameList", d3nameList);
 		
-		List<Brand> brandList = productService.getBrandList();
+		List<BrandVo> brandList = productService.getBrandList();
 		model.addAttribute("brandList", brandList);
 		List<Sizes> sizeList = productService.getSizeList();
 		model.addAttribute("sizeList", sizeList);
