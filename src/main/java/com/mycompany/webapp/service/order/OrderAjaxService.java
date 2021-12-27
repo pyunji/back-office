@@ -16,7 +16,7 @@ public class OrderAjaxService {
 		WebClient webClient = WebClient.create();
 		OrderResult orderResult = webClient
 				.post()
-				.uri("http://localhost:83/order/search/result")
+				.uri("http://kosa1.iptime.org:50520/order/search/result")
 				.body(BodyInserters.fromValue(orderSearchForm))
 				.retrieve()
 				.bodyToMono(OrderResult.class)
@@ -29,7 +29,7 @@ public class OrderAjaxService {
 		WebClient webClient = WebClient.create();
 		OrderProductResult orderProductResult = webClient
 				.post()
-				.uri("http://localhost:83/product/search/productResult")
+				.uri("http://kosa1.iptime.org:50520/product/search/productResult")
 				.body(BodyInserters.fromValue(orderSearchForm))
 				.retrieve()
 				.bodyToMono(OrderProductResult.class)
@@ -42,7 +42,7 @@ public class OrderAjaxService {
 		WebClient webClient = WebClient.create();
 		String stateOrderCancel = webClient
 				.post()
-				.uri("http://localhost:83/order/cancelOrder")
+				.uri("http://kosa1.iptime.org:50520/order/cancelOrder")
 				.body(BodyInserters.fromValue(cancelOid))
 				.retrieve()
 				.bodyToMono(String.class)

@@ -23,7 +23,7 @@ public class MemberService {
 		WebClient webClient = WebClient.create();
 		List<Member> members = webClient
 				.get()
-				.uri("http://localhost:83/member/list")
+				.uri("http://kosa1.iptime.org:50520/member/list")
 				.retrieve()
 				.bodyToFlux(Member.class)
 				.collect(Collectors.toList())
@@ -36,7 +36,7 @@ public class MemberService {
 	      WebClient webClient = WebClient.create();
 	      MemberResult memberResult = webClient
 	            .post()
-	            .uri("http://localhost:83/member/result")
+	            .uri("http://kosa1.iptime.org:50520/member/result")
 	            .body(BodyInserters.fromValue(searchForm))
 	            .retrieve()
 	            .bodyToMono(MemberResult.class)
@@ -47,7 +47,7 @@ public class MemberService {
 	      WebClient webClient = WebClient.create();
 	      ContextDto contextResult = webClient
 	            .post()
-	            .uri("http://localhost:83/member/display/result")
+	            .uri("http://kosa1.iptime.org:50520/member/display/result")
 	            .body(BodyInserters.fromValue(contextDto))
 	            .retrieve()
 	            .bodyToMono(ContextDto.class)
@@ -60,7 +60,7 @@ public class MemberService {
 		WebClient webClient = WebClient.create();
 		Member member = webClient
 		    .get()
-		    .uri("http://localhost:83/member/{mid}",mid)
+		    .uri("http://kosa1.iptime.org:50520/member/{mid}",mid)
 		    .retrieve()
 		    .bodyToMono(Member.class)
 		    .block();
@@ -71,7 +71,7 @@ public class MemberService {
 	   WebClient webClient = WebClient.create();
 	   String result = webClient
             .post()
-            .uri("http://localhost:83/member/update")
+            .uri("http://kosa1.iptime.org:50520/member/update")
             .body(BodyInserters.fromValue(member))
 			.retrieve()
 			.bodyToMono(String.class)
@@ -84,7 +84,7 @@ public class MemberService {
 	   WebClient webClient = WebClient.create();
 		List<Grade> grades = webClient
 				.get()
-				.uri("http://localhost:83/member/grade")
+				.uri("http://kosa1.iptime.org:50520/member/grade")
 				.retrieve()
 				.bodyToFlux(Grade.class)
 				.collect(Collectors.toList())
@@ -97,7 +97,7 @@ public class MemberService {
 	   WebClient webClient = WebClient.create();
 		GradeAdmin gradeAdmin = webClient
 				.get()
-				.uri("http://localhost:83/member/grade/policy")
+				.uri("http://kosa1.iptime.org:50520/member/grade/policy")
 				.retrieve()
 				.bodyToMono(GradeAdmin.class)
 				.block();
@@ -109,7 +109,7 @@ public class MemberService {
 	   WebClient webClient = WebClient.create();
 	   String result = webClient
             .post()
-            .uri("http://localhost:83/member/grade/policy/update")
+            .uri("http://kosa1.iptime.org:50520/member/grade/policy/update")
             .body(BodyInserters.fromValue(gradeAdmin))
 			.retrieve()
 			.bodyToMono(String.class)

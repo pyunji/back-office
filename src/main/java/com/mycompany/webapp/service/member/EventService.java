@@ -23,7 +23,7 @@ public class EventService {
 		WebClient webClient = WebClient.create();
 		List<Event> events = webClient
 				.get()
-				.uri("http://localhost:83/event")
+				.uri("http://kosa1.iptime.org:50520/event")
 				.retrieve()
 				.bodyToFlux(Event.class)
 				.collect(Collectors.toList())
@@ -35,7 +35,7 @@ public class EventService {
 //	public String addEvent(Event event) {
 //		WebClient webClient = WebClient.create();
 //		String result = webClient.post()
-//				 .uri("http://localhost:83/event")
+//				 .uri("http://kosa1.iptime.org:50520/event")
 //				 .body(BodyInserters.fromValue(event))
 //				 .retrieve()
 //				 .bodyToMono(String.class)
@@ -59,7 +59,7 @@ public class EventService {
 		log.info("webClient addEvent실행");
 		WebClient webClient = WebClient.create();
 		String result = webClient.post()
-				 .uri("http://localhost:83/event")
+				 .uri("http://kosa1.iptime.org:50520/event")
 				 .contentType(MediaType.MULTIPART_FORM_DATA)
 				 .body(BodyInserters.fromMultipartData(builder.build()))
 				 .retrieve()
@@ -73,7 +73,7 @@ public class EventService {
       log.info(searchForm.toString());
       EventResult eventResult = webClient
             .post()
-            .uri("http://localhost:83/event/result")
+            .uri("http://kosa1.iptime.org:50520/event/result")
             .body(BodyInserters.fromValue(searchForm))
             .retrieve()
             .bodyToMono(EventResult.class)

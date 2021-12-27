@@ -14,7 +14,7 @@ public class TestService {
 		WebClient webClient = WebClient.create();
 		List<Orders> orders = webClient
 				.get()
-				.uri("http://localhost:83/test/orders")
+				.uri("http://kosa1.iptime.org:50520/test/orders")
 				.retrieve()
 				.bodyToFlux(Orders.class)
 				.collect(Collectors.toList())
@@ -28,7 +28,7 @@ public class TestService {
 //		List<Orders> orders = webClient
 //			
 //				.get()
-//				.uri("http://localhost:83/test/orders") //요청 URL
+//				.uri("http://kosa1.iptime.org:50520/test/orders") //요청 URL
 //				.retrieve()
 //				.bodyToFlux(Orders.class)
 //				.collect(Collectors.toList())

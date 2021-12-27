@@ -27,7 +27,7 @@ public class ProductService {
 		WebClient webClient = WebClient.create();
 		List<Depth1> d1nameList = webClient
 				.get()
-				.uri("http://localhost:83/product/search")
+				.uri("http://kosa1.iptime.org:50520/product/search")
 				.retrieve()
 				.bodyToFlux(Depth1.class)
 				.collect(Collectors.toList())
@@ -47,7 +47,7 @@ public class ProductService {
 		WebClient webClient = WebClient.create();
 		List<BrandVo> brandList = webClient
 				.get()
-				.uri("http://localhost:83/product/brand")
+				.uri("http://kosa1.iptime.org:50520/product/brand")
 				.retrieve()
 				.bodyToFlux(BrandVo.class)
 				.collect(Collectors.toList())
@@ -61,7 +61,7 @@ public class ProductService {
 		WebClient webClient = WebClient.create();
 		List<Sizes> sizeList = webClient
 				.get()
-				.uri("http://localhost:83/product/sizes")
+				.uri("http://kosa1.iptime.org:50520/product/sizes")
 				.retrieve()
 				.bodyToFlux(Sizes.class)
 				.collect(Collectors.toList())
@@ -93,7 +93,7 @@ public class ProductService {
 		WebClient webClient = WebClient.create();
 		ProductDto result = webClient
 				.post()
-				.uri("http://localhost:83/product/add")
+				.uri("http://kosa1.iptime.org:50520/product/add")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(builder.build()))
 				.retrieve()
@@ -130,7 +130,7 @@ public class ProductService {
 		WebClient webClient = WebClient.create();
 		ProductDto result = webClient
 				.post()
-				.uri("http://localhost:83/product/modify/process")
+				.uri("http://kosa1.iptime.org:50520/product/modify/process")
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(builder.build()))
 				.retrieve()
@@ -141,7 +141,7 @@ public class ProductService {
 	}
 	
 	public ProductDto getOrgData(ModifyForm productInfo) {
-		String URI = "http://localhost:83/product/modify";
+		String URI = "http://kosa1.iptime.org:50520/product/modify";
 		WebClient webClient = WebClient.create();
 		ProductDto orgData = webClient
 			.post()
